@@ -1,0 +1,40 @@
+﻿.menu
+{
+	background-color: rgb(0, 135, 180);
+	border-collapse: collapse;
+	bottom: 0;
+	font-family: arial, sans-serif;
+	margin: 0;
+	position: relative;
+	width: 100%;
+}
+
+.menu ul
+{
+	margin: 0;
+	padding: 0;
+}
+
+.menu ul li
+{
+	border-color: white;
+	border-style: dotted;
+	border-width: 1px;
+	margin-right: 1px;
+}
+
+.menu ul li a,.menu ul li a:visited
+{
+	-webkit-transition-duration: .5s;
+	-webkit-transition-property: background-color, color;
+	background-color: rgb(0, 135, 180);
+	color: white;
+	display: block;
+	font-size: 1em;
+	font-weight: 700;
+	height: 20px;
+	line-height: 1.5em;
+	text-align: center;
+	text-decoration: none;
+	padding: 5px 0 5px 0;
+}

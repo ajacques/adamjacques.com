@@ -1,0 +1,22 @@
+﻿.menu, #footer, #jsError
+{
+	display: none;	
+}
+
+#header #nameHeader
+{
+	font-size: 26pt;
+	color: #1F497D;
+	font-weight: 100;
+}
+
+#rightBar
+{
+	margin: 5px 0 0 5px;
+	float: right;	
+	text-align: right;
+	padding-right: 5px;
+	border-top: thin grey solid;
+	border-left: thin grey solid;
+	background-color: #FAFAFA;
+}

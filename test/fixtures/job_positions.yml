@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  organization: MyString
+  active: false
+  department: MyString
+  startDate: 2012-12-22
+  endDate: 2012-12-22
+
+two:
+  organization: MyString
+  active: false
+  department: MyString
+  startDate: 2012-12-22
+  endDate: 2012-12-22

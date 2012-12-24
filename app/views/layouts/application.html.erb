@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Adam Jacques</title>
+	<%= stylesheet_link_tag 'main.css', :media => 'all' %>
+	<%= stylesheet_link_tag 'menu.css', :media => 'screen and (min-width : 480px)' %>
+	<%= stylesheet_link_tag 'menu-mobile.css', :media => 'screen and (max-width : 480px)' %>
+	<%= stylesheet_link_tag 'main-screen.css', :media => 'screen and (min-width : 480px)' %>
+	<%= stylesheet_link_tag 'main-mobile.css', :media => 'screen and (max-width : 480px)' %>
+	<%= stylesheet_link_tag 'main-print.css', :media => 'print' %>
+	<meta content="text/html;charset=UTF-8" http-equiv="Content-type" />
+	<meta content="true" name="HandheldFriendly" />
+	<meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible" />
+	<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+</head>
+<body>
+	<div id="total" class="centered">
+		<div id="header">
+			<div class="name">Adam Jacques
+				<div style="font-size: 12pt">online r&eacute;sum&eacute;</div>
+			</div>
+			<div class="menu">
+				<div class="hover">
+					<ul>
+						<li><%= link_to :action => 'resume' do %>R&eacute;sum&eacute;<% end %></li>
+						<li><%= link_to :controller => 'contact', :action => 'create_mail' do %>Contact Me<% end %></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<%= yield %>
+	</div>
+	<script type="text/javascript">
+	var _gaq = _gaq || [];
+	_gaq.push(['_setAccount', 'UA-29497261-1']);
+	_gaq.push(['_trackPageview']);
+
+	(function() {
+		var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	})();
+	</script>
+	<div id="footer">&copy; <%= Time.now.to_s(:year) %> Adam Jacques</div>
+</body>
+</html>

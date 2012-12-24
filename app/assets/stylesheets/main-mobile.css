@@ -1,0 +1,76 @@
+﻿#total
+{
+	min-height: 0px !important;
+	width: auto !important;
+}
+
+#header
+{
+	height: 50px;
+	width: 100%;
+	background-color: #0087DC;
+	padding: 0;
+	margin: 0;
+	color: #ffffff;
+}
+
+#nameHeader
+{
+	margin: 0 0;
+	padding-top: 5px;
+	padding-left: 10px;
+	padding-right: 0pt;
+	font-size: 24pt;
+	vertical-align: center;
+}
+
+#menu
+{
+	width: 480px !important;
+}
+
+#rightBar
+{
+	width: 100%;
+	column-count: 2;
+	column-width: 30px;
+}
+
+.credentialGroup .title
+{
+	color: #1F497D;
+	font-size: 14pt;
+	margin-top: 14pt;
+	padding-bottom: 14pt;
+	align: center;
+}
+
+#rightBar
+{
+	float: none !important;
+	text-align: left !important;
+	background-color: #FAFAFA;
+}
+
+#rightBar .group
+{
+	display: inline-block;
+	vertical-align: top;
+}
+
+#rightBar ul
+{
+	padding-left: 20px;
+	padding-right: 0;
+}
+
+#rightBar ul li
+{
+	margin-left: 0;
+	padding-right: 0;
+}
+
+#rightBar br
+{
+	clear: left;
+}
