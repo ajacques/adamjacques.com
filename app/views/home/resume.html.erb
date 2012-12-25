@@ -24,7 +24,6 @@
 	</div>
 	<div class="credentialGroup">
 		<div id="work" class="title">Job Experience</div>
-		<%= debug @jobpositions %>
-		<%= render :partial => 'job_credential', :collection => @jobpositions, :as => :job %>
+		<%= render :partial => 'job_credential', :collection => @jobpositions.all, :as => :job %>
 	</div>
 </div>
