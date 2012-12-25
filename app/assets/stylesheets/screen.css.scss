@@ -2,10 +2,6 @@ body {
 	background-color: #E8E8CE;
 }
 
-#total {
-	border-top: solid 0.5em #0087DC;
-}
-
 #header {
 	height: 5em;
 
@@ -63,62 +59,12 @@ body {
 	}
 }
 
-#rightBar .group {
-	font-size: 0.8em;
-	
-	.title {
-		font-weight: bold;
-		margin-top: 0.4em;
-	}
-	ul {
-		list-style-type: none;
-	}
+#contents .credentialGroup .title {
+	color: #1F497D;
 }
 
 #body-container {
 	position: relative;
-}
-
-#contents .credentialGroup {
-	.title {
-		color: #1F497D;
-		font-size: 1.2em;
-	}
-
-	.credential {
-		border-top: solid thin gray;
-		font-size: 0.8em;
-		margin: 1em 0.5em;
-
-		.timeSpan {
-			float: right;
-			margin-right: 0.5em;
-		}
-
-		.subposition {
-			font-style: italic;
-			color: #777;
-		}
-
-		.organization {
-			font-weight: bold;
-		}
-
-		ul {
-			margin-left: 1.5em;
-			list-style-type: square;
-		}
-	}
-}
-
-#footer
-{
-	bottom: 0.5em;
-	font-size: 0.7em;
-	left: 0;
-	text-align: center;
-	width: 100%;
-	padding: 0.4em 0 0.4em 0;
 }
 
 @media (min-width: 1000px) {
@@ -145,6 +91,14 @@ body {
 		.group .title {
 			margin-top: 0.5em;
 		}
+	}
+
+	#body-container {
+		min-height: 40em;
+	}
+
+	#contents {
+		margin: 0.9em 8.3em 0.9em 0.9em;
 	}
 }
 
@@ -177,10 +131,6 @@ body {
 	#total {
 		box-shadow: 0 0 2em 0 #888;
 		border-radius: 0 0 0.4em 0.4em;
-	}
-
-	#contents {
-		margin: 0.9em 8.3em 0.9em 0.9em;
 	}
 }
 

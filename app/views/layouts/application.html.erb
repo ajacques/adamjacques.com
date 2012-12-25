@@ -4,7 +4,6 @@
 	<title>Adam Jacques</title>
 	<%= stylesheet_link_tag 'all', :media => 'all' %>
 	<%= stylesheet_link_tag 'screen', :media => 'screen' %>
-	<%= stylesheet_link_tag 'main-print', :media => 'print' %>
 	<%= if content_for?(:head) then yield :head end %>
 	<meta content="text/html;charset=UTF-8" http-equiv="Content-type" />
 	<meta content="true" name="HandheldFriendly" />
@@ -16,9 +15,9 @@
 		<div id="header">
 			<div class="name">
 				<div class="headname">Adam Jacques</div>
-				<div class="subname">online r&eacute;sum&eacute;</div>
+				<div class="subname noprint">online r&eacute;sum&eacute;</div>
 			</div>
-			<div id="menu-container">
+			<div id="menu-container" class="noprint">
 				<div class="menu">
 					<ul>
 						<li><%= link_to :controller => 'home', :action => 'resume' do %>R&eacute;sum&eacute;<% end %></li>
@@ -31,17 +30,9 @@
 			<%= yield %>
 		</div>
 	</div>
-	<script type="text/javascript">
-	var _gaq = _gaq || [];
-	_gaq.push(['_setAccount', 'UA-29497261-1']);
-	_gaq.push(['_trackPageview']);
-
-	(function() {
-		var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-	})/*()*/;
-	</script>
+	<%= if Rails.env.production? then
+		render :partial => 'ga_tracking'
+	end %>
 	<div id="footer">&copy; <%= Time.now.to_s(:year) %> Adam Jacques</div>
 </body>
 </html>
