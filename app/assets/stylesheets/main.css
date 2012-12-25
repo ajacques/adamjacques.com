@@ -79,4 +79,5 @@ body
 .credentialGroup .timeSpan
 {
 	float: right;
+	padding-right: 5px;
 }

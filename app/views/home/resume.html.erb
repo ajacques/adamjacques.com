@@ -1,29 +1,31 @@
 <!-- apps/views/home/resume.html.erb -->
-<div id="rightBar">
-	<% @keypointgroup.each do |group| %>
-	<span class="group">
-		<div class="title"><%= group.title %></div>
-		<ul>
-			<% group.values.each do |point| %>
-			<li><%= point %></li>
-			<% end %>
-		</ul>
-	</span>
-	<% end %>
-</div>
-<div id="contents">
-	<div class="credentialGroup">
-		<div id="education" class="title">Education</div>
-		<% @education.each do |edu| %>
-		<div class="credential">
-			<div class="timeSpan"><%= render :partial => 'date_range', :locals => { :start_date => edu.start_date, :end_date => edu.end_date } %></div>
-			<div><%= edu.major %></div>
-			<div><%= edu.organization %>, <%= edu.location %></div>
-		</div>
+<div id="body-container">
+	<div id="rightBar">
+		<% @keypointgroup.each do |group| %>
+		<span class="group">
+			<div class="title"><%= group.title %></div>
+			<ul>
+				<% group.values.each do |point| %>
+				<li><%= point %></li>
+				<% end %>
+			</ul>
+		</span>
 		<% end %>
 	</div>
-	<div class="credentialGroup">
-		<div id="work" class="title">Job Experience</div>
-		<%= render :partial => 'job_credential', :collection => @jobpositions.all, :as => :job %>
+	<div id="contents">
+		<div class="credentialGroup">
+			<div id="education" class="title">Education</div>
+			<% @education.each do |edu| %>
+			<div class="credential">
+				<div class="timeSpan"><%= render :partial => 'date_range', :locals => { :start_date => edu.start_date, :end_date => edu.end_date } %></div>
+				<div><%= edu.major %></div>
+				<div><%= edu.organization %>, <%= edu.location %></div>
+			</div>
+			<% end %>
+		</div>
+		<div class="credentialGroup">
+			<div id="work" class="title">Job Experience</div>
+			<%= render :partial => 'job_credential', :collection => @jobpositions.all, :as => :job %>
+		</div>
 	</div>
 </div>

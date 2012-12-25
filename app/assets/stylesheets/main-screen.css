@@ -32,8 +32,15 @@ body
 	border: solid #ff834c thin;
 }
 
+#body-container
+{
+	position: relative;
+}
+
 #rightBar
 {
+	position: absolute;
+	right: 0;
 	margin: 5px 0 0 5px;
 	float: right;
 	text-align: right;
@@ -41,8 +48,10 @@ body
 	border-top: thin gray solid;
 	border-left: thin gray solid;
 	border-bottom: thin gray solid;
-	border-radius: 5px 0 0 5px;
+	border-radius: 5px 0 5px 5px;
 	background-color: #FAFAFA;
+	height: 100%;
+	bottom: 0;
 }
 
 #topborder
@@ -79,7 +88,7 @@ body
 
 #contents
 {
-	margin: 10px 10px 20px 20px;
+	margin: 10px 125px 20px 20px;
 	padding-bottom: 20px;
 }
 

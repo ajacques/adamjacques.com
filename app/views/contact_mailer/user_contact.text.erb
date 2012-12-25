@@ -1,9 +1,9 @@
 User Info
-Name: <%= @params.name %>
-Email: <%= @params.email %>
-Subject: <%= @params.subject %>
+Name: <%= @params[:name] %>
+Email: <%= @params[:email] %>
+Subject: <%= @params[:subject] %>
 Date: <%= @date.to_s %>
 IP: <%= @ipaddr %>
 
 Body
-<%= @params.message %>
+<%= @params[:message] %>

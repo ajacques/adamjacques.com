@@ -3,13 +3,8 @@ class ContactController < ApplicationController
 	end
 
 	def send_mail
-		@params = params
+		ContactMailer.user_contact(params[:name], params[:email], params[:subject], request.remote_ip, params[:message]).deliver
 
-		headers 'Reply-To' => params[:email],
-				'X-Mailer' => 'Ruby'
-
-		mail :to => 'adam@adrensoftware.com', :subject => 'AdamJacques.name Inquiry' do |format|
-			format.text
-		end
+		redirect_to :controller => 'home', :action => 'resume'
 	end
 end

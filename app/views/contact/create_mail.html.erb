@@ -1,15 +1,18 @@
 <!-- app/views/contact/create_mail.html.erb -->
-<div id="body">
-	<form id="inputForm" method="post">
-		<label for="name">Your Name</label><br />
-		<input type="text" name="name" /><br />
-		<label for="email">Email</label><br />
-		<input type="email" name="email" /><br />
-		<label for="subject">Subject</label><br />
-		<input type="text" name="subject" style="width: 300px;" /><br />
-		<label for="message">Message</label><br />
-		<textarea name="message" style="width: 750px; height: 180px; max-width: 750px"></textarea><br />
-		<button id="completeButton" type="button" style="margin-left: auto; width: 159px;">Send</button>
-		<script type="text/javascript" src="contact.js"></script>
-	</form>
+<% content_for :head do %>
+<% end %>
+<div id="body-container">
+	<div id="contents">
+		<%= form_tag url_for(:action => 'send_mail') do %>
+			<label for="name">Your Name</label><br />
+			<input type="text" name="name" /><br />
+			<label for="email">Email</label><br />
+			<input type="email" name="email" /><br />
+			<label for="subject">Subject</label><br />
+			<input type="text" name="subject" style="width: 300px;" /><br />
+			<label for="message">Message</label><br />
+			<textarea name="message" style="width: 750px; height: 180px; max-width: 750px"></textarea><br />
+			<input type="submit" id="completeButton" type="button" style="margin-left: auto; width: 159px;" value="Send" />
+		<% end %>
+	</div>
 </div>
