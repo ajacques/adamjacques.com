@@ -14,13 +14,7 @@
 <div id="contents">
 	<div class="credentialGroup">
 		<div id="education" class="title">Education</div>
-		<% @education.each do |edu| %>
-		<div class="credential">
-			<div class="timeSpan"><%= render :partial => 'date_range', :locals => { :start_date => edu.start_date, :end_date => edu.end_date } %></div>
-			<div><%= edu.major %></div>
-			<div><%= edu.organization %>, <%= edu.location %></div>
-		</div>
-		<% end %>
+		<%= render :partial => 'edu_credential', :collection => @education.all, :as => :edu %>
 	</div>
 	<div class="credentialGroup">
 		<div id="work" class="title">Job Experience</div>

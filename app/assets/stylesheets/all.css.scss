@@ -92,6 +92,10 @@ a:hover {
 	padding: 0.4em 0 0.4em 0;
 }
 
+#body-container {
+	position: relative;
+}
+
 @media print {
 	.noprint {
 		display: none;
@@ -103,13 +107,20 @@ a:hover {
 		font-weight: 100;
 	}
 
+	#contents {
+		margin: 0.9em 8.3em 0.9em 0.9em;
+	}
+
 	#rightBar {
 		margin: 5px 0 0 5px;
-		float: right;	
+		float: right;
 		text-align: right;
 		padding-right: 5px;
 		border-top: thin gray solid;
 		border-left: thin gray solid;
 		background-color: #FAFAFA;
+		right: 0;
+		height: 100%;
+		position: absolute;
 	}
 }
