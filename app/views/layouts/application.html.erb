@@ -2,8 +2,8 @@
 <html>
 <head>
 	<title>Adam Jacques</title>
-	<%= stylesheet_link_tag 'all', :media => 'all' %>
-	<%= stylesheet_link_tag 'screen', :media => 'screen' %>
+	<%= stylesheet_link_tag 'application', :media => 'all' %>
+	<%= stylesheet_link_tag 'application-screen', :media => 'screen' %>
 	<%= if content_for?(:head) then yield :head end %>
 	<meta content="text/html;charset=UTF-8" http-equiv="Content-type" />
 	<meta content="true" name="HandheldFriendly" />
@@ -16,6 +16,7 @@
 			<div class="name">
 				<div class="headname">Adam Jacques</div>
 				<div class="subname noprint">online r&eacute;sum&eacute;</div>
+				<% if Rails.env.development? then %><div class="subname noprint">DEVELOPMENT ENVIRONMENT</div><% end %>
 			</div>
 			<div id="menu-container" class="noprint">
 				<div class="menu">

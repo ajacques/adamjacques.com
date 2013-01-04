@@ -14,10 +14,10 @@
 <div id="contents">
 	<div class="credentialGroup">
 		<div id="education" class="title">Education</div>
-		<%= render :partial => 'edu_credential', :collection => @education.all, :as => :edu %>
+		<%= render :partial => 'edu_credential', :collection => @education, :as => :edu %>
 	</div>
 	<div class="credentialGroup">
 		<div id="work" class="title">Job Experience</div>
-		<%= render :partial => 'job_credential', :collection => @jobpositions.all, :as => :job %>
+		<%= render :partial => 'job_credential', :collection => @jobpositions, :as => :job %>
 	</div>
 </div>
