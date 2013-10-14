@@ -1,7 +1,7 @@
 class HomeController < ApplicationController
 	def resume
-		@keypointgroup = KeyPoint.where(:active => true).sort(:sort)
-		@jobpositions = Job.where(:active => true).sort(:start_date => -1)
-		@education = Education.where(:active => true).sort(:start_Date => -1)
+		@keypointgroup = KeyPoint.joins(:parent).where(:active => true, :parents_key_points => {:value => 'root'}).order(:sort)
+		@jobpositions = Job.includes(:responsibilities, :location, :organization).order('start_date DESC').active
+		@education = Education.where(:active => true)
 	end
 end

@@ -1,11 +1,10 @@
-<!-- apps/views/home/resume.html.erb -->
 <div id="rightBar">
 	<% @keypointgroup.each do |group| %>
 	<span class="group">
-		<div class="title"><%= group.title %></div>
+		<div class="title"><%= group.value %></div>
 		<ul>
-			<% group.values.each do |point| %>
-			<li><%= point %></li>
+			<% group.sub_points.each do |point| %>
+			<li><%= point.value %></li>
 			<% end %>
 		</ul>
 	</span>
