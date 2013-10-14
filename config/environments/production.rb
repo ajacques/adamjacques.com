@@ -5,6 +5,7 @@ ResumeWebsite::Application.configure do
 
   # Code is not reloaded between requests
   config.cache_classes = true
+  config.assets.precompile += %w( application-screen.css )
 
   # Full error reports are disabled and caching is turned on
   config.consider_all_requests_local       = false
@@ -21,6 +22,8 @@ ResumeWebsite::Application.configure do
 
   # Generate digests for assets URLs
   config.assets.digest = true
+
+  ActionMailer::Base.delivery_method = :sendmail
 
   # Defaults to nil and saved in location specified by config.assets.prefix
   # config.assets.manifest = YOUR_PATH
