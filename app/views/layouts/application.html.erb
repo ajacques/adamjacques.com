@@ -22,8 +22,8 @@
 			<div id="menu-container" class="noprint">
 				<div class="menu">
 					<ul>
-						<li><%= link_to :controller => 'home', :action => 'resume' do %>R&eacute;sum&eacute;<% end %></li>
-						<li><%= link_to :controller => 'contact', :action => 'create_mail' do %>Contact Me<% end %></li>
+						<li><%= link_to url_for(:controller => 'home', :action => 'resume') do %>R&eacute;sum&eacute;<% end %></li>
+						<li><%= link_to url_for(:controller => 'contact', :action => 'create_mail') do %>Contact Me<% end %></li>
 					</ul>
 				</div>
 			</div>
