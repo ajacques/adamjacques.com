@@ -5,3 +5,6 @@ en:
   date:
     formats:
       month_year: '%B %Y'
+  time:
+    formats:
+      year: '%Y'

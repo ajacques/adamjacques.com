@@ -35,6 +35,6 @@
 	<%= if Rails.env.production? then
 		render :partial => 'layouts/ga_tracking'
 	end %>
-	<div id="footer">&copy; <%= Time.now.to_s(:year) %> Adam Jacques</div>
+	<div id="footer">&copy; <%= l Time.now, :format => :year %> Adam Jacques</div>
 </body>
 </html>
