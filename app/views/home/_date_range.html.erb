@@ -1,1 +1,1 @@
-<%= start_date.to_s :month_year %>&nbsp;&mdash;&nbsp;<% if not end_date.nil? then %><%= end_date.to_s :month_year %><% else %>Present<% end %>
+<%= l start_date, :format => :month_year %>&nbsp;&mdash;&nbsp;<% if not end_date.nil? then %><%= l end_date, :format => :month_year %><% else %>Present<% end %>
