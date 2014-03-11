@@ -1,2 +1,5 @@
 User-Agent: ia_archiver
 Disallow: /
+
+User-Agent: *
+Disallow: /contact_me
