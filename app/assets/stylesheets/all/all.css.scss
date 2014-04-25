@@ -101,7 +101,7 @@ a:hover {
 		display: none;
 	}
 
-	#header #nameHeader {
+	#header .namehead {
 		font-size: 26pt;
 		color: #1F497D;
 		font-weight: 100;
@@ -109,6 +109,9 @@ a:hover {
 
 	#contents {
 		margin: 0.9em 8.3em 0.9em 0.9em;
+		.credential .timeSpan {
+			margin-right: 2em;
+		}
 	}
 
 	#rightBar {
