@@ -1,7 +1,7 @@
 !!!
 %html
   %head
-    %title Adam Jacques
+    %title= t('user_name')
     = stylesheet_link_tag 'application', :media => 'all'
     = stylesheet_link_tag 'application-screen', :media => 'screen'
     = yield :head
@@ -14,7 +14,7 @@
     #total.centered
       #header
         .name
-          .headname Adam Jacques
+          .headname= t('user_name')
           .subname.noprint online r&eacute;sum&eacute;
           - if Rails.env.development? then
             .subname.noprint DEVELOPMENT ENVIRONMENT
@@ -33,4 +33,5 @@
       render :partial => 'layouts/ga_tracking' |
       end                                      |
     #footer
-      \&copy; #{l Time.now, :format => :year} Adam Jacques
+      \&copy; #{l Time.now, :format => :year}
+      = t('user_name')
