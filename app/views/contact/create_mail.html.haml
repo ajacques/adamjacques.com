@@ -1,22 +1,20 @@
-/ app/views/contact/create_mail.html.erb
-- content_for :head do
 #body-container
   #contents
-    = form_tag url_for(:action => 'send_mail') do
-      %label{:for => "name"} Your Name
+    = form_tag send_mail_path do
+      = label_tag :name, 'Your Name'
       %br/
-      %input{:name => "name", :type => "text"}/
+      = text_field_tag :name
       %br/
-      %label{:for => "email"} Email
+      = label_tag :email, 'Email'
       %br/
-      %input{:name => "email", :type => "email"}/
+      = text_field_tag :email
       %br/
-      %label{:for => "subject"} Subject
+      = label_tag :subject, 'Subject'
       %br/
-      %input{:name => "subject", :style => "width: 300px;", :type => "text"}/
+      = text_field_tag :subject
       %br/
-      %label{:for => "message"} Message
+      = label_tag :message, 'Message'
       %br/
-      %textarea{:name => "message", :style => "width: 750px; height: 180px; max-width: 750px"}
+      = text_area_tag :message, '', :style => "width: 750px; height: 180px; max-width: 750px"
       %br/
-      %input#completeButton{:style => "margin-left: auto; width: 159px;", :type => "button", :value => "Send"}/
+      = submit_tag 'Send', :style => "margin-left: auto; width: 159px;"
