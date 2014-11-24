@@ -3,7 +3,6 @@ ResumeWebsite::Application.routes.draw do
 	get 'home' => 'home#resume'
 	get 'contact_me' => 'contact#create_mail'
 	post 'send_mail' => 'contact#send_mail'
-	get 'key_geopoints' => 'geospatial#key_points'
 
 	scope 'admin' do
 		get 'edit' => 'admin#edit'
