@@ -1,6 +1,6 @@
-= l start_date, :format => :month_year
-\&nbsp;&mdash;&nbsp;
+%span= l start_date, :format => :month_year
+%span> &nbsp;&mdash;&nbsp;
 - if not end_date.nil? then
-  = l end_date, :format => :month_year
+  %span= l end_date, :format => :month_year
 - else
-  Present
+  %span Present
