@@ -17,8 +17,6 @@ Rails.application.define_singleton_method("appconfig") {
 
 config = Rails.application.appconfig
 
-puts config.inspect
-
 if config.email_delivery
   config.email_delivery.each do |key, value|
     value.symbolize_keys! if value.respond_to?(:symbolize_keys)
