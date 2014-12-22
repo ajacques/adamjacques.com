@@ -1,7 +1,7 @@
 !!!
 %html
   %head
-    %title= t('user_name')
+    %title= full_name
     = stylesheet_link_tag 'application', :media => 'all'
     = stylesheet_link_tag 'application-screen', :media => 'screen'
     = yield :head
@@ -10,13 +10,13 @@
     %meta{:content => "IE=edge,chrome=1", "http-equiv" => "X-UA-Compatible"}/
     %meta{:content => "width=device-width, initial-scale=1.0, maximum-scale=1.5", :name => "viewport"}/
     %meta{:content => "noarchive", :name => "robots"}/
-    = if Rails.env.production? then render :partial => 'layouts/ga_tracking' end                                      |
+    = if Rails.env.production? then render :partial => 'layouts/ga_tracking' end
     %script(src="//insecure.adrensoftware.com/monitor.js" defer async)
   %body
     #total.centered
       #header
         .name
-          .headname= t('user_name')
+          .headname= full_name
           .subname.noprint online r&eacute;sum&eacute;
           - if Rails.env.development? then
             .subname.noprint DEVELOPMENT ENVIRONMENT
@@ -33,4 +33,4 @@
         = yield
     #footer
       \&copy; #{l Time.now, :format => :year}
-      = t('user_name')
+      = full_name

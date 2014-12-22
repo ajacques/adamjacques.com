@@ -5,4 +5,3 @@ en:
   time:
     formats:
       year: '%Y'
-  user_name: 'Adam Jacques'
