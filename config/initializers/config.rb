@@ -23,3 +23,7 @@ if config.email_delivery
     ActionMailer::Base.send("#{key}=", value)
   end
 end
+
+if config.secret_key
+  Rails.application.config.secret_token = config.secret_key
+end
