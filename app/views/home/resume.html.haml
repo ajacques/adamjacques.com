@@ -8,7 +8,7 @@
 #contents
   .credentialGroup
     #education.title Education
-    = render :partial => 'edu_credential', :collection => @education, :as => :edu
+    = render partial: 'edu_credential', collection: @education, as: :edu
   .credentialGroup
     #work.title Job Experience
-    = render :partial => 'job_credential', :collection => @jobpositions, :as => :job
+    = render partial: 'job_credential', collection: @jobpositions, as: :job

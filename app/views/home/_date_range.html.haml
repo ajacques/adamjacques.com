@@ -1,6 +1,1 @@
-%span= l start_date, :format => :month_year
-%span> &nbsp;&mdash;&nbsp;
-- if not end_date.nil? then
-  %span= l end_date, :format => :month_year
-- else
-  %span Present
+.timeSpan #{l start_date, format: :month_year} &nbsp;&mdash;&nbsp; #{if end_date.nil? then 'Present' else l end_date, format: :month_year end}

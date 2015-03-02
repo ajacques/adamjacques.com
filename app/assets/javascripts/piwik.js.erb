@@ -1,0 +1,15 @@
+<% if Rails.env.production? %>
+(function() {
+<%=
+# WAT?
+Net::HTTP.get(URI.parse(Rails.application.appconfig.analytics['tracker_script']))
+%>
+var _paq = _paq || [];
+var url = document.getElementsByTagName('meta')['beacon_url'].content;
+var id = document.getElementsByTagName('meta')['beacon_site_id'].content;
+_paq.push(['setTrackerUrl', url]);
+_paq.push(['setSiteId', id]);
+_paq.push(['trackPageView']);
+_paq.push(['enableLinkTracking']);
+<% end %>
+})();

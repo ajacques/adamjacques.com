@@ -1,151 +1,153 @@
-body {
-	background-color: #E8E8CE;
-}
-
-#header {
-	height: 5em;
-
-	.name {
-		padding: 0.625em 0.625em 0 0;
-		color: #777;
-
-		.headname {
-			font-size: 1.7em;
-		}
-
-		.subname {
-			font-size: 0.75em;
-		}
+@media screen {
+	body {
+		background-color: #E8E8CE;
 	}
-}
 
-#menu-container {
-	border-top: dotted thin black;
-}
+	#header {
+		height: 5em;
 
-.menu {
-	border-collapse: collapse;
-	margin: 0 auto;
+		.name {
+			padding: 0.625em 0.625em 0 0;
+			color: #777;
 
-	ul {
-		list-style-type: none;
+			.headname {
+				font-size: 1.7em;
+			}
 
-		li {
-			-webkit-transition-duration: 0.5s;
-			-webkit-transition-property: background-color, color;
-			border-color: white;
-			border-style: dotted;
-			border-width: 0 thin 0 0;
-			transition-duration: 0.5s;
-			transition-property: background-color, color;
-
-			a, a:visited {
-				color: black;
-				display: block;
-				padding: 0.25em;
-				font-weight: bold;
-				text-align: center;
-				vertical-align: middle;
+			.subname {
+				font-size: 0.75em;
 			}
 		}
-
-		li:hover {
-			background-color: #A1D7E6;
-		}
-
-		li:first-child {
-			border-left-width: thin;
-		}
-	}
-}
-
-#contents .credentialGroup .title {
-	color: #1F497D;
-}
-
-@media (min-width: 1000px) {
-	.centered {
-		margin: 0 auto;
-		width: 1000px;
-	}
-}
-
-.credential .timeSpan {
-	margin-right: 0.5em;
-}
-
-@media (min-width: 600px) {
-	#rightBar {
-		border-style: solid;
-		border-color: gray;
-		border-width: thin 0 0 thin;
-		border-radius: 0.5em 0 0.5em 0em;
-		background-color: #FAFAFA;
-		height: 100%;
-		position: absolute;
-		right: 0;
-		text-align: right;
-		width: 8.4em;
-		padding-right: 0.2em;
-
-		.group .title {
-			margin-top: 0.5em;
-		}
 	}
 
-	#body-container {
-		min-height: 40em;
+	#menu-container {
+		border-top: dotted thin black;
 	}
 
-	#contents {
-		margin: 0.9em 8.3em 0.9em 0.9em;
-	}
-}
-
-@media (max-width: 600px) {
-	#rightBar {
-		margin-top: 4em;
-		.group {
-			display: inline-block;
-			vertical-align: top;
-		}
-	}
-}
-
-@media (min-width: 480px) {
 	.menu {
-		width: 16em;
-		ul li {
-			float: left;
-			font-size: 0.8em;
-			position: relative;
-			width: 9em;
+		border-collapse: collapse;
+		margin: 0 auto;
 
-			a, a:visited {
-				height: 1.25em;
-				line-height: 1.25em;
+		ul {
+			list-style-type: none;
+
+			li {
+				-webkit-transition-duration: 0.5s;
+				-webkit-transition-property: background-color, color;
+				border-color: white;
+				border-style: dotted;
+				border-width: 0 thin 0 0;
+				transition-duration: 0.5s;
+				transition-property: background-color, color;
+
+				a, a:visited {
+					color: black;
+					display: block;
+					padding: 0.25em;
+					font-weight: bold;
+					text-align: center;
+					vertical-align: middle;
+				}
+			}
+
+			li:hover {
+				background-color: #A1D7E6;
+			}
+
+			li:first-child {
+				border-left-width: thin;
 			}
 		}
 	}
 
-	#total {
-		box-shadow: 0 0 2em 0 #888;
-		border-radius: 0 0 0.4em 0.4em;
+	#contents .credentialGroup .title {
+		color: #1F497D;
 	}
-}
 
-@media (max-width: 480px) {
-	.menu ul li {
-		border-bottom: dotted thin black;
-		height: 2em;
-
-		a, a:visited {
-			height: 2em;
-			line-height: 2em;
+	@media (min-width: 1000px) {
+		.centered {
+			margin: 0 auto;
+			width: 1000px;
 		}
 	}
 
-	.credential .subposition {
-		display: block;
+	.credential .timeSpan {
+		margin-right: 0.5em;
+	}
+
+	@media (min-width: 600px) {
+		#rightBar {
+			border-style: solid;
+			border-color: gray;
+			border-width: thin 0 0 thin;
+			border-radius: 0.5em 0 0.5em 0em;
+			background-color: #FAFAFA;
+			height: 100%;
+			position: absolute;
+			right: 0;
+			text-align: right;
+			width: 8.4em;
+			padding-right: 0.2em;
+
+			.group .title {
+				margin-top: 0.5em;
+			}
+		}
+
+		#body-container {
+			min-height: 40em;
+		}
+
+		#contents {
+			margin: 0.9em 8.3em 0.9em 0.9em;
+		}
+	}
+
+	@media (max-width: 600px) {
+		#rightBar {
+			margin-top: 4em;
+			.group {
+				display: inline-block;
+				vertical-align: top;
+			}
+		}
+	}
+
+	@media (min-width: 480px) {
+		.menu {
+			width: 16em;
+			ul li {
+				float: left;
+				font-size: 0.8em;
+				position: relative;
+				width: 9em;
+
+				a, a:visited {
+					height: 1.25em;
+					line-height: 1.25em;
+				}
+			}
+		}
+
+		#total {
+			box-shadow: 0 0 2em 0 #888;
+			border-radius: 0 0 0.4em 0.4em;
+		}
+	}
+
+	@media (max-width: 480px) {
+		.menu ul li {
+			border-bottom: dotted thin black;
+			height: 2em;
+
+			a, a:visited {
+				height: 2em;
+				line-height: 2em;
+			}
+		}
+
+		.credential .subposition {
+			display: block;
+		}
 	}
 }
