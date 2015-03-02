@@ -2,6 +2,7 @@
 (function() {
 <%=
 # WAT?
+require 'net/http'
 Net::HTTP.get(URI.parse(Rails.application.appconfig.analytics['tracker_script']))
 %>
 var _paq = _paq || [];
