@@ -3,7 +3,16 @@
 <%=
 # WAT?
 require 'net/http'
-Net::HTTP.get(URI.parse(Rails.application.appconfig.analytics['tracker_script']))
+uri = URI.parse(Rails.application.appconfig.analytics['tracker_script'])
+require 'net/https' if uri.scheme == 'https'
+
+request = Net::HTTP::Get.new(uri.path)
+http = Net::HTTP.new(uri.host, uri.port)
+if uri.scheme == 'https'
+  http.use_ssl = true
+  http.verify_mode = OpenSSL::SSL::VERIFY_NONE # Don't hate me
+end
+http.start {|http| http.request(request)}
 %>
 var _paq = _paq || [];
 var url = document.getElementsByTagName('meta')['beacon_url'].content;
