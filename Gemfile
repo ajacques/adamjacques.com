@@ -10,6 +10,8 @@ gem 'mysql2'
 gem 'haml'
 gem 'haml-rails'
 
+gem 'rack-proxy'
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do

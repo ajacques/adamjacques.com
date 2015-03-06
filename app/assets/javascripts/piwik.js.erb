@@ -12,13 +12,14 @@ if uri.scheme == 'https'
   http.use_ssl = true
   http.verify_mode = OpenSSL::SSL::VERIFY_NONE # Don't hate me
 end
-http.start {|http| http.request(request)}
+http.request(request).body
 %>
 var _paq = _paq || [];
-var url = document.getElementsByTagName('meta')['beacon_url'].content;
+var url = '/monitor';
 var id = document.getElementsByTagName('meta')['beacon_site_id'].content;
 _paq.push(['setTrackerUrl', url]);
 _paq.push(['setSiteId', id]);
+_paq.push(['setCookiePath', '/monitor']);
 _paq.push(['trackPageView']);
 _paq.push(['enableLinkTracking']);
 <% end %>
