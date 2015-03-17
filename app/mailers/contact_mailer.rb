@@ -1,6 +1,4 @@
 class ContactMailer < ActionMailer::Base
-	#default :from => 'www@adamjacques.com'
-
 	def user_contact(target, from, email_subject, name, email, subject, ip, message)
 		@params = {:name => name, :email => email, :subject => subject, :message => message}
 		@ipaddr = ip

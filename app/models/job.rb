@@ -7,9 +7,4 @@ class Job < ActiveRecord::Base
 	def self.active
 		self.where(:active => true)
 	end
-
-	alias __inspect__ inspect
-	def method_missing(method, *arg)
-		nil
-	end
 end
