@@ -8,7 +8,7 @@ WORKDIR /rails-app
 RUN /usr/bin/env bundle install --without assets development test
 RUN /usr/bin/apt-get remove -qy --purge ruby-dev g++ make patch gcc libmysqlclient-dev && /usr/bin/apt-get -qy autoremove
 RUN /usr/bin/dpkg --purge `dpkg --get-selections | grep deinstall | cut -f1`
-RUN /bin/rm -rf /var/lib/gems/2.1.0/cache /var/cache/ /var/lib/apt/lists
+RUN /bin/rm -rf /var/lib/gems/2.1.0/cache /var/cache/ /var/lib/apt/lists /var/log/*
 ADD . /rails-app
 RUN find public -mindepth 1 -not -name 'assets' -not -name 'manifest-*.json' -delete
 USER www-data
