@@ -7,8 +7,8 @@
           %li= point.value
 #contents
   .credentialGroup
-    #education.title Education
+    #education.title= t 'resume.education'
     = render partial: 'edu_credential', collection: @education, as: :edu
   .credentialGroup
-    #work.title Job Experience
+    #work.title= t 'resume.jobs'
     = render partial: 'job_credential', collection: @jobpositions, as: :job

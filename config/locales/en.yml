@@ -5,3 +5,7 @@ en:
   time:
     formats:
       year: '%Y'
+  resume:
+    education: Education
+    jobs: Job Experience
+    present: Present
