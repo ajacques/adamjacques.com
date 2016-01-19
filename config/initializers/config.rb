@@ -3,7 +3,7 @@ require 'ostruct'
 Rails.application.define_singleton_method("appconfig") {
   yaml = YAML.load_file("#{Rails.root}/config/configuration.yml")
   config = {}
-  if yaml.is_a?(Hash)
+  if yaml.is_a? Hash
     if yaml['default']
       config.merge!(yaml['default'])
     end
