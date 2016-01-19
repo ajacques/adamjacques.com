@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '4.1.8'
+gem 'rails', '~> 4.1.11'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -17,7 +17,7 @@ gem 'rack-proxy'
 group :assets do
 	gem 'sass-rails',   '~> 4.0.5'
 
-	gem 'uglifier', '>= 1.0.3'
+	gem 'uglifier', '>= 2.7.2'
 end
 
 group :development do
