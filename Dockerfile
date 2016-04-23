@@ -1,4 +1,4 @@
-FROM ubuntu:15.04
+FROM ubuntu:16.04
 
 RUN /usr/bin/apt-get update && /usr/bin/apt-get install -qy --no-install-recommends make g++ ruby ruby-dev libmysqlclient18 libmysqlclient-dev
 RUN gem install bundler --no-ri --no-rdoc
