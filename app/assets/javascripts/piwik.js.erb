@@ -1,9 +1,9 @@
-<% if Rails.env.production? %>
+<% if Rails.env.assets? %>
 (function() {
 <%=
 # WAT?
 require 'net/http'
-uri = URI.parse(Rails.application.appconfig.analytics['tracker_script'])
+uri = URI.parse('https://raw.githubusercontent.com/piwik/piwik/master/js/piwik.js')
 require 'net/https' if uri.scheme == 'https'
 
 request = Net::HTTP::Get.new(uri.path)

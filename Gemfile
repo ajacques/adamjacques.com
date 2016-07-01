@@ -17,6 +17,8 @@ gem 'rack-proxy'
 group :assets do
   gem 'sass-rails'
 
+  gem 'therubyracer'
+
   gem 'uglifier'
 end
 
