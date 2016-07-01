@@ -11,7 +11,7 @@ RUN /usr/bin/apt-get update \
   && /usr/bin/apt-get -qy autoremove \
   && /usr/bin/dpkg --purge $(dpkg --get-selections | grep deinstall | cut -f1) \
   && /bin/rm -rf /var/lib/gems/2.1.0/cache /var/cache/ /var/lib/apt/lists /var/log/* tmp/* \
-  && chown -R www-data:www-data Gemfile.lock tmp log
+  && chown -R www-data:www-data Gemfile.lock tmp
 USER www-data
 EXPOSE 8080
 CMD bundle exec unicorn -p 8080
