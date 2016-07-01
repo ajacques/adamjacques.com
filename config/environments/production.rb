@@ -19,11 +19,6 @@ ResumeWebsite::Application.configure do
   # Disable Rails's static asset server (Apache or nginx will already do this)
   config.serve_static_assets = false
 
-  # Compress JavaScripts and CSS
-  config.assets.compress = true
-  config.assets.js_compressor = :uglifier
-  config.assets.css_compressor = :sass
-
   # Don't fallback to assets pipeline if a precompiled asset is missed
   config.assets.compile = false
 
@@ -31,8 +26,6 @@ ResumeWebsite::Application.configure do
   config.assets.digest = true
 
   config.eager_load = true
-
-  ActionMailer::Base.delivery_method = :sendmail
 
   # Defaults to nil and saved in location specified by config.assets.prefix
   # config.assets.manifest = YOUR_PATH

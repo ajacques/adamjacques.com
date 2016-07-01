@@ -1,29 +1,15 @@
 require 'ostruct'
 
-Rails.application.define_singleton_method("appconfig") {
-  yaml = YAML.load_file("#{Rails.root}/config/configuration.yml")
-  config = {}
-  if yaml.is_a? Hash
-    if yaml['default']
-      config.merge!(yaml['default'])
-    end
-    if yaml[Rails.env]
-      config.merge!(yaml[Rails.env])
-    end
-  end
+Rails.application.config.user = OpenStruct.new({
+  name: ENV['RESUME_NAME'],
+  email: ENV['RESUME_EMAIL'],
+  subject: ENV['RESUME_EMAIL_SUBJECT']
+})
 
-  OpenStruct.new(config)
-}
-
-config = Rails.application.appconfig
-
-if config.email_delivery
-  config.email_delivery.each do |key, value|
-    value.symbolize_keys! if value.respond_to?(:symbolize_keys)
-    ActionMailer::Base.send("#{key}=", value)
-  end
-end
-
-if config.secret_key
-  Rails.application.config.secret_token = config.secret_key
+if ENV.key? 'EMAIL_HOST'
+  ActionMailer::Base.delivery_method = :smtp
+  ActionMailer::Base.smtp_settings = {
+    address: ENV['EMAIL_HOST'],
+    port: ENV['EMAIL_PORT'] || 587
+  }
 end

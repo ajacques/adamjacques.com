@@ -3,6 +3,7 @@ class HomeController < ApplicationController
     @keypointgroup = KeyPoint.joins(:parent).where(active: true, parents_key_points: {value: 'root'}).order(:sort)
     @jobpositions = Job.includes(:responsibilities, :location, :organization).order('start_date DESC').active
     @education = Education.where(active: true)
+    @self = Rails.application.config.user
 
     expires_in 5.minutes, public: true
     respond_to do |format|
