@@ -10,8 +10,9 @@
     %meta{ content: 'width=device-width, initial-scale=1.0, maximum-scale=1.0', name: 'viewport' }
     %meta{ content: 'true', name: 'HandheldFriendly' }
     %meta{ content: 'noarchive', name: 'robots' }
-    %meta{ content: Rails.application.config.analytics['beacon_url'], name: 'beacon_url'}
-    %meta{ content: Rails.application.config.analytics['site_id'], name: 'beacon_site_id'}
+    - if Rails.application.config.respond_to? :analytics
+      %meta{ content: Rails.application.config.analytics['beacon_url'], name: 'beacon_url'}
+      %meta{ content: Rails.application.config.analytics['site_id'], name: 'beacon_site_id'}
   %body
     #total.centered
       #header

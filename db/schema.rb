@@ -13,31 +13,31 @@
 
 ActiveRecord::Schema.define(version: 1) do
 
-  create_table "conferences", force: true do |t|
+  create_table "conferences", force: :cascade do |t|
     t.string  "name",        limit: 32, null: false
-    t.integer "location_id", limit: 2,  null: false
+    t.integer "location_id",            null: false
     t.date    "start_date",             null: false
     t.date    "end_date",               null: false
   end
 
   add_index "conferences", ["location_id"], name: "index_conferences_on_location_id"
 
-  create_table "degrees", force: true do |t|
-    t.integer "education_id", limit: 2,  null: false
+  create_table "degrees", force: :cascade do |t|
+    t.integer "education_id",            null: false
     t.string  "name",         limit: 64, null: false
     t.string  "category",                null: false
   end
 
   add_index "degrees", ["education_id"], name: "index_degrees_on_education_id"
 
-  create_table "descriptions", force: true do |t|
-    t.integer "job_id", limit: 2,        null: false
-    t.text    "text",   limit: 16777215, null: false
+  create_table "descriptions", force: :cascade do |t|
+    t.integer "job_id", null: false
+    t.text    "text",   null: false
   end
 
   add_index "descriptions", ["job_id"], name: "index_descriptions_on_job_id"
 
-  create_table "educations", force: true do |t|
+  create_table "educations", force: :cascade do |t|
     t.boolean "active",                    null: false
     t.integer "location_id",     limit: 2, null: false
     t.integer "organization_id", limit: 2, null: false
@@ -48,7 +48,7 @@ ActiveRecord::Schema.define(version: 1) do
   add_index "educations", ["location_id"], name: "index_educations_on_location_id"
   add_index "educations", ["organization_id"], name: "index_educations_on_organization_id"
 
-  create_table "employee_id", force: true do |t|
+  create_table "employee_id", force: :cascade do |t|
     t.integer "job_id", limit: 2,  null: false
     t.string  "type",   limit: 16, null: false
     t.string  "value",  limit: 64, null: false
@@ -56,7 +56,7 @@ ActiveRecord::Schema.define(version: 1) do
 
   add_index "employee_id", ["job_id"], name: "index_employee_id_on_job_id"
 
-  create_table "housing", force: true do |t|
+  create_table "housing", force: :cascade do |t|
     t.date    "start_date",             null: false
     t.date    "end_date"
     t.string  "address",    limit: 128, null: false
@@ -68,7 +68,7 @@ ActiveRecord::Schema.define(version: 1) do
 
   add_index "housing", ["city_id"], name: "index_housing_on_city_id"
 
-  create_table "jobs", force: true do |t|
+  create_table "jobs", force: :cascade do |t|
     t.boolean "active",                    default: false, null: false
     t.date    "start_date",                                null: false
     t.date    "end_date"
@@ -86,7 +86,7 @@ ActiveRecord::Schema.define(version: 1) do
   add_index "jobs", ["organization_id"], name: "index_jobs_on_organization_id"
   add_index "jobs", ["recruiter"], name: "index_jobs_on_recruiter"
 
-  create_table "key_points", force: true do |t|
+  create_table "key_points", force: :cascade do |t|
     t.integer "parent_id", limit: 2, null: false
     t.integer "sort",      limit: 3, null: false
     t.boolean "active",              null: false
@@ -95,19 +95,19 @@ ActiveRecord::Schema.define(version: 1) do
 
   add_index "key_points", ["parent_id"], name: "index_key_points_on_parent_id"
 
-  create_table "locations", force: true do |t|
+  create_table "locations", force: :cascade do |t|
     t.string  "city",                   null: false
     t.string  "admin_level1",           null: false
     t.string  "country",      limit: 2, null: false
     t.integer "point",                  null: false
   end
 
-  create_table "organizations", force: true do |t|
+  create_table "organizations", force: :cascade do |t|
     t.string "name",     null: false
     t.string "web_page", null: false
   end
 
-  create_table "pay_rates", force: true do |t|
+  create_table "pay_rates", force: :cascade do |t|
     t.integer "job_id",     limit: 2,                         null: false
     t.date    "start_date",                                   null: false
     t.date    "end_date"
@@ -118,7 +118,7 @@ ActiveRecord::Schema.define(version: 1) do
 
   add_index "pay_rates", ["job_id"], name: "index_pay_rates_on_job_id"
 
-  create_table "people", force: true do |t|
+  create_table "people", force: :cascade do |t|
     t.string  "name",                      null: false
     t.integer "organization_id", limit: 2, null: false
     t.string  "position",                  null: false
@@ -129,7 +129,7 @@ ActiveRecord::Schema.define(version: 1) do
 
   add_index "people", ["organization_id"], name: "index_people_on_organization_id"
 
-  create_table "projects", force: true do |t|
+  create_table "projects", force: :cascade do |t|
     t.string  "title",           limit: 64, null: false
     t.integer "organization_id", limit: 2,  null: false
     t.date    "start_date",                 null: false
@@ -138,7 +138,7 @@ ActiveRecord::Schema.define(version: 1) do
 
   add_index "projects", ["organization_id"], name: "index_projects_on_organization_id"
 
-  create_table "references", force: true do |t|
+  create_table "references", force: :cascade do |t|
     t.integer "people_id", limit: 2, null: false
     t.integer "job_id",    limit: 2, null: false
   end

@@ -13,3 +13,5 @@ module Haml
     alias_method_chain :parse_tag, :nuked_whitespace if ::Rails.env.production?
   end
 end
+
+Haml::Template.options[:attr_wrapper] = '"'

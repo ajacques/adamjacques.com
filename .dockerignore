@@ -2,7 +2,6 @@ tmp/*
 log/*
 test/*
 db/*.sqlite3
-.git
 
-.*ignore
+.*
 public/assets
