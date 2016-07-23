@@ -4,6 +4,8 @@ class Education < ActiveRecord::Base
 	belongs_to :location
 	has_many :degrees
 
+	scope :active, -> { where(active: true) }
+
 	alias __inspect__ inspect
     def method_missing(method, *arg)
 		nil

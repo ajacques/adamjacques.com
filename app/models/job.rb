@@ -4,7 +4,6 @@ class Job < ActiveRecord::Base
 	belongs_to :organization
 	has_many :responsibilities, class_name: 'Description'
 
-	def self.active
-		self.where(active: true)
-	end
+	scope :visible, -> { includes(:responsibilities, :location, :organization).order('start_date DESC').active }
+	scope :active, -> { where(active: true) }
 end
