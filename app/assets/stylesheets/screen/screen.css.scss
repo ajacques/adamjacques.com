@@ -76,7 +76,7 @@
 	}
 
 	@media (min-width: 600px) {
-		#rightBar {
+		aside {
 			border-style: solid;
 			border-color: gray;
 			border-width: thin 0 0 thin;
@@ -104,7 +104,7 @@
 	}
 
 	@media (max-width: 600px) {
-		#rightBar {
+		aside {
 			margin-top: 4em;
 			.group {
 				display: inline-block;

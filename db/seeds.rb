@@ -7,6 +7,10 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 org1 = Organization.create(name: 'The White House', web_page: 'http://www.whitehouse.gov')
-city = Location.create(city: 'New York', admin_level1: 'New York', country: 'US', point: 0)
-manager1 = People.create(name: 'Barack Obama', organization: org1, position: 'The President', department: 'The Executive Branch', email_address: 'barack.obama@whitehouse.gov')
-job1 = Job.create(active: 1, start_date: Time.now, end_date: nil, position: 'World Commander', organization: org1, manager: manager1, location: city)
+city = Location.create(city: 'Washington', admin_level1: 'District of Columbia', country: 'US', point: 0)
+manager1 = People.create(name: 'Barack Obama', organization: org1, position: 'The President', department: 'The Executive Branch', email_address: 'a_made_up_email')
+job1 = Job.create(active: 1, start_date: Date.new(2009, 1, 20), end_date: nil, position: 'President', organization: org1, manager: manager1, location: city)
+
+Description.create(job: job1, text: 'Lead the free world')
+
+github = Link.create(name: 'github', url: 'https://github.com/WhiteHouse', active: 1)

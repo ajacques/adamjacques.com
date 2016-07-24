@@ -9,9 +9,10 @@ en:
     resume: Résumé
     contact_me: Contact Me
     github: GitHub
+  time_periods:
+    present: Present
   resume_section:
     education: Education
     jobs: Job Experience
-    present: Present
   header:
     online_resume: online résumé

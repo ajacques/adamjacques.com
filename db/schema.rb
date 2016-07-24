@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 1) do
+ActiveRecord::Schema.define(version: 2) do
 
   create_table "conferences", force: :cascade do |t|
     t.string  "name",        limit: 32, null: false
@@ -94,6 +94,12 @@ ActiveRecord::Schema.define(version: 1) do
   end
 
   add_index "key_points", ["parent_id"], name: "index_key_points_on_parent_id"
+
+  create_table "links", force: :cascade do |t|
+    t.string  "name",                   null: false
+    t.string  "url",                    null: false
+    t.boolean "active", default: false, null: false
+  end
 
   create_table "locations", force: :cascade do |t|
     t.string  "city",                   null: false
