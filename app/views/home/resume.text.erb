@@ -1,8 +1,8 @@
 <%= t('user_name') %>
 <%= url_for index_url %>
 
-<%= t 'resume.education' %>
+<%= t 'resume_section.education' %>
 <%= render partial: 'edu_credential', collection: @education, as: :edu %>
 
-<%= t 'resume.jobs' %>
+<%= t 'resume_section.jobs' %>
 <%= render partial: 'job_credential', collection: @jobpositions, as: :job %>

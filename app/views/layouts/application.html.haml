@@ -11,23 +11,23 @@
     %meta{ content: 'true', name: 'HandheldFriendly' }
     %meta{ content: 'noarchive', name: 'robots' }
     - if Rails.application.config.respond_to? :analytics
-      %meta{ content: Rails.application.config.analytics['beacon_url'], name: 'beacon_url'}
-      %meta{ content: Rails.application.config.analytics['site_id'], name: 'beacon_site_id'}
+      %meta{ content: Rails.application.config.analytics['beacon_url'], name: 'beacon_url' }
+      %meta{ content: Rails.application.config.analytics['site_id'], name: 'beacon_site_id' }
   %body
     #total.centered
       #header
         .name
           .headname= full_name
-          .subname.noprint online résumé
+          .subname.noprint= t 'header.online_resume'
           - if Rails.env.development? then
             .subname.noprint DEVELOPMENT ENVIRONMENT
         #menu-container.noprint
           .menu
             %ul
               %li
-                = link_to 'Résumé', index_path
+                = link_to t('links.resume'), index_path
               %li
-                = link_to 'Contact Me', contact_me_path
+                = link_to t('links.contact_me'), contact_me_path
       #body-container
         = yield
     #footer &copy; #{Time.now.year} #{full_name}

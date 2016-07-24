@@ -1,7 +1,4 @@
 class ContactController < ApplicationController
-  def create_mail
-  end
-
   def send_mail
     target = Rails.application.config.user.email
     subject = Rails.application.config.user.subject

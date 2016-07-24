@@ -5,7 +5,13 @@ en:
   time:
     formats:
       year: '%Y'
-  resume:
+  links:
+    resume: Résumé
+    contact_me: Contact Me
+    github: GitHub
+  resume_section:
     education: Education
     jobs: Job Experience
     present: Present
+  header:
+    online_resume: online résumé
