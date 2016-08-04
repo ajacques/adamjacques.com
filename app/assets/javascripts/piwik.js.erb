@@ -10,13 +10,13 @@ request = Net::HTTP::Get.new(uri.path)
 http = Net::HTTP.new(uri.host, uri.port)
 if uri.scheme == 'https'
   http.use_ssl = true
-  http.verify_mode = OpenSSL::SSL::VERIFY_NONE # Don't hate me
+  http.verify_mode = OpenSSL::SSL::VERIFY_NONE
 end
 http.request(request).body
 %>
 var _paq = _paq || [];
-var url = '/monitor';
-var id = document.getElementsByTagName('meta')['beacon_site_id'].content;
+var url = document.querySelector("meta[name='beacon_url']").content
+var id = document.querySelector("meta[name='beacon_site_id']").content;
 _paq.push(['setTrackerUrl', url]);
 _paq.push(['setSiteId', id]);
 _paq.push(['setCookiePath', '/monitor']);
