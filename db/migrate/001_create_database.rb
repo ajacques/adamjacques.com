@@ -74,7 +74,7 @@ class CreateDatabase < ActiveRecord::Migration
     add_index "jobs", ["recruiter"]
 
     create_table "key_points", force: true do |t|
-      t.integer "parent_id", limit: 2, null: false
+      t.integer "parent_id", limit: 2
       t.integer "sort",      limit: 3, null: false
       t.boolean "active",              null: false
       t.string  "value",               null: false

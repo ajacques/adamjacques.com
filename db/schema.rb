@@ -87,7 +87,7 @@ ActiveRecord::Schema.define(version: 2) do
   add_index "jobs", ["recruiter"], name: "index_jobs_on_recruiter"
 
   create_table "key_points", force: :cascade do |t|
-    t.integer "parent_id", limit: 2, null: false
+    t.integer "parent_id", limit: 2
     t.integer "sort",      limit: 3, null: false
     t.boolean "active",              null: false
     t.string  "value",               null: false

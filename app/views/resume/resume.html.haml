@@ -1,5 +1,5 @@
 %aside
-  - @keypointgroup.each do |group|
+  - @resume.key_points.each do |group|
     %span.group
       .title= group.value
       %ul
@@ -8,7 +8,7 @@
 #contents
   .credentialGroup
     .title= t 'resume_section.education'
-    = render partial: 'edu_credential', collection: @education, as: :edu
+    = render partial: 'edu_credential', collection: @resume.education, as: :edu
   .credentialGroup
     .title= t 'resume_section.jobs'
-    = render partial: 'job_credential', collection: @jobpositions, as: :job
+    = render partial: 'job_credential', collection: @resume.jobs, as: :job
