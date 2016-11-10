@@ -1,0 +1,26 @@
+.header-container {
+  align-items: center;
+  display: flex;
+  height: 93vh;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+}
+
+header {
+  border-radius: 0.5em;
+  color: #e6e6e6;
+  padding: 2em;
+
+  > h1 {
+    font-weight: 100;
+  }
+}
+
+.name-large {
+  font-size: 5em;
+}
+
+.name-sm {
+  font-size: 1.5em;
+}

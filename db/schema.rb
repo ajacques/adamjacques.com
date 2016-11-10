@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2) do
+ActiveRecord::Schema.define(version: 3) do
 
   create_table "conferences", force: :cascade do |t|
     t.string  "name",        limit: 32, null: false
@@ -68,6 +68,11 @@ ActiveRecord::Schema.define(version: 2) do
 
   add_index "housing", ["city_id"], name: "index_housing_on_city_id"
 
+  create_table "info", force: :cascade do |t|
+    t.string "key",   null: false
+    t.string "value", null: false
+  end
+
   create_table "jobs", force: :cascade do |t|
     t.boolean "active",                    default: false, null: false
     t.date    "start_date",                                null: false
@@ -87,7 +92,7 @@ ActiveRecord::Schema.define(version: 2) do
   add_index "jobs", ["recruiter"], name: "index_jobs_on_recruiter"
 
   create_table "key_points", force: :cascade do |t|
-    t.integer "parent_id", limit: 2, null: false
+    t.integer "parent_id", limit: 2
     t.integer "sort",      limit: 3, null: false
     t.boolean "active",              null: false
     t.string  "value",               null: false

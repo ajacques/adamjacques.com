@@ -1,0 +1,5 @@
+.skills-block
+  %h4.skills-list-header= key_point.value
+  %ul.skills-list
+    - key_point.sub_points.each do |point|
+      %li= point.value

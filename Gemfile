@@ -21,6 +21,10 @@ group :assets do
   gem 'uglifier'
 end
 
+group :assets, :development do
+  gem 'sprockets-es6'
+end
+
 group :development do
   gem 'sqlite3'
 end

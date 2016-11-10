@@ -1,9 +1,6 @@
 class ResumeController < ApplicationController
   def resume
-    @keypointgroup = KeyPoint.root
-    @jobpositions = Job.visible
-    @education = Education.visible
-    @links = Link.visible
+    @resume = Resume.new
 
     # Allow NGINX to cache the result temporarily
     expires_in 5.minutes, public: true

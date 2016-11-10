@@ -3,31 +3,20 @@
   %head
     %title= full_name
     = stylesheet_link_tag 'application'
-    = javascript_include_tag 'application', async: true
+    = javascript_include_tag 'application', async: true, defer: true
     = yield :head
     %meta{ charset: 'utf-8' }
-    %meta{ content: 'IE=edge,chrome=1', 'http-equiv' => 'X-UA-Compatible' }
+    %meta{ content: 'IE=edge,chrome=1', http: { equiv:  'X-UA-Compatible' } }
     %meta{ content: 'width=device-width, initial-scale=1.0, maximum-scale=1.0', name: 'viewport' }
     %meta{ content: 'true', name: 'HandheldFriendly' }
     %meta{ content: 'noarchive', name: 'robots' }
+    %meta{ content: I18n.locale, http: { equiv: 'Content-Language' } }
     - if Rails.application.config.respond_to? :analytics
       %meta{ content: Rails.application.config.analytics['beacon_url'], name: 'beacon_url' }
       %meta{ content: Rails.application.config.analytics['site_id'], name: 'beacon_site_id' }
   %body
-    #total.centered
-      #header
-        .name
-          .headname= full_name
-          .subname.noprint= t 'header.online_resume'
-          - if Rails.env.development? then
-            .subname.noprint DEVELOPMENT ENVIRONMENT
-        #menu-container.noprint
-          .menu
-            %ul
-              %li
-                = link_to t('links.resume'), index_path
-              %li
-                = link_to t('links.contact_me'), contact_me_path
-      #body-container
-        = yield
-    #footer &copy; #{Time.now.year} #{full_name}
+    %video.main-video{ autoplay: true, loop: true }
+      %source{ src: asset_path('video.mp4'), type: 'video/mp4' }
+    = render partial: 'layouts/name_banner'
+    = yield
+    %footer.centered &copy; #{Time.now.year} #{full_name}
