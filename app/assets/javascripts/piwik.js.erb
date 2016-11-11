@@ -15,7 +15,7 @@ end
 http.request(request).body
 %>
 function LoadHandler() {
-  var _paq = _paq || [];
+  var _paq = window._paq = window._paq || [];
   var url = document.querySelector("meta[name='beacon_url']").content;
   var id = document.querySelector("meta[name='beacon_site_id']").content;
   if (!url || !id) {
