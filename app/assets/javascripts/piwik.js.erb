@@ -27,7 +27,7 @@ function LoadHandler() {
   _paq.push(['trackPageView']);
   _paq.push(['enableLinkTracking']);
 }
-if (document.readyState === 'interactive') {
+if (document.readyState !== 'loading') {
   LoadHandler();
 } else {
   document.addEventListener('DOMContentLoaded', LoadHandler);
