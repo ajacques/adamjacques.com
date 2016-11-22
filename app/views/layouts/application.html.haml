@@ -2,8 +2,12 @@
 %html{ lang: I18n.locale }
   %head
     %title= full_name
-    %link{ href: stylesheet_path('application'), media: 'screen', rel: 'stylesheet' }
-    %script{ async: true, defer: true, src: javascript_path('application') }
+    - if Rails.env.production?
+      %link{ href: stylesheet_path('application'), media: 'screen', rel: 'stylesheet' }
+      %script{ async: true, defer: true, src: javascript_path('application') }
+    - else
+      = javascript_include_tag 'application', defer: true
+      = stylesheet_link_tag 'application', media: 'all'
     - if content_for? :head
       = yield :head
     %meta{ charset: 'utf-8' }

@@ -1,5 +1,11 @@
 <% if Rails.env.assets? %>
 (function() {
+var _paq = [];
+if (document.readyState !== 'loading') {
+  LoadHandler();
+} else {
+  document.addEventListener('DOMContentLoaded', LoadHandler);
+}
 <%=
 # WAT?
 require 'net/http'
@@ -15,7 +21,6 @@ end
 http.request(request).body
 %>
 function LoadHandler() {
-  var _paq = window._paq = window._paq || [];
   var url = document.querySelector("meta[name='beacon_url']").content;
   var id = document.querySelector("meta[name='beacon_site_id']").content;
   if (!url || !id) {
@@ -26,11 +31,6 @@ function LoadHandler() {
   _paq.push(['setCookiePath', '/monitor']);
   _paq.push(['trackPageView']);
   _paq.push(['enableLinkTracking']);
-}
-if (document.readyState !== 'loading') {
-  LoadHandler();
-} else {
-  document.addEventListener('DOMContentLoaded', LoadHandler);
 }
 })();
 <% end %>
