@@ -11,9 +11,6 @@ RUN export BUILD_PKGS="ruby-dev build-base mariadb-dev nodejs libxml2-dev linux-
 # Generate compiled assets + manifests
   && RAILS_ENV=assets rake assets:precompile \
 
-# Remove the source assets because we don't need them anymore
-  && rm -rf app/assets/* \
-
 # Uninstall development headers/packages
   && apk del $BUILD_PKGS \
   && find / -type f -iname \*.apk-new -delete \
@@ -34,4 +31,4 @@ ENV RAILS_ENV=production
 USER www-data
 EXPOSE 8080
 ENTRYPOINT ["/usr/bin/ruby", "/rails-app/bin/bundle", "exec"]
-CMD ["/usr/bin/unicorn", "-o", "0.0.0.0", "-p", "8080", "-c", "unicorn.rb", "--no-default-middleware"]
+CMD ["/usr/bin/unicorn", "-o", "0.0.0.0", "-p", "8080", "--no-default-middleware"]
