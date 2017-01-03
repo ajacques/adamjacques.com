@@ -2,8 +2,8 @@ FROM alpine:3.5
 
 ADD . /rails-app
 WORKDIR /rails-app
-RUN export BUILD_PKGS="ruby-dev build-base mariadb-dev nodejs libxml2-dev linux-headers" \
-  && apk --update --upgrade add ruby ruby-json ca-certificates libxml2 mariadb-client-libs ruby-io-console ruby-bigdecimal $BUILD_PKGS \
+RUN export BUILD_PKGS="ruby-dev build-base mariadb-dev nodejs libxml2-dev linux-headers ca-certificates" \
+  && apk --update --upgrade add ruby ruby-json libxml2 mariadb-client-libs ruby-io-console ruby-bigdecimal $BUILD_PKGS \
 
   && gem install -N bundler \
   && env bundle install --without test development \
@@ -16,7 +16,7 @@ RUN export BUILD_PKGS="ruby-dev build-base mariadb-dev nodejs libxml2-dev linux-
   && find / -type f -iname \*.apk-new -delete \
   && rm -rf /var/cache/apk/* \
 
-  && rm -rf /var/lib/gems/*/cache/* ~/.gem /var/cache/* /root tmp/* \
+  && rm -rf /usr/lib/ruby/gems/*/cache ~/.gem /var/cache/* /root tmp/* .bundle/cache \
 
   && addgroup -g 9999 -S www-data && adduser -u 9999 -H -h /rails-app -S www-data \
 
