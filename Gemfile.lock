@@ -63,7 +63,6 @@ GEM
     i18n (0.7.0)
     json (1.8.3)
     kgio (2.10.0)
-    libv8 (3.16.14.15)
     loofah (2.0.3)
       nokogiri (>= 1.5.9)
     mail (2.6.4)
@@ -109,7 +108,6 @@ GEM
       thor (>= 0.18.1, < 2.0)
     raindrops (0.16.0)
     rake (11.2.2)
-    ref (2.0.0)
     ruby_parser (3.8.2)
       sexp_processor (~> 4.1)
     sass (3.4.22)
@@ -132,14 +130,13 @@ GEM
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
     sqlite3 (1.3.11)
-    therubyracer (0.12.2)
-      libv8 (~> 3.16.14.0)
-      ref
     thor (0.19.1)
     thread_safe (0.3.5)
     tilt (2.0.5)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
+    tzinfo-data (1.2016.10)
+      tzinfo (>= 1.0.0)
     uglifier (3.0.0)
       execjs (>= 0.3.0, < 3)
     unicorn (5.1.0)
@@ -158,9 +155,9 @@ DEPENDENCIES
   sass-rails
   sprockets-es6
   sqlite3
-  therubyracer
+  tzinfo-data
   uglifier
   unicorn
 
 BUNDLED WITH
-   1.13.6
+   1.13.7
