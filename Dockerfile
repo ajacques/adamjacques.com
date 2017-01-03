@@ -1,17 +1,37 @@
-FROM ubuntu:16.04
+FROM alpine:3.5
 
-COPY . /rails-app
+ADD . /rails-app
 WORKDIR /rails-app
-RUN /usr/bin/apt-get update \
-  && /usr/bin/apt-get install -qy --no-install-recommends make g++ ruby ruby-dev libmysqlclient20 libmysqlclient-dev zlib1g-dev patch \
-  && gem install bundler --no-ri --no-rdoc \
-  && /usr/bin/env bundle install --without development \
+RUN export BUILD_PKGS="ruby-dev build-base mariadb-dev nodejs libxml2-dev linux-headers" \
+  && apk --update --upgrade add ruby ruby-json ca-certificates libxml2 mariadb-libs ruby-io-console ruby-bigdecimal $BUILD_PKGS \
+
+  && gem install -N bundler \
+  && env bundle install --without test development \
+
+# Generate compiled assets + manifests
   && RAILS_ENV=assets rake assets:precompile \
-  && /usr/bin/apt-get remove -qy --purge ruby-dev g++ make patch libmysqlclient-dev zlib1g-dev patch \
-  && /usr/bin/apt-get -qy autoremove \
-  && /usr/bin/dpkg --purge $(dpkg --get-selections | grep deinstall | cut -f1) \
-  && /bin/rm -rf /var/lib/gems/2.3.0/cache /var/cache/ /var/lib/apt/lists /var/log/* tmp/* \
-  && chown -R www-data:www-data Gemfile.lock tmp
+
+# Remove the source assets because we don't need them anymore
+  && rm -rf app/assets/* \
+
+# Uninstall development headers/packages
+  && apk del $BUILD_PKGS \
+  && find / -type f -iname \*.apk-new -delete \
+  && rm -rf /var/cache/apk/* \
+
+  && rm -rf /var/lib/gems/*/cache/* ~/.gem /var/cache/* /root tmp/* \
+
+  && addgroup -g 9999 -S www-data && adduser -u 9999 -H -h /rails-app -S www-data \
+
+# All files/folders should be owned by root by readable by www-data
+  && find . -type f -print -exec chmod 444 {} \; \
+  && find . -type d -print -exec chmod 555 {} \; \
+
+  && chown -R www-data:www-data tmp \
+  && chmod 755 db && find tmp -type d -print -exec chmod 755 {} \; \
+  && find bin -type f -print -exec chmod 544 {} \;
+ENV RAILS_ENV=production
 USER www-data
 EXPOSE 8080
-CMD bundle exec unicorn -p 8080
+ENTRYPOINT ["/usr/bin/ruby", "/rails-app/bin/bundle", "exec"]
+CMD ["/usr/bin/unicorn", "-o", "0.0.0.0", "-p", "8080", "-c", "unicorn.rb", "--no-default-middleware"]
