@@ -1,0 +1,112 @@
+Parameters:
+  StaticFileS3BucketName:
+    Type: String
+    Description: Name of the S3 bucket that will be created where static files, such
+      as JS and CSS, will be stored.
+  OriginAccessIdentityID:
+    Type: String
+    Description: Identity for CloudFront to connect to the static file S3 bucket.
+      ID (ex. E1YXXXXXX)
+  PiwikEndpoint:
+    Type: String
+    Description: Domain name to proxy Piwik beacon requests
+  DomainName:
+    Type: String
+    Description: Domain name for the CDN + Certificate
+Resources:
+  StaticFileS3Bucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      AccessControl: Private
+      BucketName:
+        Ref: StaticFileS3BucketName
+  CloudFrontS3Permission:
+    Type: AWS::S3::BucketPolicy
+    DependsOn:
+    - StaticFileS3Bucket
+    Properties:
+      Bucket:
+        Ref: StaticFileS3BucketName
+      PolicyDocument:
+        Statement:
+        - Action:
+          - s3:GetObject
+          Effect: Allow
+          Resource:
+            Fn::Join:
+            - ''
+            - - 'arn:aws:s3:::'
+              - Ref: StaticFileS3BucketName
+              - /web_content/*
+          Condition:
+            Bool:
+              aws:SecureTransport: 'true'
+          Principal:
+            AWS:
+              Fn::Join:
+              - ''
+              - - 'arn:aws:iam::cloudfront:user/CloudFront Origin Access Identity '
+                - Ref: OriginAccessIdentityID
+  Certificate:
+    Type: AWS::CertificateManager::Certificate
+    Properties:
+      DomainName:
+        Ref: DomainName
+  ExternalCloudFront:
+    Type: AWS::CloudFront::Distribution
+    Properties:
+      DistributionConfig:
+        DefaultCacheBehavior:
+          TargetOriginId: staticAssetOrigin
+          ViewerProtocolPolicy: redirect-to-https
+          ForwardedValues:
+            QueryString: false
+            Cookies:
+              Forward: whitelist
+              WhitelistedNames:
+              - rack.session
+        DefaultRootObject: index.html
+        Enabled: true
+        HttpVersion: http2
+        Origins:
+        - Id: staticAssetOrigin
+          DomainName:
+            Fn::Join:
+            - ''
+            - - Ref: StaticFileS3BucketName
+              - .s3.amazonaws.com
+          OriginPath: /web_content
+          S3OriginConfig:
+            OriginAccessIdentity:
+              Fn::Join:
+              - ''
+              - - origin-access-identity/cloudfront/
+                - Ref: OriginAccessIdentityID
+        PriceClass: PriceClass_100
+  AssetUploadUser:
+    Type: AWS::IAM::User
+    Properties:
+      Policies:
+      - PolicyName: root
+        PolicyDocument:
+          Version: '2012-10-17'
+          Statement:
+          - Action:
+            - s3:PutObject
+            Effect: Allow
+            Resource:
+              Fn::Join:
+              - ''
+              - - 'arn:aws:s3:::'
+                - Ref: StaticFileS3BucketName
+                - /web_content/*
+            Condition:
+              Bool:
+                aws:SecureTransport: 'true'
+Outputs:
+  URL:
+    Description: Raw CloudFront hostname
+    Value:
+      Fn::GetAtt:
+      - ExternalCloudFront
+      - DomainName
