@@ -1,6 +1,6 @@
 <% if Rails.env.assets? %>
 (function() {
-  var _paq = _paq || [];
+  var _paq = window._paq = (window._paq || []);
   var url = document.querySelector("meta[name='beacon_url']").content;
   var id = document.querySelector("meta[name='beacon_site_id']").content;
   _paq.push(['setTrackerUrl', url]);
