@@ -1,8 +1,4 @@
 Parameters:
-  StaticFileS3BucketName:
-    Type: String
-    Description: Name of the S3 bucket that will be created where static files, such
-      as JS and CSS, will be stored.
   OriginAccessIdentityID:
     Type: String
     Description: Identity for CloudFront to connect to the static file S3 bucket.
@@ -14,39 +10,32 @@ Parameters:
     Type: String
     Description: Domain name for the CDN + Certificate
 Resources:
-  StaticFileS3Bucket:
+  WebsiteFileS3Bucket:
     Type: AWS::S3::Bucket
     Properties:
       AccessControl: Private
-      BucketName:
-        Ref: StaticFileS3BucketName
-  CloudFrontS3Permission:
+  StaticS3Permission:
     Type: AWS::S3::BucketPolicy
     DependsOn:
-    - StaticFileS3Bucket
+    - WebsiteFileS3Bucket
     Properties:
       Bucket:
-        Ref: StaticFileS3BucketName
+        Ref: WebsiteFileS3Bucket
       PolicyDocument:
         Statement:
         - Action:
           - s3:GetObject
           Effect: Allow
           Resource:
-            Fn::Join:
-            - ''
-            - - 'arn:aws:s3:::'
-              - Ref: StaticFileS3BucketName
-              - /web_content/*
+            !Sub |-
+              arn:aws:s3:::${WebsiteFileS3Bucket}/web_content/*
           Condition:
             Bool:
               aws:SecureTransport: 'true'
           Principal:
             AWS:
-              Fn::Join:
-              - ''
-              - - 'arn:aws:iam::cloudfront:user/CloudFront Origin Access Identity '
-                - Ref: OriginAccessIdentityID
+              !Sub |-
+                arn:aws:iam::cloudfront:user/CloudFront Origin Access Identity ${OriginAccessIdentityID}
   Certificate:
     Type: AWS::CertificateManager::Certificate
     Properties:
@@ -71,17 +60,13 @@ Resources:
         Origins:
         - Id: staticAssetOrigin
           DomainName:
-            Fn::Join:
-            - ''
-            - - Ref: StaticFileS3BucketName
-              - .s3.amazonaws.com
+            !Sub |-
+              ${WebsiteFileS3Bucket}.s3.amazonaws.com
           OriginPath: /web_content
           S3OriginConfig:
             OriginAccessIdentity:
-              Fn::Join:
-              - ''
-              - - origin-access-identity/cloudfront/
-                - Ref: OriginAccessIdentityID
+              !Sub |-
+                origin-access-identity/cloudfront/${OriginAccessIdentityID}
         PriceClass: PriceClass_100
   AssetUploadUser:
     Type: AWS::IAM::User
@@ -95,15 +80,16 @@ Resources:
             - s3:PutObject
             Effect: Allow
             Resource:
-              Fn::Join:
-              - ''
-              - - 'arn:aws:s3:::'
-                - Ref: StaticFileS3BucketName
-                - /web_content/*
+              !Sub |-
+                arn:aws:s3:::${WebsiteFileS3Bucket}/web_content/*
             Condition:
               Bool:
                 aws:SecureTransport: 'true'
 Outputs:
+  WebsiteS3Bucket:
+    Description: Stores static content for website
+    Value:
+      Ref: WebsiteFileS3Bucket
   URL:
     Description: Raw CloudFront hostname
     Value:
