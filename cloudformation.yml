@@ -45,6 +45,8 @@ Resources:
     Type: AWS::CloudFront::Distribution
     Properties:
       DistributionConfig:
+        Aliases:
+        - Ref: DomainName
         DefaultCacheBehavior:
           TargetOriginId: staticAssetOrigin
           ViewerProtocolPolicy: redirect-to-https
@@ -68,11 +70,15 @@ Resources:
               !Sub |-
                 origin-access-identity/cloudfront/${OriginAccessIdentityID}
         PriceClass: PriceClass_100
+        ViewerCertificate:
+          AcmCertificateArn:
+            Ref: Certificate
+          SslSupportMethod: sni-only
   AssetUploadUser:
     Type: AWS::IAM::User
     Properties:
       Policies:
-      - PolicyName: root
+      - PolicyName: CanUploadFiles
         PolicyDocument:
           Version: '2012-10-17'
           Statement:
