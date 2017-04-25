@@ -132,6 +132,8 @@ GEM
     tilt (2.0.5)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
+    tzinfo-data (1.2017.2)
+      tzinfo (>= 1.0.0)
     uglifier (3.0.0)
       execjs (>= 0.3.0, < 3)
     unicorn (5.1.0)
@@ -150,8 +152,9 @@ DEPENDENCIES
   sass-rails
   sqlite3
   therubyracer
+  tzinfo-data
   uglifier
   unicorn
 
 BUNDLED WITH
-   1.12.5
+   1.13.7
