@@ -3,9 +3,6 @@ Parameters:
     Type: String
     Description: Identity for CloudFront to connect to the static file S3 bucket.
       ID (ex. E1YXXXXXX)
-  PiwikEndpoint:
-    Type: String
-    Description: Domain name to proxy Piwik beacon requests
   DomainName:
     Type: String
     Description: Domain name for the CDN + Certificate
