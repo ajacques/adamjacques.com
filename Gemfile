@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~> 4.2.6'
+gem 'rails', '~> 5.1.1'
 
 gem 'haml'
 gem 'haml-rails'
@@ -12,6 +12,10 @@ group :production do
 end
 
 gem 'tzinfo-data'
+
+group :test, :development do
+  gem 'rubocop'
+end
 
 # Gems used only for assets and not required
 # in production environments by default.

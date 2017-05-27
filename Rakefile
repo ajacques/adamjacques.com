@@ -5,3 +5,10 @@
 require File.expand_path('../config/application', __FILE__)
 
 ResumeWebsite::Application.load_tasks
+
+if Rails.env.test? || Rails.env.development?
+  require 'rubocop/rake_task'
+  RuboCop::RakeTask.new
+
+  task default: %i[rubocop]
+end

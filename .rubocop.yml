@@ -1,0 +1,30 @@
+AllCops:
+  TargetRubyVersion: 2.3
+
+Rails:
+  Enabled: true
+
+Metrics/LineLength:
+  Max: 150
+
+Metrics/BlockLength:
+  Exclude:
+    - 'db/**/*.rb'
+
+Metrics/MethodLength:
+  Exclude:
+    - 'db/**/*.rb'
+
+Metrics/ClassLength:
+  Exclude:
+    - 'db/**/*.rb'
+
+Metrics/AbcSize:
+  Exclude:
+    - 'db/**/*.rb'
+
+Documentation:
+  Enabled: false
+
+Style/FrozenStringLiteralComment:
+  Enabled: false

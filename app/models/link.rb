@@ -1,3 +1,3 @@
 class Link < ActiveRecord::Base
-  scope :visible, -> { where(active: true) }
+  scope :visible, (-> { where(active: true) })
 end

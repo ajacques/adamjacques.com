@@ -1,10 +1,8 @@
 require 'ostruct'
 
-Rails.application.config.user = OpenStruct.new({
-  name: ENV['RESUME_NAME'],
-  email: ENV['RESUME_EMAIL'],
-  subject: ENV['RESUME_EMAIL_SUBJECT']
-})
+Rails.application.config.user = OpenStruct.new(name: ENV['RESUME_NAME'],
+                                               email: ENV['RESUME_EMAIL'],
+                                               subject: ENV['RESUME_EMAIL_SUBJECT'])
 
 if ENV.key? 'PIWIK_JS'
   Rails.application.config.analytics = {
