@@ -24,8 +24,7 @@ Resources:
           - s3:GetObject
           Effect: Allow
           Resource:
-            !Sub |-
-              arn:aws:s3:::${WebsiteFileS3Bucket}/web_content/*
+            Fn::Sub: arn:aws:s3:::${WebsiteFileS3Bucket}/web_content/*
           Condition:
             Bool:
               aws:SecureTransport: 'true'
@@ -64,8 +63,7 @@ Resources:
           OriginPath: /web_content
           S3OriginConfig:
             OriginAccessIdentity:
-              !Sub |-
-                origin-access-identity/cloudfront/${OriginAccessIdentityID}
+              Fn::Sub: origin-access-identity/cloudfront/${OriginAccessIdentityID}
         PriceClass: PriceClass_100
         ViewerCertificate:
           AcmCertificateArn:
@@ -83,8 +81,7 @@ Resources:
             - s3:PutObject
             Effect: Allow
             Resource:
-              !Sub |-
-                arn:aws:s3:::${WebsiteFileS3Bucket}/web_content/*
+              Fn::Sub: arn:aws:s3:::${WebsiteFileS3Bucket}/web_content/*
             Condition:
               Bool:
                 aws:SecureTransport: 'true'
