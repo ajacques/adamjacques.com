@@ -44,6 +44,8 @@ GEM
     babel-transpiler (0.7.0)
       babel-source (>= 4.0, < 6)
       execjs (~> 2.0)
+    bootsnap (0.3.0)
+      msgpack (~> 1.0)
     builder (3.2.3)
     concurrent-ruby (1.0.5)
     erubi (1.6.0)
@@ -77,6 +79,7 @@ GEM
     mime-types-data (3.2016.0521)
     mini_portile2 (2.1.0)
     minitest (5.10.2)
+    msgpack (1.1.0)
     mysql2 (0.4.6)
     nio4r (2.0.0)
     nokogiri (1.7.2)
@@ -167,6 +170,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  bootsnap
   haml
   haml-rails
   mysql2
@@ -181,4 +185,4 @@ DEPENDENCIES
   unicorn
 
 BUNDLED WITH
-   1.13.7
+   1.15.0
