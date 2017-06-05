@@ -12,3 +12,17 @@ if Rails.env.test? || Rails.env.development?
 
   task default: %i[rubocop]
 end
+
+task :optimize do
+  # Start the server and kill it after it's had a chance to initialize
+  pid = Process.spawn('unicorn --no-default-middleware')
+  death = Time.now + 10
+  interrupted = false
+  trap('INT') do
+    interrupted = true
+  end
+  until interrupted || Time.now > death do
+    sleep 1
+  end
+  Process.kill('TERM', pid)
+end

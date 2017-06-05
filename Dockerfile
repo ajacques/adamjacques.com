@@ -18,6 +18,10 @@ RUN export BUILD_PKGS="ruby-dev build-base mariadb-dev nodejs libxml2-dev linux-
 
   && rm -rf /usr/lib/ruby/gems/*/cache ~/.gem /var/cache/* /root tmp/* .bundle/cache \
 
+  && RAILS_ENV=production rake optimize \
+
+  && rm -rf log/* \
+
   && addgroup -g 9999 -S www-data && adduser -u 9999 -H -h /rails-app -S www-data \
 
 # All files/folders should be owned by root by readable by www-data
