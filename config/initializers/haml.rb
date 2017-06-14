@@ -1,7 +1,7 @@
 module HamlCompacter
   def parse_tag(line)
     result = super(line)
-    unless result.size == 9 && [false, true].include?(result[4]) && [false, true].include?(result[5])
+    unless result.size == 9
       raise "Unexpected parse_tag output: #{result.inspect}"
     end
     result[4] = true # nuke_outer_whitespace
