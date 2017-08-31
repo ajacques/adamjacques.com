@@ -1,4 +1,4 @@
-class Education < ActiveRecord::Base
+class Education < ApplicationRecord
   # Associations
   belongs_to :organization
   belongs_to :location

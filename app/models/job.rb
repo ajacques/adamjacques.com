@@ -1,4 +1,4 @@
-class Job < ActiveRecord::Base
+class Job < ApplicationRecord
   # Associations
   belongs_to :location
   belongs_to :organization

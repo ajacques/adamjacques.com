@@ -1,3 +1,3 @@
-class People < ActiveRecord::Base
+class People < ApplicationRecord
   belongs_to :organization
 end

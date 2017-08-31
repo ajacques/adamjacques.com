@@ -1,2 +1,2 @@
-class Degree < ActiveRecord::Base
+class Degree < ApplicationRecord
 end
