@@ -2,7 +2,7 @@ FROM alpine:3.5
 
 ADD . /rails-app
 WORKDIR /rails-app
-RUN export BUILD_PKGS="ruby-dev build-base mariadb-dev nodejs libxml2-dev linux-headers ca-certificates" \
+RUN export BUILD_PKGS="ruby-dev build-base mariadb-dev nodejs libxml2-dev linux-headers ca-certificates libffi-dev" \
   && apk --update --upgrade add ruby ruby-json libxml2 mariadb-client-libs ruby-io-console ruby-bigdecimal $BUILD_PKGS \
 
   && gem install -N bundler \
