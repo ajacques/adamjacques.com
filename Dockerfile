@@ -10,7 +10,7 @@ RUN export BUILD_PKGS="ruby-dev build-base mariadb-dev nodejs libxml2-dev linux-
 
 # Generate compiled assets + manifests
   && RAILS_ENV=assets rake assets:precompile \
-  && rm -rf app/assets test db
+  && rm -rf app/assets test
 
 FROM alpine:3.6
 
