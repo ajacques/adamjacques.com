@@ -1,20 +1,31 @@
-FROM alpine:3.5
+FROM alpine:3.6
 
 ADD . /rails-app
 WORKDIR /rails-app
 RUN export BUILD_PKGS="ruby-dev build-base mariadb-dev nodejs libxml2-dev linux-headers ca-certificates libffi-dev" \
-  && apk --update --upgrade add ruby ruby-json libxml2 mariadb-client-libs ruby-io-console ruby-bigdecimal $BUILD_PKGS \
+  && apk --no-cache --upgrade add ruby ruby-json libxml2 mariadb-client-libs ruby-io-console ruby-bigdecimal $BUILD_PKGS \
 
   && gem install -N bundler \
-  && env bundle install --without test development \
+  && env bundle install --frozen --without test development \
 
 # Generate compiled assets + manifests
   && RAILS_ENV=assets rake assets:precompile \
+  && rm -rf app/assets test db
+
+FROM alpine:3.6
+
+COPY --from=0 /rails-app /rails-app
+WORKDIR /rails-app
+RUN export BUILD_PKGS="ruby-dev build-base mariadb-dev libxml2-dev linux-headers ca-certificates libffi-dev" \
+  && apk --no-cache --upgrade add ruby ruby-json libxml2 mariadb-client-libs ruby-io-console ruby-bigdecimal $BUILD_PKGS \
+
+  && gem install -N bundler \
+  && env bundle install --frozen --with production \
 
 # Uninstall development headers/packages
   && apk del $BUILD_PKGS \
   && find / -type f -iname \*.apk-new -delete \
-  && rm -rf /var/cache/apk/* \
+  && rm -rf /var/cache/apk/* /lib/apk/db \
 
   && rm -rf /usr/lib/ruby/gems/*/cache ~/.gem /var/cache/* /root tmp/* .bundle/cache \
 

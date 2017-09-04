@@ -5,8 +5,6 @@ gem 'rails', '~> 5.1.1'
 gem 'haml'
 gem 'haml-rails'
 
-gem 'rack-proxy'
-
 group :production do
   gem 'mysql2'
 end
