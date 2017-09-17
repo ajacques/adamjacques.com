@@ -28,3 +28,7 @@ Documentation:
 
 Style/FrozenStringLiteralComment:
   Enabled: false
+
+# Constraints are enforced at the DB server layer
+Rails/HasManyOrHasOneDependent:
+  Enabled: false
