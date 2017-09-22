@@ -32,3 +32,4 @@ group :development do
 end
 
 gem 'unicorn'
+gem 'nokogiri', '>= 1.8.1'
