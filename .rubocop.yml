@@ -23,6 +23,10 @@ Metrics/AbcSize:
   Exclude:
     - 'db/**/*.rb'
 
+# Tables don't benefit from timestamps
+Rails/CreateTableWithTimestamps:
+  Enabled: false
+
 Documentation:
   Enabled: false
 
