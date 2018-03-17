@@ -3,7 +3,7 @@ class ContactController < ApplicationController
     ContactMailer.user_contact(
       name: params[:name],
       email: params[:email],
-      ip: request.remote_ip,
+      src_ip: request.remote_ip,
       message: params[:message]
     ).deliver
 
