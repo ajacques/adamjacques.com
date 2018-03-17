@@ -1,5 +1,5 @@
 class KeyPoint < ApplicationRecord
-  has_many :sub_points, class_name: 'KeyPoint', foreign_key: 'parent_id'
+  has_many :sub_points, class_name: 'KeyPoint', foreign_key: 'parent_id', inverse_of: :parent
   belongs_to :parent, class_name: 'KeyPoint', inverse_of: :sub_points
 
   scope :root, (-> { joins(:parent).where(active: true, parents_key_points: { value: 'root' }).order(:sort) })
