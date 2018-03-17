@@ -1,8 +1,8 @@
 class ContactMailer < ActionMailer::Base
-  def user_contact(name:, email:, ip:, message:)
+  def user_contact(name:, email:, src_ip:, message:)
     subject = Rails.application.config.user.subject
     @params = { name: name, email: email, subject: subject, message: message }
-    @ipaddr = ip
+    @ipaddr = src_ip
     @date = Time.now.utc
 
     headers 'Reply-To' => email,
