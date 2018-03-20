@@ -33,3 +33,4 @@ end
 
 gem 'nokogiri', '>= 1.8.1'
 gem 'unicorn'
+gem 'loofah', '>= 2.2.1'
