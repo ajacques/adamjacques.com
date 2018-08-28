@@ -2,3 +2,8 @@ log/*
 tmp/*
 public/assets/*
 db/*.sqlite3
+/public/packs
+/public/packs-test
+/node_modules
+yarn-debug.log*
+.yarn-integrity

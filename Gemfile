@@ -11,6 +11,8 @@ end
 
 gem 'tzinfo-data'
 
+gem 'webpacker'
+
 group :test, :development do
   gem 'rubocop'
 end
