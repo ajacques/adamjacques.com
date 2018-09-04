@@ -4,7 +4,7 @@ Rails.application.config.user = OpenStruct.new(name: ENV['RESUME_NAME'],
                                                email: ENV['RESUME_EMAIL'],
                                                subject: ENV['RESUME_EMAIL_SUBJECT'])
 
-if ENV.key? 'PIWIK_JS'
+if ENV.key? 'PIWIK_BEACON'
   Rails.application.config.analytics = {
     'tracker_script' => ENV['PIWIK_JS'],
     'beacon_url' => ENV['PIWIK_BEACON'],
