@@ -6,6 +6,8 @@ class CreateManagers < ActiveRecord::Migration[5.0]
       t.date :start_date, null: false
       t.date :end_date, null: false
     end
+    add_foreign_key :managers, :organization
+    add_foreign_key :managers, :people
     remove_column :jobs, :manager
   end
 
