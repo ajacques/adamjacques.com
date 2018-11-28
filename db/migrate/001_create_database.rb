@@ -1,4 +1,4 @@
-class CreateDatabase < ActiveRecord::Migration
+class CreateDatabase < ActiveRecord::Migration[4.2]
   def self.up
     create_table 'conferences', force: true do |t|
       t.string  'name', limit: 32, null: false
