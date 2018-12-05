@@ -12,7 +12,7 @@ function clamp(input: number): number {
   return Math.min(Math.max(input, 0), 1);
 }
 
-function HandleScroll() {
+function HandleScroll(): void {
   const transitionFactor = clamp((window.scrollY - HEIGHT_OF_SKY_REGION_PX) / (window.outerHeight / 2 - HEIGHT_OF_NAME_BOX));
 
   const color = Math.floor(DEFAULT_COLOR * (1 - transitionFactor));
@@ -23,16 +23,16 @@ function HandleScroll() {
   lastColor = color;
   nameHeader.style.color = `rgb(${color},${color},${color})`;
 }
-function LoadRandomVideo() {
+function LoadRandomVideo(): void {
   videoElement.src = VideoManifest.file;
   if (VideoManifest.text) {
     nameHeader.style.position = 'absolute';
     nameHeader.style.left = VideoManifest.text.x + '%';
   }
 }
-export default function() {
+export default function(): void {
   videoElement = <HTMLVideoElement> document.getElementById('main-video');
-  nameHeader = document.getElementsByTagName('header')[0];
+  nameHeader = <HTMLElement> document.getElementsByTagName('header')[0];
   scrollPosElem = document.getElementById('scroll-pos');
   LoadRandomVideo();
   if (!VideoManifest.disableScrollEffect) {
