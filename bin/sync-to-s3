@@ -27,7 +27,9 @@ def get_http
   Net::HTTP.get(url)
 end
 
-get_assets.map do |file|
+get_assets
+  .filter {|file| File.extname(file).in? %w[css js] }
+  .map do |file|
   upload_asset(bucket, file)
 end
 

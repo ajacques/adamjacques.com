@@ -1,4 +1,6 @@
 log/*
 tmp/*
 public/assets/*
+public/packs/*
 db/*.sqlite3
+node_modules
