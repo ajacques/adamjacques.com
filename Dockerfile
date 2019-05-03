@@ -37,7 +37,7 @@ RUN export BUILD_PKGS="ruby-dev build-base mariadb-dev libxml2-dev linux-headers
 
   && chown -R www-data:www-data tmp \
   && chmod 755 db && find tmp -type d -print -exec chmod 755 {} \; \
-  && find bin -type f -print -exec chmod 544 {} \;
+  && find bin -type f -print -exec chmod 555 {} \;
 ENV RAILS_ENV=production
 USER www-data
 EXPOSE 8080
