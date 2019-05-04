@@ -6,10 +6,9 @@ require 'net/http'
 
 extensions = %w[.css .js .mp4]
 
-bucket = Aws::S3::Resource.new
-  .bucket(ENV['S3_BUCKET_NAME'])
+bucket = Aws::S3::Resource.new.bucket(ENV['S3_BUCKET_NAME'])
 
-def get_assets
+def assets_files
   Dir.glob('public/assets/.sprockets-manifest-*.json').map do |manifest|
     JSON.parse(File.read(manifest))['files'].keys
   end.flatten
@@ -21,23 +20,24 @@ def upload_asset(bucket, file)
     '.css' => 'text/css'
   }
   mime = mimes[File.extname(file)]
-  bucket.object("web_content/assets/#{file}")
+  bucket
+    .object("web_content/assets/#{file}")
     .upload_file("./public/assets/#{file}", cache_control: 'max-age=31556926', content_type: mime)
 end
 
-def get_http
+def http_get
   url = URI.parse(ENV['URI'])
   Net::HTTP.get(url)
 end
 
-get_assets
-  .select {|file| extensions.include? File.extname(file) }
+assets_files
+  .select { |file| extensions.include? File.extname(file) }
   .map do |file|
   upload_asset(bucket, file)
 end
 
 bucket.object('web_content/index.html').put(
-  body: get_http,
+  body: http_get(),
   cache_control: 'max-age=3600',
   content_type: 'text/html'
 )
