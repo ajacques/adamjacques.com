@@ -21,7 +21,7 @@ def upload_asset(bucket, file)
     '.css' => 'text/css'
   }
   mime = mimes[File.extname(file)]
-  bucket.object("web_content/assets#{file}")
+  bucket.object("web_content/assets/#{file}")
     .upload_file("./public/assets/#{file}", cache_control: 'max-age=31556926', content_type: mime)
 end
 
