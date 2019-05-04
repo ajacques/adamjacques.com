@@ -37,7 +37,7 @@ assets_files
 end
 
 bucket.object('web_content/index.html').put(
-  body: http_get(),
+  body: http_get,
   cache_control: 'max-age=3600',
   content_type: 'text/html'
 )
