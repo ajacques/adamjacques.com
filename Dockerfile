@@ -10,7 +10,8 @@ RUN export BUILD_PKGS="ruby-dev build-base mariadb-dev nodejs libxml2-dev linux-
 
 # Generate compiled assets + manifests
   && RAILS_ENV=assets rake assets:precompile \
-  && rm -rf app/assets test
+  && rm -rf app/assets test \
+  && rm -rf tmp/* .bundle/cache
 
 FROM alpine:3.6
 
@@ -27,7 +28,7 @@ RUN export BUILD_PKGS="ruby-dev build-base mariadb-dev libxml2-dev linux-headers
   && find / -type f -iname \*.apk-new -delete \
   && rm -rf /var/cache/apk/* /lib/apk/db \
 
-  && rm -rf /usr/lib/ruby/gems/*/cache ~/.gem /var/cache/* /root tmp/* .bundle/cache \
+  && rm -rf /usr/lib/ruby/gems/*/cache ~/.gem /var/cache/* /root \
 
   && addgroup -g 9999 -S www-data && adduser -u 9999 -H -h /rails-app -S www-data \
 
