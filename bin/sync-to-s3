@@ -17,7 +17,8 @@ end
 def upload_asset(bucket, file)
   mimes = {
     '.js' => 'application/javascript',
-    '.css' => 'text/css'
+    '.css' => 'text/css',
+    '.mp4' => 'video/mp4'
   }
   mime = mimes[File.extname(file)]
   bucket
