@@ -11,7 +11,14 @@ RUN export BUILD_PKGS="ruby-dev build-base mariadb-dev nodejs libxml2-dev linux-
 # Generate compiled assets + manifests
   && RAILS_ENV=assets rake assets:precompile \
   && rm -rf app/assets test \
-  && rm -rf tmp/* .bundle/cache
+  && rm -rf tmp/* .bundle/cache \
+
+# All files/folders should be owned by root by readable by www-data
+  && find . -type f -print -exec chmod 444 {} \; \
+  && find . -type d -print -exec chmod 555 {} \; \
+  && chown -R 9999:9999 tmp \
+  && chmod 755 db && find tmp -type d -print -exec chmod 755 {} \; \
+  && find bin -type f -print -exec chmod 555 {} \;
 
 FROM alpine:3.6
 
@@ -30,15 +37,8 @@ RUN export BUILD_PKGS="ruby-dev build-base mariadb-dev libxml2-dev linux-headers
 
   && rm -rf /usr/lib/ruby/gems/*/cache ~/.gem /var/cache/* /root \
 
-  && addgroup -g 9999 -S www-data && adduser -u 9999 -H -h /rails-app -S www-data \
+  && addgroup -g 9999 -S www-data && adduser -u 9999 -H -h /rails-app -S www-data
 
-# All files/folders should be owned by root by readable by www-data
-  && find . -type f -print -exec chmod 444 {} \; \
-  && find . -type d -print -exec chmod 555 {} \; \
-
-  && chown -R www-data:www-data tmp \
-  && chmod 755 db && find tmp -type d -print -exec chmod 755 {} \; \
-  && find bin -type f -print -exec chmod 555 {} \;
 ENV RAILS_ENV=production
 USER www-data
 EXPOSE 8080
