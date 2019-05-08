@@ -1,0 +1,16 @@
+plugins:
+  eslint:
+    enabled: true
+    config:
+      extensions:
+      - .js
+      - .es6
+  flog:
+    enabled: true
+    config:
+      score_threshold: 20.0
+  reek:
+    enabled: true
+  rubocop:
+    enabled: true
+  
