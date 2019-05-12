@@ -24,4 +24,6 @@ ResumeWebsite::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = true
+
+  config.active_record.sqlite3.represent_boolean_as_integer = true
 end
