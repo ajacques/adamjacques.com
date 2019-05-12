@@ -33,5 +33,7 @@ group :development do
   gem 'sqlite3'
 end
 
+gem 'aws-sdk-s3', require: false
+gem 'etc' # Alpine Linux does not include this by default
 gem 'nokogiri', '>= 1.8.1'
 gem 'unicorn'

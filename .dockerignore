@@ -5,3 +5,5 @@ db/*.sqlite3
 
 .*
 public/assets
+
+node_modules/

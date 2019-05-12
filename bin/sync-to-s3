@@ -1,0 +1,44 @@
+#!/usr/bin/env ruby
+
+require 'aws-sdk-s3'
+require 'json'
+require 'net/http'
+
+extensions = %w[.css .js .mp4]
+
+bucket = Aws::S3::Resource.new.bucket(ENV['S3_BUCKET_NAME'])
+
+def assets_files
+  Dir.glob('public/assets/.sprockets-manifest-*.json').map do |manifest|
+    JSON.parse(File.read(manifest))['files'].keys
+  end.flatten
+end
+
+def upload_asset(bucket, file)
+  mimes = {
+    '.js' => 'application/javascript',
+    '.css' => 'text/css',
+    '.mp4' => 'video/mp4'
+  }
+  mime = mimes[File.extname(file)]
+  bucket
+    .object("web_content/assets/#{file}")
+    .upload_file("./public/assets/#{file}", cache_control: 'max-age=31556926', content_type: mime)
+end
+
+def http_get
+  url = URI.parse(ENV['URI'])
+  Net::HTTP.get(url)
+end
+
+assets_files
+  .select { |file| extensions.include? File.extname(file) }
+  .map do |file|
+  upload_asset(bucket, file)
+end
+
+bucket.object('web_content/index.html').put(
+  body: http_get,
+  cache_control: 'max-age=3600',
+  content_type: 'text/html'
+)
