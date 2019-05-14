@@ -3,7 +3,6 @@ plugins:
 
 extends:
 - 'eslint:recommended'
-- plugin:react/recommended
 
 parserOptions:
   sourceType: module
@@ -15,45 +14,12 @@ parserOptions:
 globals:
   Routes: true
 
-settings:
-  react:
-    version: '16.2.0'
-
 env:
   browser: true
   es6: true
 
 rules:
   no-undef: error
-
-  # React
-  react/react-in-jsx-scope: error
-  react/jsx-no-undef: error
-  react/jsx-uses-vars: error
-  react/jsx-key: error
-  react/jsx-no-target-blank: error
-  react/jsx-no-duplicate-props: error
-  react/jsx-no-comment-textnodes: error
-  react/jsx-indent:
-  - error
-  - 2
-  react/jsx-curly-spacing: error
-  react/jsx-closing-tag-location: error
-  react/jsx-closing-bracket-location:
-  - error
-  - selfClosing: after-props
-    nonEmpty: after-props
-  react/jsx-tag-spacing: error
-  react/jsx-pascal-case: error
-  react/jsx-wrap-multilines: error
-  react/jsx-equals-spacing: error
-  react/boolean-prop-naming: error
-  react/default-props-match-prop-types: error
-  react/jsx-boolean-value: error
-  react/sort-prop-types: error
-  react/sort-comp: error
-  react/self-closing-comp: error
-
   semi: error
   no-unexpected-multiline: error
   no-extra-parens:
