@@ -106,7 +106,7 @@ ActiveRecord::Schema.define(version: 5) do
     t.integer "organization_id", null: false
     t.integer "people_id", null: false
     t.date "start_date", null: false
-    t.date "end_date", null: false
+    t.date "end_date"
   end
 
   create_table "organizations", force: :cascade do |t|
