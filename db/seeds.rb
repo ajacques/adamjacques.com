@@ -30,3 +30,5 @@ KeyPoint.create(value: 'root', sort: 1, active: 1, sub_points: [
                                     KeyPoint.create(value: 'Excitment', sort: 2, active: 1)
                                   ])
                 ])
+
+Info.create(key: 'sub_title', value: 'SUB TITLE HERE')
