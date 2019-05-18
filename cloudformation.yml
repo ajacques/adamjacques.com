@@ -58,8 +58,7 @@ Resources:
         Origins:
         - Id: staticAssetOrigin
           DomainName:
-            !Sub |-
-              ${WebsiteFileS3Bucket}.s3.amazonaws.com
+            Fn::Sub: ${WebsiteFileS3Bucket}.s3.amazonaws.com
           OriginPath: /web_content
           S3OriginConfig:
             OriginAccessIdentity:
