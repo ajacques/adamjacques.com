@@ -1,5 +1,4 @@
 tmp/*
-var/*
 log/*
 test/*
 db/*.sqlite3

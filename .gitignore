@@ -1,6 +1,5 @@
 log/*
 tmp/*
-var/*
 public/assets/*
 public/packs/*
 db/*.sqlite3
