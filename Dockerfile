@@ -13,10 +13,11 @@ RUN export BUILD_PKGS="ruby-dev build-base mariadb-dev nodejs libxml2-dev linux-
   && rm -rf app/assets test tmp/* .bundle/cache log/* \
 
 # All files/folders should be owned by root by readable by www-data
-  && find . -type f -print -exec chmod 444 {} \; \
+  && find . -type f -exec chmod 444 {} \; \
   && find . -type d -print -exec chmod 555 {} \; \
   && chown -R 9999:9999 tmp \
-  && chmod 755 db && find tmp -type d -print -exec chmod 755 {} \; \
+  && chmod 755 db \
+  && find tmp -type d -print -exec chmod 755 {} \; \
   && find bin -type f -print -exec chmod 555 {} \;
 
 FROM alpine:3.9
@@ -24,7 +25,7 @@ FROM alpine:3.9
 COPY --from=0 /rails-app /rails-app
 WORKDIR /rails-app
 RUN export BUILD_PKGS="ruby-dev build-base mariadb-dev libxml2-dev linux-headers ca-certificates libffi-dev" \
-  && apk --no-cache --upgrade add ruby ruby-json libxml2 mariadb-client ruby-io-console ruby-bigdecimal $BUILD_PKGS \
+  && apk --no-cache --upgrade add ruby ruby-json libxml2 mariadb-client mariadb-connector-c ruby-io-console ruby-bigdecimal $BUILD_PKGS \
 
   && gem install -N bundler \
   && env bundle install --frozen --with production \
