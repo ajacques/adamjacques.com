@@ -10,6 +10,8 @@ RUN export BUILD_PKGS="ruby-dev build-base mariadb-dev nodejs libxml2-dev linux-
 
 # Generate compiled assets + manifests
   && RAILS_ENV=assets rake assets:precompile \
+  && RAILS_ENV=production rake optimize \
+
   && rm -rf app/assets test tmp/* .bundle/cache log/* \
 
 # All files/folders should be owned by root by readable by www-data
