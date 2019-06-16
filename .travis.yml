@@ -1,6 +1,6 @@
 language: ruby
 rvm:
-  - 2.4
+  - 2.5
 cache: bundler
 before_script:
   - bundle exec rake db:create
