@@ -1,33 +1,38 @@
-FROM alpine:3.9
+FROM alpine:3.9 as build
 
-ADD . /rails-app
+RUN mkdir /rails-app
+ADD Gemfile /rails-app
+ADD Gemfile.lock /rails-app
 WORKDIR /rails-app
 RUN export BUILD_PKGS="ruby-dev build-base mariadb-dev nodejs libxml2-dev linux-headers ca-certificates libffi-dev" \
-  && apk --no-cache --upgrade add ruby ruby-json libxml2 mariadb-client ruby-io-console ruby-bigdecimal $BUILD_PKGS \
+  && apk --no-cache --upgrade add ruby ruby-json ruby-etc libxml2 mariadb-client ruby-io-console ruby-bigdecimal $BUILD_PKGS \
 
+  && echo 'gem: --no-document' > /etc/gemrc \
   && gem install -N bundler \
-  && env bundle install --frozen --without test development \
+  && env bundle install --frozen --without test development
 
+ADD . /rails-app
 # Generate compiled assets + manifests
-  && RAILS_ENV=assets rake assets:precompile \
+RUN RAILS_ENV=assets rake assets:precompile \
   && rm -rf app/assets test tmp/* .bundle/cache log/* \
 
-# All files/folders should be owned by root by readable by www-data
+# All files/folders should be owned by root but readable by www-data
   && find . -type f -exec chmod 444 {} \; \
   && find . -type d -print -exec chmod 555 {} \; \
   && chown -R 9999:9999 tmp \
   && chmod 755 db \
   && find tmp -type d -print -exec chmod 755 {} \; \
-  && find bin -type f -print -exec chmod 555 {} \;
+  && find bin runit -type f -print -exec chmod 555 {} \;
 
 FROM alpine:3.9
 
-COPY --from=0 /rails-app /rails-app
+COPY --from=build /rails-app /rails-app
 WORKDIR /rails-app
 RUN export BUILD_PKGS="ruby-dev build-base mariadb-dev libxml2-dev linux-headers ca-certificates libffi-dev" \
-  && apk --no-cache --upgrade add ruby ruby-json libxml2 mariadb-client mariadb-connector-c ruby-io-console ruby-bigdecimal $BUILD_PKGS \
+  && apk --no-cache --upgrade add ruby runit nginx ruby-json ruby-etc libxml2 mariadb-client mariadb-connector-c ruby-io-console ruby-bigdecimal $BUILD_PKGS \
 
   && gem install -N bundler \
+  && echo 'gem: --no-document' > /etc/gemrc \
   && env bundle install --frozen --with production \
 
 # Uninstall development headers/packages
@@ -36,11 +41,12 @@ RUN export BUILD_PKGS="ruby-dev build-base mariadb-dev libxml2-dev linux-headers
   && rm -rf /var/cache/apk/* /lib/apk/db \
 
   && rm -rf /usr/lib/ruby/gems/*/cache ~/.gem /var/cache/* /root \
+  && adduser -u 9999 -H -h /rails-app -S www-data \
 
-  && addgroup -g 9999 -S www-data && adduser -u 9999 -H -h /rails-app -S www-data
+  && mv /rails-app/nginx.conf /etc/nginx/nginx.conf
 
 ENV RAILS_ENV=production
 USER www-data
 EXPOSE 8080
-ENTRYPOINT ["/usr/bin/ruby", "/rails-app/bin/bundle", "exec"]
-CMD ["/usr/bin/unicorn", "-o", "0.0.0.0", "-p", "8080", "--no-default-middleware"]
+EXPOSE 8081
+CMD ["/sbin/runsvdir", "/rails-app/runit"]

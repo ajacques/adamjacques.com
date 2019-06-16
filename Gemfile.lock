@@ -69,7 +69,6 @@ GEM
     crass (1.0.4)
     erubi (1.8.0)
     erubis (2.7.0)
-    etc (1.0.1)
     execjs (2.7.0)
     ffi (1.11.1)
     globalid (0.4.2)
@@ -203,7 +202,6 @@ PLATFORMS
 
 DEPENDENCIES
   aws-sdk-s3
-  etc
   haml
   haml-rails
   mysql2
