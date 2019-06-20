@@ -6,7 +6,6 @@ ADD Gemfile.lock /rails-app
 WORKDIR /rails-app
 RUN export BUILD_PKGS="ruby-dev build-base mariadb-dev nodejs libxml2-dev linux-headers ca-certificates libffi-dev" \
   && apk --no-cache --upgrade add ruby ruby-json ruby-etc libxml2 mariadb-client ruby-io-console ruby-bigdecimal $BUILD_PKGS \
-  && echo 'gem: --no-document' > /etc/gemrc \
   && gem install -N bundler \
   && env bundle install --frozen --without test development
 
@@ -39,7 +38,5 @@ RUN export BUILD_PKGS="ruby-dev build-base mariadb-dev libxml2-dev linux-headers
   && rm -rf /usr/lib/ruby/gems/*/cache ~/.gem /var/cache/* /root \
   && adduser -u 9999 -H -h /rails-app -S www-data
 
-ENV RAILS_ENV=production
-EXPOSE 8080
-EXPOSE 8081
+EXPOSE 8080 8081
 CMD ["/sbin/runsvdir", "/rails-app/runit"]

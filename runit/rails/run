@@ -1,3 +1,4 @@
 #!/bin/sh
 cd /rails-app
+export RAILS_ENV=production
 exec chpst -uwww-data /usr/bin/ruby /rails-app/bin/bundle exec /usr/bin/unicorn -o 0.0.0.0 -p 8080 --no-default-middleware
