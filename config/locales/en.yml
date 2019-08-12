@@ -1,7 +1,7 @@
 en:
   date:
     formats:
-      month_year: '%B %Y'
+      month_year: '%b %Y'
   time:
     formats:
       year: '%Y'
@@ -13,6 +13,7 @@ en:
     present: Present
   resume_section:
     education: Education
-    jobs: Job Experience
+    jobs: Work Experience
+    skills: Skills
   header:
     online_resume: online résumé
