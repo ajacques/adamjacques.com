@@ -1,18 +1,22 @@
-FROM alpine:3.9 as build
+FROM ruby:2.7-alpine3.11 as build
 
-RUN mkdir /rails-app
+RUN export BUILD_PKGS="ruby-dev nodejs build-base mariadb-dev libffi-dev" \
+  && apk --no-cache --upgrade add mariadb-client $BUILD_PKGS \
+  && echo 'gem: --no-document' > /etc/gemrc
+
+WORKDIR /rails-app
 ADD Gemfile /rails-app
 ADD Gemfile.lock /rails-app
-WORKDIR /rails-app
-RUN export BUILD_PKGS="ruby-dev build-base mariadb-dev nodejs libxml2-dev linux-headers ca-certificates libffi-dev" \
-  && apk --no-cache --upgrade add ruby ruby-json ruby-etc libxml2 mariadb-client ruby-io-console ruby-bigdecimal $BUILD_PKGS \
-  && gem install -N bundler \
-  && env bundle install --frozen --without test development
+
+RUN bundle config set without 'test development' \
+  && bundle install
 
 ADD . /rails-app
+
 # Generate compiled assets + manifests
-RUN RAILS_ENV=assets rake assets:precompile \
-  && rm -rf app/assets test tmp/* .bundle/cache log/* \
+RUN export RAILS_ENV=assets \
+  && rake assets:precompile \
+  && rm -rf test tmp/* log/* \
 # All files/folders should be owned by root but readable by www-data
   && find . -type f -exec chmod 444 {} \; \
   && find . -type d -print -exec chmod 555 {} \; \
@@ -20,23 +24,28 @@ RUN RAILS_ENV=assets rake assets:precompile \
   && chmod 755 db \
   && find tmp -type d -print -exec chmod 755 {} \; \
   && find bin runit -type f -print -exec chmod 555 {} \; \
-  && mkdir -m 755 runit/nginx/supervise runit/rails/supervise
+  && mkdir -m 755 runit/nginx/supervise runit/rails/supervise \
+  && rails tmp:create
 
-FROM alpine:3.9
+# Final Phase
+RUN bundle config set without 'test development assets' \
+  && bundle install \
+  && bundle clean --force
 
-COPY --from=build /rails-app /rails-app
-WORKDIR /rails-app
-RUN export BUILD_PKGS="ruby-dev build-base mariadb-dev libxml2-dev linux-headers ca-certificates libffi-dev" \
-  && apk --no-cache --upgrade add ruby runit nginx ruby-json ruby-etc libxml2 mariadb-client mariadb-connector-c ruby-io-console ruby-bigdecimal $BUILD_PKGS \
-  && gem install -N bundler \
-  && echo 'gem: --no-document' > /etc/gemrc \
-  && env bundle install --frozen --with production \
+RUN rm -rf /usr/local/bundle/cache
+
+FROM ruby:2.7-alpine3.11
+
+RUN apk --no-cache --upgrade add runit nginx libxml2 mariadb-client mariadb-connector-c ca-certificates \
 # Uninstall development headers/packages
-  && apk del $BUILD_PKGS \
   && find / -type f -iname \*.apk-new -delete \
   && rm -rf /var/cache/apk/* /lib/apk/db \
   && rm -rf /usr/lib/ruby/gems/*/cache ~/.gem /var/cache/* /root \
   && adduser -u 9999 -H -h /rails-app -S www-data
+
+COPY --from=build /usr/local/bundle /usr/local/bundle
+COPY --from=build /rails-app /rails-app
+WORKDIR /rails-app
 
 EXPOSE 8080 8081
 CMD ["/sbin/runsvdir", "/rails-app/runit"]

@@ -9,5 +9,5 @@ module HamlCompacter
   end
 end
 
-Haml::Parser.send(:prepend, HamlCompacter) if ::Rails.env.production?
+Haml::Parser.prepend(HamlCompacter) if ::Rails.env.production?
 Haml::Template.options[:attr_wrapper] = '"'

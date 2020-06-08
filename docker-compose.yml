@@ -1,0 +1,23 @@
+version: '3.7'
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/rails-app
+      - 'gemsvol:/usr/local/lib/ruby/gems/'
+      - 'binvol:/usr/local/bundle/bin'
+      - 'tmpvol:/rails-app/tmp'
+    expose:
+      - 3000
+    stdin_open: true
+    ports:
+      - '127.0.0.1:32770:3000/tcp'
+    environment:
+      RAILS_ENV: development
+
+volumes:
+  gemsvol:
+  tmpvol:
+  binvol:

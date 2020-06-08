@@ -12,7 +12,8 @@ end
 gem 'tzinfo-data'
 
 group :test, :development do
-  gem 'rubocop'
+  gem 'rubocop', require: false
+  gem 'rubocop-rails', require: false
 end
 
 # Gems used only for assets and not required
