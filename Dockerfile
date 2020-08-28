@@ -1,12 +1,18 @@
-FROM ruby:2.7-alpine3.11 as build
+FROM ruby:2.7-buster AS prereq
 
-RUN export BUILD_PKGS="ruby-dev nodejs build-base mariadb-dev libffi-dev" \
-  && apk --no-cache --upgrade add mariadb-client $BUILD_PKGS \
-  && echo 'gem: --no-document' > /etc/gemrc
+RUN apt-get update && apt-get install --no-install-recommends -qy nodejs
+RUN echo 'gem: --no-document' > /etc/gemrc
 
 WORKDIR /rails-app
 ADD Gemfile /rails-app
 ADD Gemfile.lock /rails-app
+
+# Development is a special target that installs
+FROM prereq AS development
+
+RUN bundle install
+
+FROM prereq AS prep
 
 RUN bundle config set without 'test development' \
   && bundle install

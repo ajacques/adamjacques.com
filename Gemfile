@@ -29,10 +29,13 @@ gem 'webrick', require: false # AWS S3 SDK depends on this
 
 group :assets, :development do
   gem 'sprockets-es6'
+  gem 'libv8', platform: :ruby
+  gem 'therubyracer', platform: :ruby
 end
 
 group :development do
   gem 'sqlite3'
+  gem 'ruby-debug-ide'
 end
 
 gem 'nokogiri', '>= 1.8.1'

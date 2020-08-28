@@ -1,12 +1,20 @@
-version: '3.7'
+version: '3.8'
 services:
   web:
     build:
       context: .
       dockerfile: Dockerfile
+      target: development
+    command:
+      - bundle
+      - exec
+      - rails
+      - server
+      - -b
+      - 0.0.0.0
     volumes:
       - .:/rails-app
-      - 'gemsvol:/usr/local/lib/ruby/gems/'
+#      - 'gemsvol:/usr/local/lib/ruby/gems/'
       - 'binvol:/usr/local/bundle/bin'
       - 'tmpvol:/rails-app/tmp'
     expose:
