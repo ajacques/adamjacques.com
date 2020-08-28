@@ -35,7 +35,8 @@ end
 
 group :development do
   gem 'sqlite3'
-  gem 'ruby-debug-ide'
+  gem 'ruby-debug-ide', require: false
+  gem 'debase', require: false
 end
 
 gem 'nokogiri', '>= 1.8.1'

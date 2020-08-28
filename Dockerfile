@@ -40,7 +40,7 @@ RUN bundle config set without 'test development assets' \
 
 RUN rm -rf /usr/local/bundle/cache
 
-FROM ruby:2.7-alpine3.11
+FROM ruby:2.7-alpine3.12
 
 RUN apk --no-cache --upgrade add runit nginx libxml2 mariadb-client mariadb-connector-c ca-certificates \
 # Uninstall development headers/packages
