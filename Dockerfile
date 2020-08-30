@@ -49,8 +49,8 @@ RUN apk --no-cache --upgrade add runit nginx libxml2 mariadb-client mariadb-conn
   && rm -rf /usr/lib/ruby/gems/*/cache ~/.gem /var/cache/* /root \
   && adduser -u 9999 -H -h /rails-app -S www-data
 
-COPY --from=build /usr/local/bundle /usr/local/bundle
-COPY --from=build /rails-app /rails-app
+COPY --from=prep /usr/local/bundle /usr/local/bundle
+COPY --from=prep /rails-app /rails-app
 WORKDIR /rails-app
 
 EXPOSE 8080 8081
