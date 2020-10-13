@@ -126,11 +126,11 @@ class CreateDatabase < ActiveRecord::Migration[4.2]
     add_index 'projects', ['organization_id']
 
     create_table 'references', force: true do |t|
-      t.integer 'people_id', limit: 2, null: false
+      t.integer 'person_id', limit: 2, null: false
       t.integer 'job_id',    limit: 2, null: false
     end
 
     add_index 'references', ['job_id']
-    add_index 'references', ['people_id']
+    add_index 'references', ['person_id']
   end
 end
