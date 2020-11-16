@@ -1,7 +1,9 @@
 FROM ruby:2.7-buster AS prereq
 
-RUN apt-get update && apt-get install --no-install-recommends -qy nodejs
 RUN echo 'gem: --no-document' > /etc/gemrc
+
+RUN apt-get update
+RUN apt-get install -qy libmariadb3 ruby-dev nodejs build-essential libmariadb-dev libsqlite-dev libffi-dev
 
 WORKDIR /rails-app
 ADD Gemfile /rails-app
@@ -40,18 +42,22 @@ RUN bundle config set without 'test development assets' \
 
 RUN rm -rf /usr/local/bundle/cache
 
-FROM ruby:2.7-alpine3.12
+FROM ruby:2.7-slim-buster
 
-RUN apk --no-cache --upgrade add runit nginx libxml2 mariadb-client mariadb-connector-c ca-certificates \
+RUN apt-get update \
+  && apt-get install -qy --no-install-recommends runit nginx libxml2 libmariadb3 ca-certificates \
 # Uninstall development headers/packages
-  && find / -type f -iname \*.apk-new -delete \
-  && rm -rf /var/cache/apk/* /lib/apk/db \
-  && rm -rf /usr/lib/ruby/gems/*/cache ~/.gem /var/cache/* /root \
-  && adduser -u 9999 -H -h /rails-app -S www-data
+  && apt-get clean autoclean \
+  && apt-get autoremove --yes \
+  && rm -rf /var/lib/{apt,dpkg,cache,log}/ \
+  && rm -rf /var/cache/* /root \
+  && adduser -u 9999 -H -h /rails-app -S www-data \
+  && mkdir /var/lib/nginx/body \
+  && chown www-data:www-data /var/lib/nginx /usr/share/nginx/
 
 COPY --from=prep /usr/local/bundle /usr/local/bundle
 COPY --from=prep /rails-app /rails-app
 WORKDIR /rails-app
 
 EXPOSE 8080 8081
-CMD ["/sbin/runsvdir", "/rails-app/runit"]
+CMD ["/usr/bin/runsvdir", "/rails-app/runit"]
