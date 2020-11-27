@@ -9,7 +9,7 @@ if (document.readyState !== 'loading') {
 <%=
 # WAT?
 require 'net/http'
-uri = URI.parse('https://raw.githubusercontent.com/piwik/piwik/master/js/piwik.js')
+uri = URI.parse('https://raw.githubusercontent.com/matomo-org/matomo/4.x-dev/js/piwik.min.js')
 require 'net/https' if uri.scheme == 'https'
 
 request = Net::HTTP::Get.new(uri.path)
