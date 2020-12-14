@@ -222,7 +222,7 @@ GEM
     unicorn (5.7.0)
       kgio (~> 2.6)
       raindrops (~> 0.7)
-    webrick (1.6.1)
+    webrick (1.7.0)
     websocket-driver (0.7.3)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
