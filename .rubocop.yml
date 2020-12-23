@@ -2,15 +2,18 @@ inherit_mode:
   merge:
     - Exclude
 
+require: rubocop-rails
+
 AllCops:
-  TargetRubyVersion: 2.3
+  TargetRubyVersion: 2.7
+  NewCops: enable
   Exclude:
     - 'db/schema.rb'
 
 Rails:
   Enabled: true
 
-Metrics/LineLength:
+Layout/LineLength:
   Max: 150
 
 Metrics/BlockLength:

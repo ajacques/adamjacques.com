@@ -35,6 +35,4 @@ ResumeWebsite::Application.configure do
   config.active_support.deprecation = :stderr
 
   config.active_support.test_order = :random
-
-  config.active_record.sqlite3.represent_boolean_as_integer = true
 end

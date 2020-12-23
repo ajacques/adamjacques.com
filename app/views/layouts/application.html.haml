@@ -20,7 +20,7 @@
       %meta{ content: Rails.application.config.analytics['beacon_url'], name: 'beacon_url' }
       %meta{ content: Rails.application.config.analytics['site_id'], name: 'beacon_site_id' }
   %body
-    %video.main-video{ autoplay: true, loop: true, muted: true }
+    %video#main-video{ autoplay: true, loop: true, muted: true, playsinline: true }
       %source{ type: 'video/mp4' }
     = render partial: 'layouts/name_banner'
     = yield

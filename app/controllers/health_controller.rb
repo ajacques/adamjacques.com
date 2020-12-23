@@ -1,4 +1,4 @@
-class HealthController < ActionController::Base
+class HealthController < ApplicationController
   def ping
     render text: 'Healthy'
   end

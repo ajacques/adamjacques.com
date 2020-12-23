@@ -14,16 +14,17 @@ def assets_files
   end.flatten
 end
 
-def upload_asset(bucket, file)
+def upload_asset(bucket, file, opts = {})
   mimes = {
     '.js' => 'application/javascript',
     '.css' => 'text/css',
-    '.mp4' => 'video/mp4'
+    '.mp4' => 'video/mp4',
+    '.html' => 'text/html'
   }
   mime = mimes[File.extname(file)]
   bucket
-    .object("web_content/assets/#{file}")
-    .upload_file("./public/assets/#{file}", cache_control: 'max-age=31556926', content_type: mime)
+    .object("web_content/#{file}")
+    .upload_file("./public/#{file}", opts.merge(content_type: mime))
 end
 
 def http_get
@@ -34,7 +35,7 @@ end
 assets_files
   .select { |file| extensions.include? File.extname(file) }
   .map do |file|
-  upload_asset(bucket, file)
+  upload_asset(bucket, "assets/#{file}", cache_control: 'max-age=31556926')
 end
 
 bucket.object('web_content/index.html').put(

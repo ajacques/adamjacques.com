@@ -14,7 +14,8 @@ gem 'tzinfo-data'
 gem 'webpacker'
 
 group :test, :development do
-  gem 'rubocop'
+  gem 'rubocop', require: false
+  gem 'rubocop-rails', require: false
 end
 
 # Gems used only for assets and not required
@@ -25,15 +26,20 @@ group :assets do
   gem 'uglifier'
 end
 
+gem 'aws-sdk-s3', require: false
+gem 'webrick', require: false # AWS S3 SDK depends on this
+
 group :assets, :development do
+  gem 'libv8', platform: :ruby
   gem 'sprockets-es6'
+  gem 'therubyracer', platform: :ruby
 end
 
 group :development do
+  gem 'debase', require: false
+  gem 'ruby-debug-ide', require: false
   gem 'sqlite3'
 end
 
-gem 'aws-sdk-s3', require: false
-gem 'etc' # Alpine Linux does not include this by default
 gem 'nokogiri', '>= 1.8.1'
 gem 'unicorn'
