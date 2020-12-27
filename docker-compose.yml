@@ -4,7 +4,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-      target: development
+      target: prereq
     command:
       - bundle
       - exec
@@ -14,7 +14,7 @@ services:
       - 0.0.0.0
     volumes:
       - .:/rails-app
-#      - 'gemsvol:/usr/local/lib/ruby/gems/'
+      - 'gemsvol:/usr/local/lib/ruby/gems/'
       - 'binvol:/usr/local/bundle/bin'
       - 'tmpvol:/rails-app/tmp'
     expose:

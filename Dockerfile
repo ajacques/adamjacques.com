@@ -6,7 +6,7 @@ RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
 RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
 
 RUN apt-get update
-RUN apt-get install --no-install-recommends -qy libmariadb3 ruby-dev nodejs build-essential \
+RUN apt-get install -qy libmariadb3 ruby-dev nodejs build-essential \
     libmariadb-dev libsqlite-dev libffi-dev yarn
 
 WORKDIR /rails-app
