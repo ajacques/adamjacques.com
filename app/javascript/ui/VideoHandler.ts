@@ -31,8 +31,8 @@ function LoadRandomVideo(): void {
   }
 }
 export default function(): void {
-  videoElement = <HTMLVideoElement> document.getElementById('main-video');
-  nameHeader = <HTMLElement> document.getElementsByTagName('header')[0];
+  videoElement = document.getElementById('main-video') as HTMLVideoElement;
+  nameHeader = document.getElementsByTagName('header')[0] as HTMLElement;
   scrollPosElem = document.getElementById('scroll-pos');
   LoadRandomVideo();
   if (!VideoManifest.disableScrollEffect) {

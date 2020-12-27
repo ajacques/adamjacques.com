@@ -4,6 +4,9 @@ test/*
 db/*.sqlite3
 
 .*
+*.yml
+*.iml
+
 public/assets
 
 node_modules/

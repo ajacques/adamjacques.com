@@ -2,29 +2,41 @@ FROM ruby:2.7-buster AS prereq
 
 RUN echo 'gem: --no-document' > /etc/gemrc
 
+RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
+RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
+
 RUN apt-get update
-RUN apt-get install -qy libmariadb3 ruby-dev nodejs build-essential libmariadb-dev libsqlite-dev libffi-dev
+RUN apt-get install --no-install-recommends -qy libmariadb3 ruby-dev nodejs build-essential \
+    libmariadb-dev libsqlite-dev libffi-dev yarn
 
 WORKDIR /rails-app
-ADD Gemfile /rails-app
-ADD Gemfile.lock /rails-app
 
-# Development is a special target that installs
-FROM prereq AS development
+FROM prereq AS npm
 
-RUN bundle install
+ADD package.json /rails-app
+ADD yarn.lock /rails-app
+
+RUN yarn install
+
+# Development is a special target
+FROM bundle AS development
 
 FROM prereq AS prep
 
+ADD Gemfile /rails-app
+ADD Gemfile.lock /rails-app
+
 RUN bundle config set without 'test development' \
   && bundle install
+
+COPY --from=npm /rails-app/node_modules /rails-app/node_modules
 
 ADD . /rails-app
 
 # Generate compiled assets + manifests
 RUN export RAILS_ENV=assets \
   && rake assets:precompile \
-  && rm -rf test tmp/* log/* \
+  && rm -rf test tmp/* log/* node_modules \
 # All files/folders should be owned by root but readable by www-data
   && find . -type f -exec chmod 444 {} \; \
   && find . -type d -print -exec chmod 555 {} \; \
