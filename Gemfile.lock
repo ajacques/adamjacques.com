@@ -84,9 +84,6 @@ GEM
     builder (3.2.4)
     concurrent-ruby (1.1.7)
     crass (1.0.6)
-    debase (0.2.4.1)
-      debase-ruby_core_source (>= 0.10.2)
-    debase-ruby_core_source (0.10.11)
     erubi (1.10.0)
     erubis (2.7.0)
     execjs (2.7.0)
@@ -185,8 +182,6 @@ GEM
       rubocop (>= 0.90.0, < 2.0)
     rubocop-rake (0.5.1)
       rubocop
-    ruby-debug-ide (0.7.2)
-      rake (>= 0.8.1)
     ruby-progressbar (1.10.1)
     ruby_parser (3.15.0)
       sexp_processor (~> 4.9)
@@ -246,7 +241,6 @@ PLATFORMS
 
 DEPENDENCIES
   aws-sdk-s3
-  debase
   haml
   haml-rails
   libv8
@@ -256,7 +250,6 @@ DEPENDENCIES
   rubocop
   rubocop-rails
   rubocop-rake
-  ruby-debug-ide
   sass-rails
   sprockets-es6
   sqlite3
@@ -268,4 +261,4 @@ DEPENDENCIES
   webrick
 
 BUNDLED WITH
-   2.1.4
+   2.2.3

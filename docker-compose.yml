@@ -6,19 +6,14 @@ services:
       dockerfile: Dockerfile
       target: prereq
     command:
-      - bundle
-      - exec
-      - rails
-      - server
-      - -b
-      - 0.0.0.0
+      - /bin/sh
+      - -c
+      - 'bundle install --deployment --frozen && bundle exec rails server -b 0.0.0.0'
     volumes:
       - .:/rails-app
-      - 'gemsvol:/usr/local/lib/ruby/gems/'
+      - 'gemsvol:/rails-app/vendor/bundle'
       - 'binvol:/usr/local/bundle/bin'
       - 'tmpvol:/rails-app/tmp'
-    expose:
-      - 3000
     stdin_open: true
     ports:
       - '127.0.0.1:32770:3000/tcp'

@@ -37,8 +37,8 @@ group :assets, :development do
 end
 
 group :development do
-  gem 'debase', require: false
-  gem 'ruby-debug-ide', require: false
+  #gem 'debase', require: false
+  #gem 'ruby-debug-ide', require: false
   gem 'sqlite3'
 end
 

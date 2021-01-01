@@ -1,4 +1,4 @@
-FROM ruby:2.7-buster AS prereq
+FROM ruby:3.0-buster AS prereq
 
 RUN echo 'gem: --no-document' > /etc/gemrc
 
@@ -8,6 +8,7 @@ RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources
 RUN apt-get update
 RUN apt-get install -qy libmariadb3 ruby-dev nodejs build-essential \
     libmariadb-dev libsqlite-dev libffi-dev yarn
+RUN gem install bundler
 
 WORKDIR /rails-app
 
@@ -17,9 +18,6 @@ ADD package.json /rails-app
 ADD yarn.lock /rails-app
 
 RUN yarn install
-
-# Development is a special target
-FROM bundle AS development
 
 FROM prereq AS prep
 
@@ -54,7 +52,7 @@ RUN bundle config set without 'test development assets' \
 
 RUN rm -rf /usr/local/bundle/cache
 
-FROM ruby:2.7-slim-buster
+FROM ruby:3.0-slim-buster
 
 RUN apt-get update \
   && apt-get install -qy --no-install-recommends runit nginx libxml2 libmariadb3 ca-certificates \
