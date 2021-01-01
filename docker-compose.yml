@@ -8,7 +8,7 @@ services:
     command:
       - /bin/sh
       - -c
-      - 'bundle install --deployment --frozen && bundle exec rails server -b 0.0.0.0'
+      - 'bundle install --deployment && bundle exec rails server -b 0.0.0.0'
     volumes:
       - .:/rails-app
       - 'gemsvol:/rails-app/vendor/bundle'

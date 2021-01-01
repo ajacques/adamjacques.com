@@ -1,6 +1,16 @@
 require File.expand_path('boot', __dir__)
 
-require 'rails/all'
+require "rails"
+
+%w(
+  active_record/railtie
+  action_controller/railtie
+  action_view/railtie
+  rails/test_unit/railtie
+  sprockets/railtie
+).each do |railtie|
+  require railtie
+end
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
