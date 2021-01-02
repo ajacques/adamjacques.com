@@ -5,6 +5,7 @@
     - if Rails.env.production?
       %link{ href: stylesheet_path('application'), media: 'screen', rel: 'stylesheet' }
       %script{ async: true, defer: true, src: javascript_path('application') }
+      %script{ async: true, defer: true, src: javascript_pack_path('application') }
     - else
       = javascript_include_tag 'application', defer: true
       = stylesheet_link_tag 'application', media: 'all'
