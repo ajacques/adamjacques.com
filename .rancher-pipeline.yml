@@ -1,0 +1,11 @@
+stages:
+- name: compile
+  steps:
+  - publishImageConfig:
+      dockerfilePath: ./Dockerfile
+      buildContext: .
+      tag: ajacques/resume_website:latest
+      pushRemote: true
+      registry: index.docker.io
+timeout: 60
+notification: {}
