@@ -48,7 +48,7 @@ default: &default
     - .gif
     - .jpeg
     - .jpg
-    - .json
+    - .erb
 
 development:
   <<: *default
@@ -58,8 +58,8 @@ development:
   dev_server:
     https: false
     host: 0.0.0.0
-    port: 3050
-    public: localhost:3050
+    port: 3035
+    public: localhost:3035
     hmr: false
     # Inline should be set to true if using HMR
     inline: true
@@ -72,8 +72,7 @@ development:
     headers:
       'Access-Control-Allow-Origin': '*'
     watch_options:
-      ignored: /node_modules/
-      poll: true
+      ignored: '**/node_modules/**'
 
 
 test:

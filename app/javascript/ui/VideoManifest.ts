@@ -11,7 +11,7 @@ interface ManifestSpec {
   disableScrollEffect?: boolean
 }
 
-const VideoManifest: ManifestSpec[] = <ManifestSpec[]> Videos;
+const VideoManifest: ManifestSpec[] = Videos as ManifestSpec[];
 
 const vidCount = VideoManifest.length;
 const manifest = VideoManifest[Math.floor(Math.random() * vidCount * 3) % vidCount];
