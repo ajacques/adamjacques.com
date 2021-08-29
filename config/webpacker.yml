@@ -35,20 +35,16 @@ default: &default
   extensions:
     - .tsx
     - .ts
-    - .mjs
     - .js
     - .sass
     - .scss
     - .css
-    - .module.sass
-    - .module.scss
-    - .module.css
     - .png
     - .svg
     - .gif
     - .jpeg
     - .jpg
-    - .erb
+    - .mp4
 
 development:
   <<: *default

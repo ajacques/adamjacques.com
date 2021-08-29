@@ -9,7 +9,7 @@
 org1 = Organization.create(name: 'The White House', web_page: 'http://www.whitehouse.gov')
 city = Location.create(city: 'Washington', admin_level1: 'District of Columbia', country: 'US', point: 0)
 obama = People.create(name: 'Barack Obama', organization: org1, position: 'The President', email_address: 'a_made_up_email')
-Manager.create(organization: org1, people: obama, start_date: Date.new(2008, 1, 25))
+Manager.create(organization: org1, person: obama, start_date: Date.new(2008, 1, 25))
 job1 = Job.create(
   active: 1,
   start_date: Date.new(2009, 1, 20),

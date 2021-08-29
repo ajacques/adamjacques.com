@@ -1,0 +1,5 @@
+[
+  {"file": "beach.mp4"},
+  {"file": "video.mp4"},
+  {"file": "snoqualmie_falls.mp4", "text": { "x": 10, "y": 70 }, "disable_scroll_effect": true}
+]

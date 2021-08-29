@@ -8,7 +8,7 @@ services:
     command:
       - /bin/sh
       - -c
-      - 'bundle install --deployment && bundle exec rails server -b 0.0.0.0'
+      - 'bundle install --deployment && rm tmp/pids/server.pid && bundle exec rails server -b 0.0.0.0'
     volumes:
       - .:/rails-app
       - 'gemsvol:/rails-app/vendor/bundle'
@@ -19,8 +19,25 @@ services:
       - '127.0.0.1:32770:3000/tcp'
     environment:
       RAILS_ENV: development
+  webpack-dev-server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: prereq
+    command:
+      - /bin/sh
+      - -c
+      - 'bundle install --deployment && rm tmp/pids/server.pid && bundle exec rails server -b 0.0.0.0'
+    volumes:
+      - .:/rails-app
+    stdin_open: true
+    ports:
+      - '127.0.0.1:3050:3050/tcp'
+    environment:
+      RAILS_ENV: development
 
 volumes:
   gemsvol:
   tmpvol:
   binvol:
+  npm:
