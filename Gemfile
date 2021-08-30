@@ -44,3 +44,6 @@ end
 
 gem 'nokogiri', '>= 1.8.1'
 gem 'unicorn'
+
+gem 'sentry-ruby'
+gem 'sentry-rails'
