@@ -52,8 +52,8 @@ end
 
 begin
   assets = []
-  assets.concat!(assets_files)
-  assets.concat!(webpacker_files)
+  assets.concat(assets_files)
+  assets.concat(webpacker_files)
 
   assets
     .select { |file| extensions.include? File.extname(file) }
