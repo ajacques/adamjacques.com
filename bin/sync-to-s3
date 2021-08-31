@@ -66,6 +66,7 @@ begin
     cache_control: 'max-age=3600',
     content_type: 'text/html'
   )
-rescue Error => ex
+rescue Exception => ex
+  puts ex
   Sentry.capture_exception(ex)
 end
