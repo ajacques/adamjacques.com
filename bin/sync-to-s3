@@ -69,4 +69,5 @@ begin
 rescue Exception => ex
   puts ex
   Sentry.capture_exception(ex)
+  raise ex
 end
