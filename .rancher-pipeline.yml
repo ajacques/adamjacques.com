@@ -4,8 +4,7 @@ stages:
   - publishImageConfig:
       dockerfilePath: ./Dockerfile
       buildContext: .
-      tag: resume_website
-      registry: index.docker.io
+      tag: resume_website:${CICD_EXECUTION_SEQUENCE}
 - name: deploy
   steps:
   - applyYamlConfig:
