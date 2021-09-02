@@ -1,0 +1,22 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: deploy-to-s3
+  namespace: personalsites
+spec:
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - args:
+                - bin/sync-to-s3
+              image: ${CICD_IMAGE}:${CICD_EXECUTION_SEQUENCE}
+              name: deploy-to-s3
+              securityContext:
+                allowPrivilegeEscalation: false
+                capabilities: {}
+                privileged: false
+                readOnlyRootFilesystem: false
+                runAsNonRoot: false
+  schedule: 0 3/12 * * *

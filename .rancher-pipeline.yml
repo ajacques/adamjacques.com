@@ -4,8 +4,17 @@ stages:
   - publishImageConfig:
       dockerfilePath: ./Dockerfile
       buildContext: .
-      tag: ajacques/resume_website:latest
-      pushRemote: true
+      tag: resume_website
       registry: index.docker.io
+- name: deploy
+  steps:
+  - applyYamlConfig:
+      path: ./k8s/deployment.yaml
+  - applyYamlConfig:
+      path: ./k8s/upload-cron.yaml
+  when:
+    branch:
+      include:
+        - master
 timeout: 60
 notification: {}

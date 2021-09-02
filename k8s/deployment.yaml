@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: adamjacques
+  namespace: personalsites
+spec:
+  selector:
+    matchLabels:
+      workload.user.cattle.io/workloadselector: deployment-personalsites-adamjacques
+  template:
+    spec:
+      containers:
+        - image: ${CICD_IMAGE}:${CICD_EXECUTION_SEQUENCE}
+          name: main
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities: {}
+            privileged: false
+            procMount: Default
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
