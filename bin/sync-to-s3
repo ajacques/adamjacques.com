@@ -15,7 +15,9 @@ bucket = Aws::S3::Resource.new.bucket(ENV['S3_BUCKET_NAME'])
 def assets_files
   Dir.glob('public/assets/.sprockets-manifest-*.json').map do |manifest|
     JSON.parse(File.read(manifest))['files'].keys
-  end.flatten
+  end.flatten.map do |file|
+    "/#{file}"
+  end
 end
 
 def webpacker_files
@@ -58,7 +60,7 @@ begin
   assets
     .select { |file| extensions.include? File.extname(file) }
     .map do |file|
-    upload_asset(bucket, "assets/#{file}", cache_control: 'max-age=31556926')
+    upload_asset(bucket, "assets#{file}", cache_control: 'max-age=31556926')
   end
 
   bucket.object('web_content/index.html').put(
