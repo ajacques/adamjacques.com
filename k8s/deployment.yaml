@@ -8,6 +8,9 @@ spec:
     matchLabels:
       workload.user.cattle.io/workloadselector: deployment-personalsites-adamjacques
   template:
+    metadata:
+      labels:
+        workload.user.cattle.io/workloadselector: deployment-personalsites-adamjacques
     spec:
       containers:
         - image: ${CICD_IMAGE}:${CICD_EXECUTION_SEQUENCE}
