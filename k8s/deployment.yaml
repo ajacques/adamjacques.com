@@ -14,11 +14,29 @@ spec:
     spec:
       containers:
         - image: ${CICD_IMAGE}:${CICD_EXECUTION_SEQUENCE}
+          imagePullPolicy: IfNotPresent
           name: main
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /ping
+              port: 8080
+              scheme: HTTP
+            initialDelaySeconds: 10
+            periodSeconds: 5
+            successThreshold: 1
+            timeoutSeconds: 2
           securityContext:
             allowPrivilegeEscalation: false
-            capabilities: {}
+            capabilities:
+              add:
+                - SETGID
+                - SETUID
+              drop:
+                - ALL
             privileged: false
             procMount: Default
             readOnlyRootFilesystem: false
             runAsNonRoot: false
+      imagePullSecrets:
+        - name: pipeline-docker-registry
