@@ -1,13 +1,12 @@
 Sentry.init do |config|
   config.breadcrumbs_logger = [:active_support_logger, :http_logger]
 
-  config.traces_sample_rate = 0.5
   config.traces_sampler = lambda do |context|
     unless context[:parent_sampled].nil?
       next context[:parent_sampled]
     end
 
-    transaction_context = sampling_context[:transaction_context]
+    transaction_context = context[:transaction_context]
     op = transaction_context[:op]
     transaction_name = transaction_context[:name]
 
