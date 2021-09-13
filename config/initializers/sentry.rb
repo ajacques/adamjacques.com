@@ -13,7 +13,7 @@ Sentry.init do |config|
     case op
     when /request/
       case transaction_name
-      when 'health#ping'
+      when 'HealthController#ping'
         0
       else
         0.5
