@@ -6,10 +6,16 @@
 // To reference this file, add <%= javascript_pack_tag 'application' %> to the appropriate
 // layout file, like app/views/layouts/application.html.erb
 
+import { InitializeErrorHandler } from '../app/ErrorHandler';
 import VideoHandler from '../ui/VideoHandler';
 
+function InitializeApp() {
+  VideoHandler();
+  InitializeErrorHandler();
+}
+
 if (document.readyState === 'interactive') {
-  window.setTimeout(VideoHandler, 200);
+  window.setTimeout(InitializeApp, 200);
 } else {
-  document.addEventListener('DOMContentLoaded', VideoHandler);
+  document.addEventListener('DOMContentLoaded', InitializeApp);
 }

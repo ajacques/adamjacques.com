@@ -20,6 +20,10 @@
     - if Rails.application.config.respond_to? :analytics
       %meta{ content: Rails.application.config.analytics['beacon_url'], name: 'beacon_url' }
       %meta{ content: Rails.application.config.analytics['site_id'], name: 'beacon_site_id' }
+    - if Sentry.initialized?
+      %meta{ content: ENV['SENTRY_DSN'], name: 'sentry_dsn' }
+      - if Sentry.get_current_scope.get_transaction.present?
+        %meta{ content: Sentry.get_current_scope.get_transaction.sampled.to_s, name: 'is_sampled' }
   %body
     %video#main-video{ autoplay: true, loop: true, muted: true, playsinline: true }
       %source{ type: 'video/mp4' }

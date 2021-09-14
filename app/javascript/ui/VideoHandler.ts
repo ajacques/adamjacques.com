@@ -5,7 +5,6 @@ const HEIGHT_OF_NAME_BOX = 400;
 const DEFAULT_COLOR = 230;
 let videoElement: HTMLVideoElement;
 let nameHeader: HTMLElement;
-let scrollPosElem: HTMLElement;
 let lastColor = DEFAULT_COLOR;
 
 function clamp(input: number): number {
@@ -16,7 +15,6 @@ function HandleScroll(): void {
   const transitionFactor = clamp((window.scrollY - HEIGHT_OF_SKY_REGION_PX) / (window.outerHeight / 2 - HEIGHT_OF_NAME_BOX));
 
   const color = Math.floor(DEFAULT_COLOR * (1 - transitionFactor));
-  scrollPosElem.innerHTML = `${transitionFactor}% ${window.scrollY} - ${color}`;
   if (lastColor === color) {
     return;
   }
@@ -33,7 +31,6 @@ function LoadRandomVideo(): void {
 export default function(): void {
   videoElement = document.getElementById('main-video') as HTMLVideoElement;
   nameHeader = document.getElementsByTagName('header')[0] as HTMLElement;
-  scrollPosElem = document.getElementById('scroll-pos');
   LoadRandomVideo();
   if (!VideoManifest.disableScrollEffect) {
     document.addEventListener('scroll', HandleScroll);
