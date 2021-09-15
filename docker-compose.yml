@@ -8,10 +8,10 @@ services:
     command:
       - /bin/sh
       - -c
-      - 'bundle install --deployment && rm tmp/pids/server.pid && bundle exec rails server -b 0.0.0.0'
+      - 'bundle install && [ -f tmp/pids/server.pid ] && rm tmp/pids/server.pid; bundle exec rails server -b 0.0.0.0'
     volumes:
       - .:/rails-app
-      - 'gemsvol:/rails-app/vendor/bundle'
+      - 'gemsvol:/usr/local/bundle/gems'
       - 'binvol:/usr/local/bundle/bin'
       - 'tmpvol:/rails-app/tmp'
     stdin_open: true
@@ -30,6 +30,9 @@ services:
       - 'bundle install --deployment && rm tmp/pids/server.pid && bundle exec rails server -b 0.0.0.0'
     volumes:
       - .:/rails-app
+      - 'gemsvol:/usr/local/bundle/gems'
+      - 'binvol:/usr/local/bundle/bin'
+      - 'tmpvol:/rails-app/tmp'
     stdin_open: true
     ports:
       - '127.0.0.1:3050:3050/tcp'
