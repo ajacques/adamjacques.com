@@ -8,10 +8,12 @@
 
 import { InitializeErrorHandler } from '../app/ErrorHandler';
 import VideoHandler from '../ui/VideoHandler';
+import {RegisterMetrics} from "../app/Matomo";
 
 function InitializeApp() {
-  VideoHandler();
   InitializeErrorHandler();
+  VideoHandler();
+  RegisterMetrics();
 }
 
 if (document.readyState === 'interactive') {
