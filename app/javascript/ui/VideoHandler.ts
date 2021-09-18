@@ -21,6 +21,7 @@ function HandleScroll(): void {
   lastColor = color;
   nameHeader.style.color = `rgb(${color},${color},${color})`;
 }
+
 function LoadRandomVideo(): void {
   videoElement.src = VideoManifest.file;
   if (VideoManifest.text) {
@@ -28,6 +29,7 @@ function LoadRandomVideo(): void {
     nameHeader.style.left = VideoManifest.text.x + '%';
   }
 }
+
 export default function(): void {
   videoElement = document.getElementById('main-video') as HTMLVideoElement;
   nameHeader = document.getElementsByTagName('header')[0] as HTMLElement;
