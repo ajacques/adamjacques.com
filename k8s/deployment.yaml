@@ -9,6 +9,8 @@ spec:
       workload.user.cattle.io/workloadselector: deployment-personalsites-adamjacques
   template:
     metadata:
+      annotations:
+        net.technowizardry.upgrade/skip: "true"
       labels:
         workload.user.cattle.io/workloadselector: deployment-personalsites-adamjacques
     spec:
