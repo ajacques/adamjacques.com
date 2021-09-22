@@ -10,9 +10,14 @@ export function InitializeErrorHandler() {
     const isSampled = Boolean(GetConfig("is_sampled"));
     Sentry.init({
         dsn: sentryDsn,
+        autoSessionTracking: true,
         tracesSampler: () => isSampled,
         integrations: [
-            new Integrations.BrowserTracing()
+            new Integrations.BrowserTracing({
+                _metricOptions: {
+                    _reportAllChanges: true
+                }
+            })
         ]
     });
 }

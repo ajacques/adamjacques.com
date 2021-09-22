@@ -1,14 +1,13 @@
 {
   "dependencies": {
     "@babel/preset-typescript": "^7.14.5",
-    "@rails/webpacker": "5.4.2",
-    "@sentry/browser": "^5.29.2",
-    "@sentry/tracing": "^6.12.0",
+    "@rails/webpacker": "^5.4.3",
+    "@sentry/browser": "^6.13.2",
+    "@sentry/tracing": "^6.13.2",
     "core-js": "^3.16.4",
     "json-loader": "^0.5.7",
     "ts-loader": "^8.0.12",
-    "typescript": "^4.3.5",
-    "webpack": "^4.46.0"
+    "typescript": "^4.3.5"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.14.8",
