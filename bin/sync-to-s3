@@ -49,7 +49,7 @@ def http_get
   url = URI.parse(ENV['URI'])
   response = Net::HTTP.get_response(url)
   raise 'Non 200 from website' unless response.code == '200'
-  response.value
+  response.body
 end
 
 begin
