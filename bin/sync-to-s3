@@ -16,7 +16,7 @@ def assets_files
   Dir.glob('public/assets/.sprockets-manifest-*.json').map do |manifest|
     JSON.parse(File.read(manifest))['files'].keys
   end.flatten.map do |file|
-    "assets/#{file}"
+    "/assets/#{file}"
   end
 end
 
@@ -41,7 +41,7 @@ def upload_asset(bucket, file, opts = {})
   mime = mimes[File.extname(file)]
   log "Uploading #{file}"
   bucket
-    .object("web_content/#{file}")
+    .object("web_content#{file}")
     .upload_file("./public/#{file}", opts.merge(content_type: mime))
 end
 
