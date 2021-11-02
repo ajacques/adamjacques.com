@@ -10,4 +10,12 @@ module ResumeHelper
   def year_month(date)
     l date, format: :month_year
   end
+
+  def sample_blog_posts
+    resp = Net::HTTP.get(URI.parse('https://www.technowizardry.net/author/adam-jacques/feed/'))
+    SimpleRSS.parse(resp).items
+  rescue SocketError, Errno::ENETUNREACH, OpenSSL::SSL::SSLError => e
+    Sentry.capture_exception(e)
+    []
+  end
 end

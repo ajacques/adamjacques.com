@@ -1,0 +1,15 @@
+@import 'variables';
+
+$entry-color: darken($base-section-color, 5%);
+
+.blog-entry {
+  background-color: $entry-color;
+  border: solid thin darken($entry-color, 7%);
+  border-radius: 4px;
+  margin: 1em 0;
+  padding: 1em 0.5em;
+
+  & > h5 {
+    padding-bottom: 0.5em;
+  }
+}

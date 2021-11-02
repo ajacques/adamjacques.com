@@ -1,5 +1,19 @@
 %main
   %section
+    %h1.section-header= t 'blog_section.title'
+    .content
+      %p= t 'blog_section.description'
+      - blog_posts = sample_blog_posts
+      - unless blog_posts.empty?
+        %h3= t 'blog_section.sample_posts'
+        - blog_posts.first(3).map do |post|
+          .blog-entry
+            %h5
+              %a{ href: post[:link] }= raw post[:title]
+            %p= raw post[:description]
+        %a{ href: 'https://www.technowizardry.net/author/adam-jacques/' }= t 'blog_section.blog_name'
+
+  %section
     %h1.section-header= t 'resume_section.jobs'
     .content= render partial: 'job_credential', collection: @resume.jobs, as: :job
   %section

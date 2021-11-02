@@ -47,3 +47,6 @@ gem 'unicorn'
 
 gem 'sentry-ruby'
 gem 'sentry-rails'
+
+gem 'simple-rss'
+

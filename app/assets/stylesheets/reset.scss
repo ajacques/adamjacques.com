@@ -1,6 +1,5 @@
 /* Basic CSS Reset */
-$link-color: #0000ff;
-$link-color-hover: #ff0000;
+@import 'variables';
 
 * {
 	margin: 0;
@@ -10,14 +9,12 @@ $link-color-hover: #ff0000;
 }
 
 a:link, a:visited {
-	color: $link-color;
+	color: $blue-accent;
 	text-decoration: none;
-	transition-duration: 0.5s;
+	transition-duration: 0.1s;
 	transition-property: color;
-	-webkit-transition-duration: 0.5s;
-	-webkit-transition-property: color;
 }
 
 a:hover {
-	color: $link-color-hover;
+	color: darken(desaturate($blue-accent, 70), 40);
 }

@@ -15,5 +15,10 @@ en:
     education: Education
     jobs: Work Experience
     skills: Skills
+  blog_section:
+    title: Blog Posts
+    description: I occasionally write blog posts where I talk about software, hardware, or even plants that I'm working on.
+    blog_name: Read all my posts
+    sample_posts: Recent Posts
   header:
     online_resume: online résumé
