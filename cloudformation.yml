@@ -1,8 +1,4 @@
 Parameters:
-  OriginAccessIdentityID:
-    Type: String
-    Description: Identity for CloudFront to connect to the static file S3 bucket.
-      ID (ex. E1YXXXXXX)
   DomainName:
     Type: String
     Description: Domain name for the CDN + Certificate
@@ -14,35 +10,40 @@ Resources:
   StaticS3Permission:
     Type: AWS::S3::BucketPolicy
     DependsOn:
-    - WebsiteFileS3Bucket
+      - WebsiteFileS3Bucket
     Properties:
       Bucket:
         Ref: WebsiteFileS3Bucket
       PolicyDocument:
         Statement:
-        - Action:
-          - s3:GetObject
-          Effect: Allow
-          Resource:
-            Fn::Sub: arn:aws:s3:::${WebsiteFileS3Bucket}/web_content/*
-          Condition:
-            Bool:
-              aws:SecureTransport: 'true'
-          Principal:
-            AWS:
-              !Sub |-
-                arn:aws:iam::cloudfront:user/CloudFront Origin Access Identity ${OriginAccessIdentityID}
+          - Action:
+              - s3:GetObject
+            Effect: Allow
+            Resource:
+              Fn::Sub: arn:aws:s3:::${WebsiteFileS3Bucket}/web_content/*
+            Condition:
+              Bool:
+                aws:SecureTransport: 'true'
+            Principal:
+              AWS:
+                Fn::Sub: arn:aws:iam::cloudfront:user/CloudFront Origin Access Identity ${CloudFrontAccessIdentity}
   Certificate:
     Type: AWS::CertificateManager::Certificate
     Properties:
       DomainName:
         Ref: DomainName
+      ValidationMethod: DNS
+  CloudFrontAccessIdentity:
+    Type: AWS::CloudFront::CloudFrontOriginAccessIdentity
+    Properties:
+      CloudFrontOriginAccessIdentityConfig:
+        Comment: AdamJacques.com
   ExternalCloudFront:
     Type: AWS::CloudFront::Distribution
     Properties:
       DistributionConfig:
         Aliases:
-        - Ref: DomainName
+          - Ref: DomainName
         DefaultCacheBehavior:
           TargetOriginId: staticAssetOrigin
           ViewerProtocolPolicy: redirect-to-https
@@ -51,18 +52,18 @@ Resources:
             Cookies:
               Forward: whitelist
               WhitelistedNames:
-              - rack.session
+                - rack.session
         DefaultRootObject: index.html
         Enabled: true
         HttpVersion: http2
         Origins:
-        - Id: staticAssetOrigin
-          DomainName:
-            Fn::Sub: ${WebsiteFileS3Bucket}.s3.amazonaws.com
-          OriginPath: /web_content
-          S3OriginConfig:
-            OriginAccessIdentity:
-              Fn::Sub: origin-access-identity/cloudfront/${OriginAccessIdentityID}
+          - Id: staticAssetOrigin
+            DomainName:
+              Fn::Sub: ${WebsiteFileS3Bucket}.s3.amazonaws.com
+            OriginPath: /web_content
+            S3OriginConfig:
+              OriginAccessIdentity:
+                Fn::Sub: origin-access-identity/cloudfront/${CloudFrontAccessIdentity}
         PriceClass: PriceClass_100
         ViewerCertificate:
           AcmCertificateArn:
@@ -72,18 +73,18 @@ Resources:
     Type: AWS::IAM::User
     Properties:
       Policies:
-      - PolicyName: CanUploadFiles
-        PolicyDocument:
-          Version: '2012-10-17'
-          Statement:
-          - Action:
-            - s3:PutObject
-            Effect: Allow
-            Resource:
-              Fn::Sub: arn:aws:s3:::${WebsiteFileS3Bucket}/web_content/*
-            Condition:
-              Bool:
-                aws:SecureTransport: 'true'
+        - PolicyName: CanUploadFiles
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Action:
+                  - s3:PutObject
+                Effect: Allow
+                Resource:
+                  Fn::Sub: arn:aws:s3:::${WebsiteFileS3Bucket}/web_content/*
+                Condition:
+                  Bool:
+                    aws:SecureTransport: 'true'
 Outputs:
   WebsiteS3Bucket:
     Description: Stores static content for website
@@ -93,5 +94,5 @@ Outputs:
     Description: Raw CloudFront hostname
     Value:
       Fn::GetAtt:
-      - ExternalCloudFront
-      - DomainName
+        - ExternalCloudFront
+        - DomainName
