@@ -11,7 +11,7 @@ spec:
           containers:
             - args:
                 - bin/sync-to-s3
-              image: ${CICD_IMAGE}:${CICD_EXECUTION_SEQUENCE}
+              image: ajacques/resume_website
               name: deploy-to-s3
               securityContext:
                 allowPrivilegeEscalation: false

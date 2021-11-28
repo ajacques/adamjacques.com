@@ -15,7 +15,7 @@ spec:
         workload.user.cattle.io/workloadselector: deployment-personalsites-adamjacques
     spec:
       containers:
-        - image: ${CICD_IMAGE}:${CICD_EXECUTION_SEQUENCE}
+        - image: ajacques/resume_website
           imagePullPolicy: IfNotPresent
           name: main
           livenessProbe:
