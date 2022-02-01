@@ -18,6 +18,9 @@ spec:
         - image: ajacques/resume_website
           imagePullPolicy: IfNotPresent
           name: main
+          env:
+            - name: OTEL_PROPAGATORS
+              value: tracecontext,baggage,b3
           livenessProbe:
             failureThreshold: 3
             httpGet:
