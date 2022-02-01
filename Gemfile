@@ -50,3 +50,9 @@ gem 'sentry-rails'
 
 gem 'simple-rss'
 
+# Telemetry
+gem 'opentelemetry-sdk'
+gem 'opentelemetry-exporter-otlp'
+gem 'opentelemetry-instrumentation-faraday'
+gem 'opentelemetry-instrumentation-mysql2'
+gem 'opentelemetry-instrumentation-rails'
