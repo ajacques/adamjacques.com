@@ -13,4 +13,4 @@ OpenTelemetry::SDK.configure do |c|
 end
 
 # Parent is NGINX
-OpenTelemetry.tracer_provider.sampler = OpenTelemetry::SDK::Trace::Samplers.parent_based(root: :always_off)
+OpenTelemetry.tracer_provider.sampler = OpenTelemetry::SDK::Trace::Samplers.parent_based(root: OpenTelemetry::SDK::Trace::Samplers::ALWAYS_OFF)
