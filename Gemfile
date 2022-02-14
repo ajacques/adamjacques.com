@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 
 gem 'rails'
 gem 'sprockets-rails'
+gem 'unicorn'
 
 gem 'haml'
 gem 'haml-rails'
@@ -18,6 +19,8 @@ group :test, :development do
   gem 'rubocop', require: false
   gem 'rubocop-rails', require: false
   gem 'rubocop-rake', require: false
+
+  gem "webmock", "~> 3.14"
 end
 
 # Gems used only for assets and not required
@@ -44,17 +47,17 @@ group :development do
 end
 
 gem 'nokogiri', '>= 1.8.1'
-gem 'unicorn'
 
 gem 'sentry-ruby'
 gem 'sentry-rails'
 
-gem 'simple-rss'
+gem 'faraday'
 
 # Telemetry
 gem 'opentelemetry-sdk'
 gem 'opentelemetry-propagator-b3'
 gem 'opentelemetry-exporter-otlp'
-gem 'opentelemetry-instrumentation-net_http'
+gem 'opentelemetry-instrumentation-faraday'
 gem 'opentelemetry-instrumentation-mysql2'
 gem 'opentelemetry-instrumentation-rails'
+
