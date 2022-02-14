@@ -28,7 +28,7 @@ module ResumeHelper
         post[:link] = uri.to_s
         html = Nokogiri::HTML5::DocumentFragment.parse(post.at_xpath('description').text)
         more = html.at_css('.more-link')
-        more['href'] = uri.to_s
+        more['href'] = uri.to_s if more.present?
 
         {
           description: html.to_html,
