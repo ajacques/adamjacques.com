@@ -4,14 +4,17 @@ metadata:
   name: deploy-to-s3
   namespace: personalsites
 spec:
+  concurrencyPolicy: Forbid
   jobTemplate:
     spec:
+      backoffLimit: 1
       template:
         spec:
           containers:
             - args:
                 - bin/sync-to-s3
               image: ajacques/resume_website
+              imagePullPolicy: IfNotPresent
               name: deploy-to-s3
               securityContext:
                 allowPrivilegeEscalation: false
