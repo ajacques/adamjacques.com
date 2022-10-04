@@ -105,7 +105,7 @@ GEM
     ffi (1.15.5)
     globalid (1.0.0)
       activesupport (>= 5.0)
-    google-protobuf (3.19.4)
+    google-protobuf (3.21.7)
     haml (5.2.2)
       temple (>= 0.8.0)
       tilt
