@@ -1,4 +1,4 @@
-FROM ruby:3.1.2-buster AS prereq
+FROM ruby:3.1.3-buster AS prereq
 
 RUN echo 'gem: --no-document' > /etc/gemrc
 
@@ -52,7 +52,7 @@ RUN bundle config set without 'test development assets' \
 
 RUN rm -rf /usr/local/bundle/cache
 
-FROM ruby:3.1.2-buster
+FROM ruby:3.1.3-buster
 
 RUN apt-get update \
   && apt-get install -qy --no-install-recommends runit nginx libxml2 libmariadb3 ca-certificates \
