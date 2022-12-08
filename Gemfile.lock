@@ -152,7 +152,7 @@ GEM
       net-protocol
       timeout
     nio4r (2.5.8)
-    nokogiri (1.13.8)
+    nokogiri (1.13.10)
       mini_portile2 (~> 2.8.0)
       racc (~> 1.4)
     opentelemetry-api (1.0.2)
@@ -212,7 +212,7 @@ GEM
     parser (3.1.0.0)
       ast (~> 2.4.1)
     public_suffix (4.0.6)
-    racc (1.6.0)
+    racc (1.6.1)
     rack (2.2.3)
     rack-proxy (0.7.2)
       rack
