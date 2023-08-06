@@ -4,10 +4,10 @@
     %title= full_name
     - if Rails.env.production?
       %link{ href: stylesheet_path('application'), media: 'screen', rel: 'stylesheet' }
-      %script{ async: true, defer: true, src: asset_pack_path('application.js') }
+      %script{ async: true, defer: true, src: javascript_path('application.js') }
     - else
       = stylesheet_link_tag 'application', media: 'all'
-      = javascript_pack_tag 'application'
+      = javascript_include_tag 'application'
     - if content_for? :head
       = yield :head
     %meta{ charset: 'utf-8' }

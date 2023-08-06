@@ -18,8 +18,11 @@ spec:
               name: deploy-to-s3
               securityContext:
                 allowPrivilegeEscalation: false
-                capabilities: {}
+                capabilities:
+                  drop:
+                    - ALL
                 privileged: false
-                readOnlyRootFilesystem: false
-                runAsNonRoot: false
+                readOnlyRootFilesystem: true
+                runAsNonRoot: true
+                runAsUser: 33
   schedule: 0 3/12 * * *

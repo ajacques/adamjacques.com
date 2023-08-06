@@ -14,8 +14,20 @@ spec:
       labels:
         workload.user.cattle.io/workloadselector: deployment-personalsites-adamjacques
     spec:
+      automountServiceAccountToken: false
       containers:
-        - image: ajacques/resume_website
+        - args:
+            - /rails-app/bin/bundle
+            - exec
+            - unicorn
+            - '-o'
+            - 0.0.0.0
+            - '-p'
+            - '8080'
+            - '--no-default-middleware'
+          command:
+            - /usr/local/bin/ruby
+          image: ajacques/resume_website
           imagePullPolicy: IfNotPresent
           name: main
           env:
@@ -34,14 +46,33 @@ spec:
           securityContext:
             allowPrivilegeEscalation: false
             capabilities:
-              add:
-                - SETGID
-                - SETUID
               drop:
                 - ALL
             privileged: false
             procMount: Default
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
+            runAsUser: 33
+        - args:
+              - '-c'
+              - /rails-app/nginx.conf
+          command:
+            - /usr/sbin/nginx
+          image: ajacques/resume_website
+          imagePullPolicy: IfNotPresent
+          name: nginx
+          resources: {}
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              add:
+                - NET_BIND_SERVICE
+              drop:
+                - ALL
+            privileged: false
             readOnlyRootFilesystem: false
-            runAsNonRoot: false
+            runAsNonRoot: true
+            runAsUser: 33
+      enableServiceLinks: false
       imagePullSecrets:
         - name: pipeline-docker-registry

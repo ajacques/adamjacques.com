@@ -80,6 +80,7 @@ Resources:
             Statement:
               - Action:
                   - s3:PutObject
+                  - s3:GetObject
                 Effect: Allow
                 Resource:
                   Fn::Sub: arn:aws:s3:::${WebsiteFileS3Bucket}/web_content/*

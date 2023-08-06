@@ -1,5 +1,4 @@
 import * as Sentry from '@sentry/browser';
-import { Integrations } from "@sentry/tracing";
 import { GetConfig } from './Config';
 
 export function InitializeErrorHandler() {
@@ -13,11 +12,7 @@ export function InitializeErrorHandler() {
         autoSessionTracking: true,
         tracesSampler: () => isSampled,
         integrations: [
-            new Integrations.BrowserTracing({
-                _metricOptions: {
-                    _reportAllChanges: true
-                }
-            })
+            new Sentry.BrowserTracing()
         ]
     });
 }

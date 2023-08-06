@@ -13,14 +13,12 @@ end
 
 gem 'tzinfo-data'
 
-gem 'webpacker'
-
 group :test, :development do
   gem 'rubocop', require: false
   gem 'rubocop-rails', require: false
   gem 'rubocop-rake', require: false
 
-  gem "webmock", "~> 3.14"
+  gem 'webmock', '~> 3.14'
 end
 
 # Gems used only for assets and not required
@@ -35,15 +33,13 @@ gem 'aws-sdk-s3', require: false
 gem 'webrick', require: false # AWS S3 SDK depends on this
 
 group :assets, :development do
+
+  gem 'jsbundling-rails'
   gem 'libv8', platform: :ruby
   gem 'sprockets-es6'
-  gem 'therubyracer', platform: :ruby
-end
-
-group :development do
-  #gem 'debase', require: false
-  #gem 'ruby-debug-ide', require: false
+  gem 'mini_racer', platform: :ruby
   gem 'sqlite3'
+  gem 'terser'
 end
 
 gem 'nokogiri', '>= 1.8.1'

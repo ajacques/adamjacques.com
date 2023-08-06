@@ -1,13 +1,15 @@
-FROM ruby:3.1.2-buster AS prereq
+FROM ruby:3.2.2-bookworm AS prereq
 
 RUN echo 'gem: --no-document' > /etc/gemrc
 
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
 RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
 
+RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash -
+
 RUN apt-get update
 RUN apt-get install -qy libmariadb3 ruby-dev nodejs build-essential \
-    libmariadb-dev libsqlite-dev libffi-dev yarn
+    libmariadb-dev libsqlite3-dev libffi-dev yarn
 RUN gem install bundler
 
 WORKDIR /rails-app
@@ -32,18 +34,17 @@ COPY --from=npm /rails-app/node_modules /rails-app/node_modules
 ADD . /rails-app
 
 # Generate compiled assets + manifests
-RUN export RAILS_ENV=assets \
-  && rake assets:precompile \
-  && rm -rf test tmp/* log/* node_modules \
+RUN RAILS_ENV=assets rake assets:precompile
+RUN rm -rf test tmp/* log/* node_modules
 # All files/folders should be owned by root but readable by www-data
-  && find . -type f -exec chmod 444 {} \; \
-  && find . -type d -print -exec chmod 555 {} \; \
-  && chown -R 9999:9999 tmp \
-  && chmod 755 db \
-  && find tmp -type d -print -exec chmod 755 {} \; \
-  && find bin runit -type f -print -exec chmod 555 {} \; \
-  && mkdir -m 755 runit/nginx/supervise runit/rails/supervise \
-  && rails tmp:create
+RUN find . -type f -exec chmod 444 {} \;
+RUN find . -type d -print -exec chmod 555 {} \;
+RUN chown -R 9999:9999 tmp
+RUN chmod 755 db
+RUN find tmp -type d -print -exec chmod 755 {} \;
+RUN find bin runit -type f -print -exec chmod 555 {} \;
+RUN mkdir -m 755 runit/nginx/supervise runit/rails/supervise
+RUN mkdir -p tmp/
 
 # Final Phase
 RUN bundle config set without 'test development assets' \
@@ -52,10 +53,10 @@ RUN bundle config set without 'test development assets' \
 
 RUN rm -rf /usr/local/bundle/cache
 
-FROM ruby:3.1.2-buster
+FROM ruby:3.2.2-bookworm
 
 RUN apt-get update \
-  && apt-get install -qy --no-install-recommends runit nginx libxml2 libmariadb3 ca-certificates \
+  && apt-get install -qy --no-install-recommends nginx libxml2 libmariadb3 ca-certificates \
 # Uninstall development headers/packages
   && apt-get clean autoclean \
   && apt-get autoremove --yes \
@@ -70,4 +71,3 @@ COPY --from=prep /rails-app /rails-app
 WORKDIR /rails-app
 
 EXPOSE 8080 8081
-CMD ["/usr/bin/runsvdir", "/rails-app/runit"]
