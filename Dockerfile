@@ -1,4 +1,6 @@
-FROM ruby:3.2.2-bookworm AS prereq
+FROM ruby:3.2.2-bookworm AS base
+
+FROM base AS prereq
 
 RUN echo 'gem: --no-document' > /etc/gemrc
 
@@ -34,17 +36,20 @@ COPY --from=npm /rails-app/node_modules /rails-app/node_modules
 ADD . /rails-app
 
 # Generate compiled assets + manifests
-RUN RAILS_ENV=assets rake assets:precompile
-RUN rm -rf test tmp/* log/* node_modules
+
+RUN SKIP_YARN_INSTALL=true RAILS_ENV=assets rake javascript:build
+
+# For some reason, building JS at the same time as Sprockets causes the Webpack artifacts to get built
+# So instead, we have to build it twice. Maybe a race condition?
+RUN SKIP_JS_BUILD=true RAILS_ENV=assets rake assets:precompile
+
+RUN rm -rf test tmp/* log/* node_modules app/{assets,javascript}
 # All files/folders should be owned by root but readable by www-data
 RUN find . -type f -exec chmod 444 {} \;
 RUN find . -type d -print -exec chmod 555 {} \;
 RUN chown -R 9999:9999 tmp
 RUN chmod 755 db
 RUN find tmp -type d -print -exec chmod 755 {} \;
-RUN find bin runit -type f -print -exec chmod 555 {} \;
-RUN mkdir -m 755 runit/nginx/supervise runit/rails/supervise
-RUN mkdir -p tmp/
 
 # Final Phase
 RUN bundle config set without 'test development assets' \
@@ -53,13 +58,10 @@ RUN bundle config set without 'test development assets' \
 
 RUN rm -rf /usr/local/bundle/cache
 
-FROM ruby:3.2.2-bookworm
+FROM base
 
 RUN apt-get update \
   && apt-get install -qy --no-install-recommends nginx libxml2 libmariadb3 ca-certificates \
-# Uninstall development headers/packages
-  && apt-get clean autoclean \
-  && apt-get autoremove --yes \
   && rm -rf /var/lib/{apt,dpkg,cache,log}/ \
   && rm -rf /var/cache/* /root \
   && adduser -u 9999 -H -h /rails-app -S www-data \

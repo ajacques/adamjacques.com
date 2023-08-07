@@ -7,7 +7,6 @@ Rails.application.configure do
   config.eager_load = false
 
   # Compress JavaScripts and CSS.
-  config.assets.js_compressor = :terser
   config.assets.css_compressor = :sass
 
   # Generate digests for assets URLs.
