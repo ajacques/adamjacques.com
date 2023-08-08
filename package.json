@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "@sentry/browser": "^7.53.1",
+    "@sentry/browser": "^7.61.1",
     "core-js": "^3.30.2",
     "css-loader": "^6.8.1",
     "mini-css-extract-plugin": "^2.7.6",
