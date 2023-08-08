@@ -1,6 +1,7 @@
 import { InitializeErrorHandler } from '../app/ErrorHandler';
 import VideoHandler from '../ui/VideoHandler';
 import { RegisterMetrics } from "../app/Matomo";
+import '../../assets/stylesheets/application.css'
 
 function InitializeApp() {
   InitializeErrorHandler();

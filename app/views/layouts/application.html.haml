@@ -4,7 +4,7 @@
     %title= full_name
     - if Rails.env.production?
       %link{ href: stylesheet_path('application'), media: 'screen', rel: 'stylesheet' }
-      %script{ async: true, defer: true, src: javascript_path('application.js') }
+      %script{ async: true, defer: true, src: javascript_path('application') }
     - else
       = stylesheet_link_tag 'application', media: 'all'
       = javascript_include_tag 'application'

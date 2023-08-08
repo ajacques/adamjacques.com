@@ -36,12 +36,9 @@ COPY --from=npm /rails-app/node_modules /rails-app/node_modules
 ADD . /rails-app
 
 # Generate compiled assets + manifests
+FROM prep as finalprep
 
 RUN SKIP_YARN_INSTALL=true RAILS_ENV=assets rake javascript:build
-
-# For some reason, building JS at the same time as Sprockets causes the Webpack artifacts to get built
-# So instead, we have to build it twice. Maybe a race condition?
-RUN SKIP_JS_BUILD=true RAILS_ENV=assets rake assets:precompile
 
 RUN rm -rf test tmp/* log/* node_modules app/{assets,javascript}
 # All files/folders should be owned by root but readable by www-data
@@ -56,8 +53,6 @@ RUN bundle config set without 'test development assets' \
   && bundle install \
   && bundle clean --force
 
-RUN rm -rf /usr/local/bundle/cache
-
 FROM base
 
 RUN apt-get update \
@@ -68,8 +63,8 @@ RUN apt-get update \
   && mkdir /var/lib/nginx/body \
   && chown www-data:www-data /var/lib/nginx /usr/share/nginx/
 
-COPY --from=prep /usr/local/bundle /usr/local/bundle
-COPY --from=prep /rails-app /rails-app
+COPY --from=finalprep /usr/local/bundle /usr/local/bundle
+COPY --from=finalprep /rails-app /rails-app
 WORKDIR /rails-app
 
 EXPOSE 8080 8081
