@@ -50,7 +50,7 @@ module.exports = {
       filename: "[name]-[contenthash].css"
     }),
     new WebpackSprocketsRailsManifestPlugin({
-      manifestFile: `.sprockets-manifest-${crypto.randomBytes(8).toString("hex")}.json`
+      manifestFile: `.sprockets-manifest-${crypto.randomBytes(16).toString("hex")}.json`
     })
   ],
   resolve: {
