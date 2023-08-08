@@ -9,7 +9,7 @@
     "style-loader": "^3.3.3",
     "terser": "^5.19.2",
     "typescript": "^5.0.4",
-    "webpack": "^5.85.0",
+    "webpack": "^5.88.2",
     "webpack-sprockets-rails-manifest-plugin": "^0.0.4"
   },
   "devDependencies": {
@@ -20,8 +20,8 @@
     "@types/webpack-env": "^1.18.1",
     "file-loader": "^6.2.0",
     "ts-loader": "^9.4.4",
-    "webpack-cli": "^5.1.1",
-    "webpack-dev-server": "^3.11.2"
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^4.15.1"
   },
   "scripts": {
     "build": "webpack --config webpack.config.js"
