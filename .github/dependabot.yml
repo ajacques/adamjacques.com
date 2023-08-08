@@ -9,12 +9,31 @@ updates:
     directory: "/"
     schedule:
       interval: "monthly"
+    groups:
+      rails:
+        patterns:
+          - "rail*"
+          - "active*"
+          - "action*"
+          - "sprockets*"
+          - "rack*"
+      observability:
+        patterns:
+          - "opentelemetry*"
+          - "sentry*"
 
   - package-ecosystem: "npm"
     directory: "/"
     schedule:
       interval: "monthly"
-
+    groups:
+      build:
+        patterns:
+          - "webpack*"
+          - "*-loader"
+      babel:
+        patterns:
+          - "@babel/*"
 
   - package-ecosystem: "github-actions"
     directory: "/"
