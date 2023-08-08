@@ -46,6 +46,7 @@ RUN find . -type f -exec chmod 444 {} \;
 RUN find . -type d -print -exec chmod 555 {} \;
 RUN chown -R 9999:9999 tmp
 RUN chmod 755 db
+RUN find bin -type f -exec chmod +x {} \;
 RUN find tmp -type d -print -exec chmod 755 {} \;
 
 # Final Phase
