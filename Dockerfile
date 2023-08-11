@@ -53,7 +53,7 @@ RUN bundle config set without 'test development assets' \
 
 RUN rm -rf test tmp/* log/* node_modules app/assets app/javascript *.js yarn* *.json
 
-RUN ["/bin/bash", "-c", "rm -rf /usr/local/bundle/{cache,build_info,config,plugins,doc,extensions/**/*.{log,out,build_complete}}"]
+RUN rm -rf /usr/local/bundle/cache
 
 FROM ruby:3.2.2-slim-bookworm
 
