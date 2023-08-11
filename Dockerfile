@@ -4,24 +4,24 @@ FROM base AS prereq
 
 RUN echo 'gem: --no-document' > /etc/gemrc
 
-RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
-RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
-
-RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash -
-
 RUN apt-get update
-RUN apt-get install -qy libmariadb3 ruby-dev nodejs build-essential \
-    libmariadb-dev libsqlite3-dev libffi-dev yarn
+RUN apt-get install -qy libmariadb3 ruby-dev build-essential \
+    libmariadb-dev libsqlite3-dev libffi-dev
 RUN gem install bundler
 
 WORKDIR /rails-app
 
-FROM prereq AS npm
+FROM node:20.5-bookworm-slim AS npm
 
+WORKDIR /rails-app
 ADD package.json /rails-app
 ADD yarn.lock /rails-app
 
 RUN yarn install
+
+ADD . /rails-app
+
+RUN RAILS_ENV=assets yarn build
 
 FROM prereq AS prep
 
@@ -31,16 +31,13 @@ ADD Gemfile.lock /rails-app
 RUN bundle config set without 'test development' \
   && bundle install
 
-COPY --from=npm /rails-app/node_modules /rails-app/node_modules
-
 ADD . /rails-app
 
-# Generate compiled assets + manifests
+# This stage is responsible for slimming down the container and setting permissions
 FROM prep as finalprep
 
-RUN SKIP_YARN_INSTALL=true RAILS_ENV=assets rake javascript:build
+COPY --from=npm /rails-app/public/assets /rails-app/public/assets
 
-RUN rm -rf test tmp/* log/* node_modules app/{assets,javascript}
 # All files/folders should be owned by root but readable by www-data
 RUN find . -type f -exec chmod 444 {} \;
 RUN find . -type d -print -exec chmod 555 {} \;
@@ -54,7 +51,11 @@ RUN bundle config set without 'test development assets' \
   && bundle install \
   && bundle clean --force
 
-FROM base
+RUN rm -rf test tmp/* log/* node_modules app/assets app/javascript *.js yarn* *.json
+
+RUN ["/bin/bash", "-c", "rm -rf /usr/local/bundle/{cache,build_info,config,plugins,doc,extensions/**/*.{log,out,build_complete},specifications}"]
+
+FROM ruby:3.2.2-slim-bookworm
 
 RUN apt-get update \
   && apt-get install -qy --no-install-recommends nginx libxml2 libmariadb3 ca-certificates \

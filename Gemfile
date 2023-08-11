@@ -1,6 +1,11 @@
 source 'https://rubygems.org'
 
-gem 'rails'
+gem 'actionpack'
+gem 'actionview'
+gem 'activemodel'
+gem 'activerecord'
+gem 'activesupport'
+gem 'railties'
 gem 'sprockets-rails'
 gem 'unicorn'
 
@@ -21,28 +26,12 @@ group :test, :development do
   gem 'webmock', '~> 3.14'
 end
 
-# Gems used only for assets and not required
-# in production environments by default.
-group :assets do
-  gem 'sass-rails'
-
-  gem 'uglifier'
-end
-
 gem 'aws-sdk-s3', require: false
 gem 'webrick', require: false # AWS S3 SDK depends on this
 
 group :assets, :development do
-
-  gem 'jsbundling-rails'
-  gem 'libv8', platform: :ruby
-  gem 'sprockets-es6'
-  gem 'mini_racer', platform: :ruby
   gem 'sqlite3'
-  gem 'terser'
 end
-
-gem 'nokogiri', '>= 1.8.1'
 
 gem 'sentry-ruby'
 gem 'sentry-rails'
@@ -56,4 +45,3 @@ gem 'opentelemetry-exporter-otlp'
 gem 'opentelemetry-instrumentation-faraday'
 gem 'opentelemetry-instrumentation-mysql2'
 gem 'opentelemetry-instrumentation-rails'
-

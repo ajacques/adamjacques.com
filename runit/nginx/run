@@ -1,2 +1,0 @@
-#!/bin/sh
-exec chpst -u www-data /usr/sbin/nginx -c /rails-app/nginx.conf
