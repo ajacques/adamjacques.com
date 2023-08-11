@@ -51,7 +51,9 @@ RUN bundle config set without 'test development assets' \
   && bundle install \
   && bundle clean --force
 
-RUN rm -rf test tmp/* log/* node_modules app/assets app/javascript *.js yarn* *.json
+RUN ["/bin/bash", "-c", "rm -rf test tmp/* log/* node_modules app/assets app/javascript *.js yarn* *.json"]
+
+RUN mkdir -p app/assets/config && touch app/assets/config/manifest.js
 
 RUN rm -rf /usr/local/bundle/cache
 
