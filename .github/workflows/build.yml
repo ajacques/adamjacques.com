@@ -30,6 +30,7 @@ jobs:
           platforms: linux/amd64
           push: true
           tags: ajacques/resume_website:${{ env.COMMIT_SHA }}
+      - uses: azure/setup-kubectl@v3
       - uses: azure/k8s-set-context@v3
         with:
           method: kubeconfig
@@ -42,4 +43,3 @@ jobs:
             k8s/deployment.yaml
             k8s/upload-cron.yaml
           images: ajacques/resume_website:${{ env.COMMIT_SHA }}
-          kubectl-version: 'latest'
