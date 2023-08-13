@@ -44,6 +44,7 @@ def upload_asset(bucket, file, opts = {})
 end
 
 def http_get
+  raise 'Must set env variable "URI" and point to main server.' unless ENV.key? 'URI'
   url = URI.parse(ENV['URI'])
   response = Net::HTTP.get_response(url)
   raise 'Non 200 from website' unless response.code == '200'

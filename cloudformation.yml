@@ -79,6 +79,14 @@ Resources:
             Version: '2012-10-17'
             Statement:
               - Action:
+                  - s3:ListBucket
+                Effect: Allow
+                Resource:
+                  Fn::Sub: arn:aws:s3:::${WebsiteFileS3Bucket}
+                Condition:
+                  Bool:
+                    aws:SecureTransport: 'true'
+              - Action:
                   - s3:PutObject
                   - s3:GetObject
                 Effect: Allow
