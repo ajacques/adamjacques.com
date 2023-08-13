@@ -11,11 +11,16 @@ spec:
       backoffLimit: 1
       template:
         spec:
+          automountServiceAccountToken: false
           containers:
             - args:
                 - bin/sync-to-s3
               image: ajacques/resume_website
               imagePullPolicy: IfNotPresent
+              envFrom:
+                - secretRef:
+                    name: aws-credentials
+                    optional: false
               name: deploy-to-s3
               securityContext:
                 allowPrivilegeEscalation: false
@@ -26,5 +31,9 @@ spec:
                 readOnlyRootFilesystem: true
                 runAsNonRoot: true
                 runAsUser: 33
+          enableServiceLinks: false
           restartPolicy: Never
+          securityContext:
+            seccompProfile:
+              type: RuntimeDefault
   schedule: 0 3/12 * * *
