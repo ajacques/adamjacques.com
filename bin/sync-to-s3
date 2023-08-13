@@ -20,11 +20,6 @@ def assets_files
   end
 end
 
-def webpacker_files
-  JSON.parse(File.read('public/packs/manifest.json')).filter_map do |_key, value|
-    value if value.is_a? String
-  end
-end
 
 def log(message)
   puts message
@@ -58,7 +53,6 @@ end
 begin
   assets = []
   assets.concat(assets_files)
-  assets.concat(webpacker_files)
 
   assets
     .select { |file| extensions.include? File.extname(file) }
