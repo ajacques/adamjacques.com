@@ -1,5 +1,6 @@
 var fs = require("fs");
 var fse = require("fs-extra");
+const crypto = require("crypto");
 
 var DEFAULT_PARAMS = {
     manifestFile: "/rails-app/config/sprockets-manifest.json",
@@ -11,6 +12,25 @@ function WebpackSprocketsRailsManifestPlugin(options) {
 
     this._manifestFile = params.manifestFile || DEFAULT_PARAMS.manifestFile;
     this._statsFile = params.statsFile || DEFAULT_PARAMS.statsFile;
+}
+
+function processFile(outputPath, sprockets, logicalPath, chunkFilename) {
+    var chunkPath = outputPath + "/" + chunkFilename;
+    var stat = fs.statSync(chunkPath);
+    const fileBuffer = fs.readFileSync(chunkPath);
+    const hashSum = crypto.createHash('sha256');
+    hashSum.update(fileBuffer);
+    const hash = hashSum.digest('base64');
+    const hexHash = Buffer.from(hash, 'base64').toString('hex');
+
+    sprockets.files[chunkFilename] = {
+        "logical_path": logicalPath,
+        "mtime": stat.mtime.toISOString(),
+        "size": stat.size,
+        "digest": hexHash,
+        "integrity": "sha256-" + hash
+    };
+    sprockets.assets[logicalPath] = chunkFilename;
 }
 
 WebpackSprocketsRailsManifestPlugin.prototype.apply = function(compiler) {
@@ -36,28 +56,17 @@ WebpackSprocketsRailsManifestPlugin.prototype.apply = function(compiler) {
         var manifestPath = outputPath + "/" + manifestFile;
 
         chunks.forEach(function(chunk) {
-            chunk.files.forEach(function (chunkFilename) {
-                var chunkPath = outputPath + "/" + chunkFilename;
-                var chunkExtension = chunkFilename.split(".").pop();
-                var logicalPath = chunk.names[0] + "." + chunkExtension;
-                var mtime;
-
-                if (fs.existsSync(chunkPath)) {
-                    mtime = fs.statSync(chunkPath).mtime;
-                } else {
-                    mtime = new Date();
-                }
-
-                sprockets.files[chunkFilename] = {
-                    "logical_path": logicalPath,
-                    "mtime": mtime.toISOString(),
-                    "size": chunk.size,
-                    "digest": chunk.hash,
-                    // TODO
-                    // "integrity": "sha256-Zk2O+Q1SFSuzslxNc6LuqFrAN5PlRHlbKeGzXfN4Xmc="
-                };
-                sprockets.assets[logicalPath] = chunkFilename;
+            const logicalName = chunk.names[0];
+            chunk.files.forEach(filename => {
+                const chunkExtension = filename.split(".").pop();
+                processFile(outputPath, sprockets, `${logicalName}.${chunkExtension}`, filename)
             });
+            chunk.auxiliaryFiles
+                .filter(name => !name.endsWith('.map'))
+                .forEach(filename => {
+                    const nameParts = filename.split(".");
+                    processFile(outputPath, sprockets, `${nameParts[0]}.${nameParts[2]}`, filename)
+                });
         });
 
         fse.mkdirpSync(outputPath);
