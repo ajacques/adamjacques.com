@@ -66,6 +66,7 @@ RUN apt-get update \
   && adduser -u 9999 -H -h /rails-app -S www-data \
   && mkdir /var/lib/nginx/body \
   && chown www-data:www-data /var/lib/nginx /usr/share/nginx/ \
+  && rm /var/log/nginx/access.log /var/log/nginx/error.log \
   && ln -s /dev/stdout /var/log/nginx/access.log \
   && ln -s /dev/stderr /var/log/nginx/error.log
 
