@@ -65,7 +65,9 @@ RUN apt-get update \
   && rm -rf /var/cache/* /root \
   && adduser -u 9999 -H -h /rails-app -S www-data \
   && mkdir /var/lib/nginx/body \
-  && chown www-data:www-data /var/lib/nginx /usr/share/nginx/
+  && chown www-data:www-data /var/lib/nginx /usr/share/nginx/ \
+  && ln -s /dev/stdout /var/log/nginx/access.log \
+  && ln -s /dev/stderr /var/log/nginx/error.log
 
 COPY --from=finalprep /usr/local/bundle /usr/local/bundle
 COPY --from=finalprep /rails-app /rails-app

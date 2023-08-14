@@ -70,7 +70,7 @@ spec:
               drop:
                 - ALL
             privileged: false
-            readOnlyRootFilesystem: false
+            readOnlyRootFilesystem: true
             runAsNonRoot: true
             runAsUser: 33
       enableServiceLinks: false
