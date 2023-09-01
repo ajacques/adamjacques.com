@@ -214,7 +214,7 @@ GEM
     unicorn (6.1.0)
       kgio (~> 2.6)
       raindrops (~> 0.7)
-    webmock (3.18.1)
+    webmock (3.19.1)
       addressable (>= 2.8.0)
       crack (>= 0.3.2)
       hashdiff (>= 0.4.0, < 2.0.0)
@@ -251,7 +251,7 @@ DEPENDENCIES
   sqlite3
   tzinfo-data
   unicorn
-  webmock (~> 3.14)
+  webmock (~> 3.19)
   webrick
 
 BUNDLED WITH
