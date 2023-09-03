@@ -31,9 +31,11 @@ updates:
         patterns:
           - "webpack*"
           - "*-loader"
-      babel:
-        patterns:
           - "@babel/*"
+          - "typescript"
+          - "terser"
+          - "core-js"
+          - "sass"
 
   - package-ecosystem: "github-actions"
     directory: "/"
