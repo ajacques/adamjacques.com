@@ -21,6 +21,9 @@ updates:
         patterns:
           - "opentelemetry*"
           - "sentry*"
+      everything:
+        patterns:
+          - *
 
   - package-ecosystem: "npm"
     directory: "/"
