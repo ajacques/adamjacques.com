@@ -3,8 +3,11 @@ const webpack = require("webpack");
 const WebpackSprocketsRailsManifestPlugin = require("./manifest-plugin");
 const crypto = require("crypto");
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const fs = require("fs");
 
 const mode = process.env.RAILS_ENV === 'development' ? 'development' : 'production';
+
+const commit = fs.readFileSync('.git/refs/heads/master').toString().trim();
 
 module.exports = {
   devtool: "source-map",
@@ -43,6 +46,9 @@ module.exports = {
     path: path.resolve(__dirname, "public/assets"),
   },
   plugins: [
+    new webpack.EnvironmentPlugin({
+      'process.env.SENTRY_RELEASE': `adamjacques-website@${commit.substring(0, 8)}`
+    }),
     new webpack.optimize.LimitChunkCountPlugin({
       maxChunks: 1
     }),
