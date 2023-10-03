@@ -11,10 +11,10 @@
     - if content_for? :head
       = yield :head
     %meta{ charset: 'utf-8' }
-    %meta{ content: 'IE=edge', http: { equiv: 'X-UA-Compatible' } }
+    %meta{ content: 'IE=edge', 'http-equiv' => 'X-UA-Compatible' }
     %meta{ content: 'width=device-width, initial-scale=1.0, maximum-scale=1.0', name: 'viewport' }
     %meta{ content: 'noarchive', name: 'robots' }
-    %meta{ content: I18n.locale, http: { equiv: 'Content-Language' } }
+    %meta{ content: I18n.locale, 'http-equiv' => 'Content-Language' }
     - if Rails.application.config.respond_to? :analytics
       %meta{ content: Rails.application.config.analytics['beacon_url'], name: 'beacon_url' }
       %meta{ content: Rails.application.config.analytics['site_id'], name: 'beacon_site_id' }
@@ -23,7 +23,7 @@
       - if Sentry.get_current_scope.get_transaction.present?
         %meta{ content: Sentry.get_current_scope.get_transaction.sampled.to_s, name: 'is_sampled' }
   %body
-    %video#main-video{ autoplay: true, loop: true, muted: true, playsinline: true }
+    %video#main-video{ autoplay: true, loop: true, muted: true, playsinline: true, tabindex: -1 }
       %source{ type: 'video/mp4' }
     = render partial: 'layouts/name_banner'
     = yield
