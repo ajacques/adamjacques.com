@@ -41,9 +41,17 @@ module.exports = {
     ]
   },
   output: {
-    filename: "[name]-[contenthash].js",
+    filename: mode === "development" ? "[name].js" : "[name]-[contenthash].js",
     sourceMapFilename: "[file].map",
     path: path.resolve(__dirname, "public/assets"),
+  },
+  devServer: {
+    compress: false,
+    host: "0.0.0.0",
+    port: 3000,
+  },
+  watchOptions: {
+    poll: 1000,
   },
   plugins: [
     new webpack.EnvironmentPlugin({
@@ -53,7 +61,7 @@ module.exports = {
       maxChunks: 1
     }),
     new MiniCssExtractPlugin({
-      filename: "[name]-[contenthash].css"
+      filename: mode === "development" ? "[name].css" : "[name]-[contenthash].css"
     }),
     new WebpackSprocketsRailsManifestPlugin({
       manifestFile: `.sprockets-manifest-${crypto.randomBytes(16).toString("hex")}.json`

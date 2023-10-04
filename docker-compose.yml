@@ -19,6 +19,20 @@ services:
       - '127.0.0.1:32770:3000/tcp'
     environment:
       RAILS_ENV: development
+  webpack:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: npm
+    environment:
+      RAILS_ENV: development
+    command:
+      - /usr/local/bin/npm
+      - run
+      - dev:start
+    volumes:
+      - .:/rails-app
+      - 'npm:/rails-app/node_modules'
 
 volumes:
   gemsvol:
