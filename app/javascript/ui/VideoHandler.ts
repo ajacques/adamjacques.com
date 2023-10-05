@@ -24,6 +24,8 @@ function HandleScroll(): void {
 
 function LoadRandomVideo(): void {
   videoElement.src = VideoManifest.file;
+  videoElement.setAttribute('aria-label', 'A cinemgraph background video');
+  videoElement.setAttribute('aria-description', VideoManifest.description);
   if (VideoManifest.text) {
     nameHeader.style.position = 'absolute';
     nameHeader.style.left = VideoManifest.text.x + '%';

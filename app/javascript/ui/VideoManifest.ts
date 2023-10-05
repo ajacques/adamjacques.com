@@ -8,7 +8,8 @@ interface TextLocation {
 interface ManifestSpec {
   file: string,
   text?: TextLocation,
-  disableScrollEffect?: boolean
+  disableScrollEffect?: boolean,
+  description: string
 }
 
 const VideoManifest: ManifestSpec[] = Videos as ManifestSpec[];
@@ -20,6 +21,6 @@ for (const manifest of VideoManifest) {
 }
 
 const vidCount = VideoManifest.length;
-const manifest = VideoManifest[Math.floor(Math.random() * vidCount * 3) % vidCount];
+const manifest = VideoManifest[Math.floor(Math.random() * 10 % vidCount)];
 
 export default manifest;

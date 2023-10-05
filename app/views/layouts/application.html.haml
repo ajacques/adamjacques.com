@@ -24,7 +24,6 @@
         %meta{ content: Sentry.get_current_scope.get_transaction.sampled.to_s, name: 'is_sampled' }
   %body
     %video#main-video{ autoplay: true, loop: true, muted: true, playsinline: true, tabindex: -1 }
-      %source{ type: 'video/mp4' }
     = render partial: 'layouts/name_banner'
     = yield
     %footer.centered &copy; #{Time.now.year} #{full_name}

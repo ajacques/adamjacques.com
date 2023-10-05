@@ -1,5 +1,5 @@
 [
-  {"file": "beach.mp4"},
-  {"file": "video.mp4"},
-  {"file": "snoqualmie_falls.mp4", "text": { "x": 10, "y": 70 }, "disable_scroll_effect": true}
+  {"file": "beach.mp4", "description": "A video of waves crashing onto rocks in the evening at the beach." },
+  {"file": "video.mp4", "description": "A video of a river flowing peacefully through a valley in the mountains" },
+  {"file": "snoqualmie_falls.mp4", "text": { "x": 10, "y": 70 }, "disable_scroll_effect": true, "description": "A video of the Snoqualmie Falls waterfall in Washington State" }
 ]
