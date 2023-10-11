@@ -13,9 +13,10 @@ module ResumeHelper
 
   def sample_blog_posts
     tracer = OpenTelemetry.tracer_provider.tracer('my-tracer')
-    tracer.in_span('sample_blog_posts') do |_span|
-      resp = Faraday.get('https://www.technowizardry.net/author/adam-jacques/feed/')
-
+    resp = tracer.in_span('sample_blog_posts') do |_span|
+      Faraday.get('http://192.168.2.203:1313/author/adam-jacques/index.xml') #get('https://www.technowizardry.net/author/adam-jacques/feed/')
+    end
+    tracer.in_span('process_blog_posts') do |_span|
       doc = Nokogiri.XML(resp.body)
       posts = doc.xpath('/rss/channel/item')
       posts.map do |post|
@@ -26,9 +27,12 @@ module ResumeHelper
         query['mtm_campaign'] = 'resume_website'
         uri.query = Rack::Utils.build_query(query)
         post[:link] = uri.to_s
-        html = Nokogiri::HTML5::DocumentFragment.parse(post.at_xpath('description').text)
-        more = html.at_css('.more-link')
-        more['href'] = uri.to_s if more.present?
+
+        html = Nokogiri::HTML5::DocumentFragment.parse(post.at_xpath('summary').text)
+        # Remove all images because they're not going to work due to CSP
+        html.css('img').each do |img|
+          img.unlink
+        end
 
         {
           description: html.to_html,

@@ -1,5 +1,5 @@
 %main
-  %section
+  %section{ 'aria-label' => t('blog_section.title') }
     %h1.section-header= t 'blog_section.title'
     .content
       %p= t 'blog_section.description'
@@ -11,6 +11,8 @@
             %h5
               %a{ href: post[:link] }= raw post[:title]
             %p= raw post[:description]
+            %a{ href: post[:uri] } Continue reading...
+
         %a{ href: 'https://www.technowizardry.net/author/adam-jacques?mtm_campaign=resume_website' }= t 'blog_section.blog_name'
 
   %section
