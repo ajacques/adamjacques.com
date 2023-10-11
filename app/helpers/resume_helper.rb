@@ -14,7 +14,7 @@ module ResumeHelper
   def sample_blog_posts
     tracer = OpenTelemetry.tracer_provider.tracer('my-tracer')
     resp = tracer.in_span('sample_blog_posts') do |_span|
-      Faraday.get('http://192.168.2.203:1313/author/adam-jacques/index.xml') #get('https://www.technowizardry.net/author/adam-jacques/feed/')
+      Faraday.get('https://www.technowizardry.net/author/adam-jacques/feed/')
     end
     tracer.in_span('process_blog_posts') do |_span|
       doc = Nokogiri.XML(resp.body)
