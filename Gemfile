@@ -23,7 +23,7 @@ group :test, :development do
   gem 'rubocop-rails', require: false
   gem 'rubocop-rake', require: false
 
-  gem 'webmock', '~> 3.14'
+  gem 'webmock', '~> 3.23'
 end
 
 gem 'aws-sdk-s3', require: false
