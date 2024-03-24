@@ -14,7 +14,7 @@ module ResumeHelper
   def sample_blog_posts
     tracer = OpenTelemetry.tracer_provider.tracer('my-tracer')
     resp = tracer.in_span('sample_blog_posts') do |_span|
-      Faraday.get('https://www.technowizardry.net/author/adam-jacques/index.xml')
+      Faraday.get('https://www.technowizardry.net/author/adam-jacques/feed.xml')
     end
     tracer.in_span('process_blog_posts') do |_span|
       doc = Nokogiri.XML(resp.body)
@@ -42,6 +42,7 @@ module ResumeHelper
       end
     end
   rescue SocketError, Errno::ENETUNREACH, OpenSSL::SSL::SSLError => e
+    puts "Failed to load blog post: #{e}"
     Sentry.capture_exception(e)
     []
   end
