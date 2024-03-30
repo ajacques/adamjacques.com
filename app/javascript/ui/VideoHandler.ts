@@ -30,6 +30,11 @@ function LoadRandomVideo(): void {
     nameHeader.style.position = 'absolute';
     nameHeader.style.left = VideoManifest.text.x + '%';
   }
+
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  if (prefersReducedMotion.matches) {
+    videoElement.pause();
+  }
 }
 
 export default function(): void {
