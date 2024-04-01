@@ -30,7 +30,7 @@ jobs:
           platforms: linux/amd64
           push: true
           tags: ajacques/resume_website:${{ env.COMMIT_SHA }}
-      - uses: azure/setup-kubectl@v3
+      - uses: azure/setup-kubectl@v4
       - uses: azure/k8s-set-context@v3
         with:
           method: kubeconfig
