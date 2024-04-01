@@ -31,7 +31,7 @@ jobs:
           push: true
           tags: ajacques/resume_website:${{ env.COMMIT_SHA }}
       - uses: azure/setup-kubectl@v3
-      - uses: azure/k8s-set-context@v3
+      - uses: azure/k8s-set-context@v4
         with:
           method: kubeconfig
           kubeconfig: '${{ secrets.KUBECONFIG_FILE }}'
