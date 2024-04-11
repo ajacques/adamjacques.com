@@ -31,9 +31,11 @@ function LoadRandomVideo(): void {
     nameHeader.style.left = VideoManifest.text.x + '%';
   }
 
-  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-  if (prefersReducedMotion.matches) {
-    videoElement.pause();
+  if ('matchMedia' in window) {
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    if (prefersReducedMotion.matches) {
+      videoElement.pause();
+    }
   }
 }
 
