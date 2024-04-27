@@ -14,14 +14,3 @@
             %a{ href: post[:uri], 'aria-label' => "Continue reading post titled #{post[:title]}" } Continue reading...
 
       %a{ href: 'https://www.technowizardry.net/author/adam-jacques?mtm_campaign=resume_website' }= t 'blog_section.blog_name'
-
-  %section{ 'aria-role' => 'region', 'aria-labelledby' => 'section-jobs' }
-    %h1#section-jobs.section-header= t 'resume_section.jobs'
-    .content{ 'aria-role' => 'list' }= render partial: 'job_credential', collection: @resume.jobs, as: :job
-  %section{ 'aria-role' => 'region', 'aria-labelledby' => 'section-skills' }
-    %h1#section-skills.section-header= t 'resume_section.skills'
-    .content.skills-container
-      = render partial: 'skill', collection: @resume.key_points, as: :key_point
-  %section{ 'aria-role' => 'region', 'aria-labelledby' => 'section-education' }
-    %h1#section-education.section-header= t 'resume_section.education'
-    .content= render partial: 'edu_credential', collection: @resume.education, as: :edu
