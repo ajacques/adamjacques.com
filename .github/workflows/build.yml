@@ -30,13 +30,13 @@ jobs:
           platforms: linux/amd64
           push: true
           tags: ajacques/resume_website:${{ env.COMMIT_SHA }}
-      - uses: azure/setup-kubectl@v3
-      - uses: azure/k8s-set-context@v3
+      - uses: azure/setup-kubectl@v4
+      - uses: azure/k8s-set-context@v4
         with:
           method: kubeconfig
           kubeconfig: '${{ secrets.KUBECONFIG_FILE }}'
         id: setcontext
-      - uses: Azure/k8s-deploy@v4
+      - uses: Azure/k8s-deploy@v5
         with:
           namespace: 'personalsites'
           manifests: |
