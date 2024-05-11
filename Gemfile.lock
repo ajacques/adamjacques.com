@@ -241,7 +241,7 @@ GEM
       actionpack (>= 5.2)
       activesupport (>= 5.2)
       sprockets (>= 3.0.0)
-    sqlite3 (1.7.3-x86_64-linux)
+    sqlite3 (2.0.1-x86_64-linux-gnu)
     stringio (3.1.0)
     temple (0.10.3)
     thor (1.3.1)
@@ -290,7 +290,7 @@ DEPENDENCIES
   sentry-rails
   sentry-ruby
   sprockets-rails
-  sqlite3 (~> 1.4)
+  sqlite3 (~> 2.0)
   tzinfo-data
   unicorn
   webmock (~> 3.14)
