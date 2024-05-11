@@ -30,7 +30,7 @@ gem 'aws-sdk-s3', require: false
 gem 'webrick', require: false # AWS S3 SDK depends on this
 
 group :assets, :development do
-  gem 'sqlite3'
+  gem 'sqlite3', '~> 1.4'
 end
 
 gem 'sentry-ruby'
