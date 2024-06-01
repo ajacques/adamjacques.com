@@ -1,12 +1,12 @@
 {
   "dependencies": {
     "@sentry/browser": "^7.72.0",
-    "core-js": "^3.33.0",
-    "css-loader": "^6.8.1",
+    "core-js": "^3.37.1",
+    "css-loader": "^7.1.2",
     "mini-css-extract-plugin": "^2.7.6",
-    "sass": "^1.68.0",
+    "sass": "^1.77.4",
     "sass-loader": "^14.1.1",
-    "style-loader": "^3.3.3",
+    "style-loader": "^4.0.0",
     "terser": "^5.21.0",
     "typescript": "^5.2.2",
     "webpack": "^5.88.2",
@@ -14,8 +14,8 @@
   },
   "devDependencies": {
     "@babel/plugin-proposal-object-rest-spread": "^7.20.7",
-    "@babel/preset-env": "^7.22.20",
-    "@babel/preset-typescript": "^7.23.0",
+    "@babel/preset-env": "^7.24.6",
+    "@babel/preset-typescript": "^7.24.6",
     "@types/node": "^20.2.5",
     "@types/webpack-env": "^1.18.1",
     "file-loader": "^6.2.0",
