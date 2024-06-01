@@ -1,4 +1,4 @@
-FROM ruby:3.3.0-bookworm AS base
+FROM ruby:3.3.2-bookworm AS base
 
 FROM base AS prereq
 
@@ -57,7 +57,7 @@ RUN mkdir -p app/assets/config && touch app/assets/config/manifest.js
 
 RUN rm -rf /usr/local/bundle/cache
 
-FROM ruby:3.3.0-slim-bookworm
+FROM ruby:3.3.2-slim-bookworm
 
 RUN apt-get update \
   && apt-get install -qy --no-install-recommends nginx libxml2 libmariadb3 ca-certificates \
