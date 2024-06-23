@@ -34,7 +34,7 @@ spec:
             - name: OTEL_PROPAGATORS
               value: tracecontext,baggage,b3
             - name: OTEL_EXPORTER_OTLP_ENDPOINT
-              value: http://otel-collector.opentelemetry.svc.cluster.local.:4318
+              value: http://collector-collector.opentelemetry.svc.cluster.local.:4318
             - name: RAILS_ENV
               value: production
           livenessProbe:
