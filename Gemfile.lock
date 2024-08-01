@@ -102,7 +102,7 @@ GEM
     mysql2 (0.5.6)
     net-http (0.4.1)
       uri
-    nokogiri (1.16.6-x86_64-linux)
+    nokogiri (1.16.7-x86_64-linux)
       racc (~> 1.4)
     opentelemetry-api (1.2.5)
     opentelemetry-common (0.21.0)
@@ -182,7 +182,7 @@ GEM
     psych (5.1.2)
       stringio
     public_suffix (6.0.0)
-    racc (1.8.0)
+    racc (1.8.1)
     rack (3.1.7)
     rack-session (2.0.0)
       rack (>= 3.0.0)
@@ -246,7 +246,7 @@ GEM
     sprockets (4.2.1)
       concurrent-ruby (~> 1.0)
       rack (>= 2.2.4, < 4)
-    sprockets-rails (3.5.1)
+    sprockets-rails (3.5.2)
       actionpack (>= 6.1)
       activesupport (>= 6.1)
       sprockets (>= 3.0.0)
