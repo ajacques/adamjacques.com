@@ -4,7 +4,7 @@ class ResumeHelperTest < Minitest::Test
   include ResumeHelper
 
   def test_foo
-    stub_request(:get, 'https://www.technowizardry.net/author/adam-jacques/feed/')
+    stub_request(:get, 'https://www.technowizardry.net/author/adam-jacques/feed.xml')
       .to_return(body: File.new('./test/data/blog.rss'), status: 200)
 
     expected = [
