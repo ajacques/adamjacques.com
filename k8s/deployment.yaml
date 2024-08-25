@@ -47,6 +47,11 @@ spec:
             periodSeconds: 5
             successThreshold: 1
             timeoutSeconds: 2
+          resources:
+            limits:
+              memory: 256Mi
+            requests:
+              memory: 256Mi
           securityContext:
             allowPrivilegeEscalation: false
             capabilities:
@@ -65,7 +70,11 @@ spec:
           image: ajacques/resume_website
           imagePullPolicy: IfNotPresent
           name: nginx
-          resources: {}
+          resources:
+            limits:
+              memory: 32Mi
+            requests:
+              memory: 16Mi
           securityContext:
             allowPrivilegeEscalation: false
             capabilities:
