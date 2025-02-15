@@ -1,3 +1,5 @@
+= content_for :head do
+  %link{ href: index_url, rel: 'canonical' }
 %main
   %section{ 'aria-role' => 'region', 'aria-labelledby' => 'section-blog' }
     %h1#section-blog.section-header= t 'blog_section.title'
