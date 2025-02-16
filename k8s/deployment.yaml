@@ -87,5 +87,3 @@ spec:
             runAsNonRoot: true
             runAsUser: 33
       enableServiceLinks: false
-      imagePullSecrets:
-        - name: pipeline-docker-registry
