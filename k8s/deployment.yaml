@@ -52,6 +52,7 @@ spec:
               memory: 256Mi
             requests:
               memory: 256Mi
+              cpu: 64m
           securityContext:
             allowPrivilegeEscalation: false
             capabilities:
@@ -87,3 +88,4 @@ spec:
             runAsNonRoot: true
             runAsUser: 33
       enableServiceLinks: false
+      priorityClassName: business-important
