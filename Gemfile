@@ -30,9 +30,7 @@ gem 'aws-sdk-s3', require: false
 gem 'webrick', require: false # AWS S3 SDK depends on this
 
 group :assets, :development do
-  # Rails current requires 1.4
-  # https://github.com/rails/rails/blob/v7.1.3.2/activerecord/lib/active_record/connection_adapters/sqlite3_adapter.rb
-  gem 'sqlite3', '~> 1.4'
+  gem 'sqlite3'
 end
 
 gem 'sentry-ruby'
