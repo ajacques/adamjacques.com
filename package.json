@@ -2,13 +2,13 @@
   "license": "UNLICENSED",
   "dependencies": {
     "@sentry/browser": "^9.24.0",
-    "core-js": "^3.33.0",
-    "css-loader": "^6.8.1",
+    "core-js": "^3.43.0",
+    "css-loader": "^7.1.2",
     "mini-css-extract-plugin": "^2.7.6",
-    "sass": "^1.68.0",
-    "sass-loader": "^14.1.1",
-    "style-loader": "^3.3.3",
-    "terser": "^5.21.0",
+    "sass": "^1.89.2",
+    "sass-loader": "^16.0.5",
+    "style-loader": "^4.0.0",
+    "terser": "^5.43.1",
     "typescript": "^5.2.2",
     "webpack": "^5.88.2",
     "webpack-sprockets-rails-manifest-plugin": "^0.0.4"
@@ -21,8 +21,8 @@
     "@types/webpack-env": "^1.18.1",
     "file-loader": "^6.2.0",
     "ts-loader": "^9.4.4",
-    "webpack-cli": "^5.1.4",
-    "webpack-dev-server": "^5.0.4"
+    "webpack-cli": "^6.0.1",
+    "webpack-dev-server": "^5.2.2"
   },
   "scripts": {
     "build": "webpack --config webpack.config.js",
