@@ -7,13 +7,6 @@ var DEFAULT_PARAMS = {
     statsFile: "webpack-stats.json"
 };
 
-function WebpackSprocketsRailsManifestPlugin(options) {
-    var params = options || {};
-
-    this._manifestFile = params.manifestFile || DEFAULT_PARAMS.manifestFile;
-    this._statsFile = params.statsFile || DEFAULT_PARAMS.statsFile;
-}
-
 function processFile(outputPath, sprockets, logicalPath, chunkFilename) {
     var chunkPath = outputPath + "/" + chunkFilename;
     var stat = fs.statSync(chunkPath);
@@ -33,51 +26,59 @@ function processFile(outputPath, sprockets, logicalPath, chunkFilename) {
     sprockets.assets[logicalPath] = chunkFilename;
 }
 
-WebpackSprocketsRailsManifestPlugin.prototype.apply = function(compiler) {
-    var manifestFile = this._manifestFile;
-    var statsFile = this._statsFile;
-    var sprockets = {
-        files: {},
-        assets: {}
-    };
+class WebpackSprocketsRailsManifestPlugin {
+    constructor(options) {
+        var params = options || {};
 
-    compiler.hooks.done.tap("WebpackSprocketsRailsManifestPlugin", function(stats) {
-        var statsJson = stats.toJson();
-        var chunks = statsJson.chunks;
-        var devServer = compiler.options.devServer;
-        var outputPath;
+        this._manifestFile = params.manifestFile || DEFAULT_PARAMS.manifestFile;
+        this._statsFile = params.statsFile || DEFAULT_PARAMS.statsFile;
+    }
+    apply(compiler) {
+        var manifestFile = this._manifestFile;
+        var statsFile = this._statsFile;
+        var sprockets = {
+            files: {},
+            assets: {}
+        };
 
-        if (devServer && devServer.contentBase) {
-            outputPath = devServer.contentBase;
-        } else {
-            outputPath = compiler.options.output.path;
-        }
+        compiler.hooks.afterDone.tap("WebpackSprocketsRailsManifestPlugin", function (stats) {
+            var statsJson = stats.toJson();
+            var chunks = statsJson.chunks;
+            var devServer = compiler.options.devServer;
+            var outputPath;
 
-        var manifestPath = outputPath + "/" + manifestFile;
+            if (devServer && devServer.contentBase) {
+                outputPath = devServer.contentBase;
+            } else {
+                outputPath = compiler.options.output.path;
+            }
 
-        chunks.forEach(function(chunk) {
-            const logicalName = chunk.names[0];
-            chunk.files.forEach(filename => {
-                const chunkExtension = filename.split(".").pop();
-                processFile(outputPath, sprockets, `${logicalName}.${chunkExtension}`, filename)
-            });
-            chunk.auxiliaryFiles
-                .filter(name => !name.endsWith('.map'))
-                .forEach(filename => {
-                    const nameParts = filename.split(".");
-                    processFile(outputPath, sprockets, `${nameParts[0]}.${nameParts[2]}`, filename)
+            var manifestPath = outputPath + "/" + manifestFile;
+
+            chunks.forEach(function (chunk) {
+                const logicalName = chunk.names[0];
+                chunk.files.forEach(filename => {
+                    const chunkExtension = filename.split(".").pop();
+                    processFile(outputPath, sprockets, `${logicalName}.${chunkExtension}`, filename);
                 });
+                chunk.auxiliaryFiles
+                    .filter(name => !name.endsWith('.map'))
+                    .forEach(filename => {
+                        const nameParts = filename.split(".");
+                        processFile(outputPath, sprockets, `${nameParts[0]}.${nameParts[2]}`, filename);
+                    });
+            });
+
+            fse.mkdirpSync(outputPath);
+
+            // delete files matching glob pattern
+            let regex = /\.sprockets-manifest-.*\.json$/;
+            fs.readdirSync(outputPath)
+                .filter(f => regex.test(f))
+                .map(f => fs.unlinkSync(outputPath + "/" + f));
+            fse.outputFileSync(manifestPath, JSON.stringify(sprockets, null, "  "));
         });
-
-        fse.mkdirpSync(outputPath);
-
-        // delete files matching glob pattern
-        let regex = /\.sprockets-manifest-.*\.json$/
-        fs.readdirSync(outputPath)
-            .filter(f => regex.test(f))
-            .map(f => fs.unlinkSync(outputPath + "/" + f));
-        fse.outputFileSync(manifestPath, JSON.stringify(sprockets, null, "  "));
-    });
-};
+    }
+}
 
 module.exports = WebpackSprocketsRailsManifestPlugin;
