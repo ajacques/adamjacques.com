@@ -1,4 +1,4 @@
-import {GetConfig} from "./Config";
+import { GetConfig } from "./Config";
 
 declare global {
     interface Window {

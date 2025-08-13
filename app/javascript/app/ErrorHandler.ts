@@ -1,4 +1,4 @@
-import * as Sentry from '@sentry/browser';
+import { init as sentryInit } from '@sentry/browser';
 import { GetConfig } from './Config';
 
 export function InitializeErrorHandler() {
@@ -7,7 +7,7 @@ export function InitializeErrorHandler() {
         return;
     }
     const isSampled = Boolean(GetConfig("is_sampled"));
-    Sentry.init({
+    sentryInit({
         dsn: sentryDsn,
         tracesSampler: () => isSampled
     });
