@@ -1,7 +1,7 @@
 {
   "license": "UNLICENSED",
   "dependencies": {
-    "@sentry/browser": "^9.24.0",
+    "@sentry/browser": "^10.10.0",
     "core-js": "^3.33.0",
     "css-loader": "^6.8.1",
     "mini-css-extract-plugin": "^2.7.6",
