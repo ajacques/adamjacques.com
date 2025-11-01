@@ -11,7 +11,7 @@ RUN gem install bundler
 
 WORKDIR /rails-app
 
-FROM node:22-bookworm-slim AS npm
+FROM node:25-bookworm-slim AS npm
 
 WORKDIR /rails-app
 ADD package.json /rails-app
