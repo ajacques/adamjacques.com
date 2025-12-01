@@ -152,7 +152,7 @@ GEM
       opentelemetry-registry (~> 0.1)
     opentelemetry-instrumentation-concurrent_ruby (0.24.0)
       opentelemetry-instrumentation-base (~> 0.25)
-    opentelemetry-instrumentation-faraday (0.30.0)
+    opentelemetry-instrumentation-faraday (0.30.1)
       opentelemetry-instrumentation-base (~> 0.25)
     opentelemetry-instrumentation-mysql2 (0.31.0)
       opentelemetry-helpers-mysql
@@ -254,10 +254,10 @@ GEM
       rubocop (>= 1.72.1)
     ruby-progressbar (1.13.0)
     securerandom (0.4.1)
-    sentry-rails (6.1.0)
+    sentry-rails (6.2.0)
       railties (>= 5.2.0)
-      sentry-ruby (~> 6.1.0)
-    sentry-ruby (6.1.0)
+      sentry-ruby (~> 6.2.0)
+    sentry-ruby (6.2.0)
       bigdecimal
       concurrent-ruby (~> 1.0, >= 1.0.2)
     sprockets (4.2.2)
