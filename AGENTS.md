@@ -1,0 +1,1 @@
+Don't use JavaScript unless absolutely necessary.
