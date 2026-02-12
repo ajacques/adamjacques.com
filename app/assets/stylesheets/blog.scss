@@ -1,7 +1,7 @@
 @use "sass:color";
 @use 'variables';
 
-$entry-color: color.adjust(variables.$base-section-color, $lightness: -5%);
+$entry-color: color.adjust(variables.$light-section-color, $lightness: -5%);
 
 .blog-entry {
   background-color: $entry-color;
@@ -12,5 +12,14 @@ $entry-color: color.adjust(variables.$base-section-color, $lightness: -5%);
 
   & > h5 {
     padding-bottom: 0.5em;
+  }
+}
+
+// Dark mode styles
+@media (prefers-color-scheme: dark) {
+  .blog-entry {
+    background-color: color.adjust(variables.$dark-section-color, $lightness: -3%);
+    border-color: color.adjust(variables.$dark-section-color, $lightness: -10%);
+    color: variables.$dark-text;
   }
 }

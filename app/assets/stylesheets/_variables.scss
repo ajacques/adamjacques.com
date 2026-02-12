@@ -1,5 +1,19 @@
+@use 'sass:color';
+
 $z-index-background: -10;
-$base-section-color: #f5f5f5;
 
 $blue-accent: #0087DC;
 $green-accent: #9EEFE5;
+
+$light-section-color: #f5f5f5;
+
+///// Dark mode colors
+// Default background color, but never really used
+$dark-bg: #1a1a1a;
+
+// Actual default sections
+$dark-section-color: #2d2d2d;
+$dark-text: #e6e6e6;
+$dark-text-secondary: #b3b3b3;
+
+$dark-lighter-bg: color.adjust($dark-section-color, $lightness: 5%);
