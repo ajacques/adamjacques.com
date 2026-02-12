@@ -1,3 +1,6 @@
+@use "sass:color";
+@use 'variables';
+
 .header-container {
   align-items: center;
   display: flex;
@@ -10,7 +13,7 @@
 header {
   background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.2) 0, rgba(0, 0, 0, 0) 70%);
   border-radius: 0.5em;
-  color: #e6e6e6;
+  color: #333;
   padding: 2em;
 
   > h1 {
@@ -28,4 +31,16 @@ header {
 
 h3 {
   font-size: 1.5em;
+}
+
+// Dark mode styles
+@media (prefers-color-scheme: dark) {
+  header {
+    color: variables.$dark-text;
+    background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.1) 0, rgba(255, 255, 255, 0) 70%);
+  }
+  
+  .name-large, .name-sm, h3 {
+    color: variables.$dark-text;
+  }
 }

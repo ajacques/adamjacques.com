@@ -19,3 +19,19 @@ a:link, a:visited {
 a:hover {
 	color: color.adjust(color.adjust(variables.$blue-accent, $saturation: -70), $lightness: -40);
 }
+
+// Dark mode styles
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: variables.$dark-bg;
+    color: variables.$dark-text;
+  }
+  
+  a:link, a:visited {
+    color: #4da6ff;
+  }
+  
+  a:hover {
+    color: #80ccff;
+  }
+}

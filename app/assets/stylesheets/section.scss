@@ -23,3 +23,20 @@ section {
   margin-bottom: 2em;
   text-align: center;
 }
+
+// Dark mode styles
+@media (prefers-color-scheme: dark) {
+  section {
+    &:nth-child(odd) {
+      background-color: variables.$dark-section-color;
+    }
+
+    &:nth-child(even) {
+      background-color: color.adjust(variables.$dark-section-color, $lightness: -5%);
+    }
+  }
+  
+  .section-header {
+    color: variables.$dark-text;
+  }
+}

@@ -1,8 +1,19 @@
+@use "sass:color";
+@use 'variables';
+
 footer {
-	background-color: black;
-	color: white;
+	background-color: #333;
+	color: #666;
 	font-size: 0.9em;
 	text-align: center;
 	width: 100%;
 	padding: 1.5em 0;
+}
+
+// Dark mode styles
+@media (prefers-color-scheme: dark) {
+  footer {
+    background-color: variables.$dark-section-color;
+    color: variables.$dark-text-secondary;
+  }
 }
