@@ -1,7 +1,7 @@
 import { InitializeErrorHandler } from '../app/ErrorHandler';
 import VideoHandler from '../ui/VideoHandler';
 import { RegisterMetrics } from "../app/Matomo";
-import '../../assets/stylesheets/application.css'
+import '../../assets/stylesheets/application.scss'
 import { captureException } from '@sentry/browser';
 
 function InitializeApp() {
