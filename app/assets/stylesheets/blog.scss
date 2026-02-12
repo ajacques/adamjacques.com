@@ -1,10 +1,11 @@
-@import 'variables';
+@use "sass:color";
+@use 'variables';
 
-$entry-color: darken($base-section-color, 5%);
+$entry-color: color.adjust(variables.$base-section-color, $lightness: -5%);
 
 .blog-entry {
   background-color: $entry-color;
-  border: solid thin darken($entry-color, 7%);
+  border: solid thin color.adjust($entry-color, $lightness: -7%);
   border-radius: 4px;
   margin: 1em 0;
   padding: 1em 0.5em;

@@ -1,19 +1,22 @@
-@import 'variables';
+@use "sass:color";
+@use 'variables';
 
 section {
   padding: 2em .5em 2em .5em;
 
   &:nth-child(odd) {
-    background-color: $base-section-color;
+    background-color: variables.$base-section-color;
   }
 
   &:nth-child(even) {
-    background-color: darken($base-section-color, 3%);
+    background-color: color.adjust(variables.$base-section-color, $lightness: -3%);
   }
 
   > .content {
     margin: 0 auto;
     max-width: 800px;
+  }
+}
 
     &:nth-child(even) {
 

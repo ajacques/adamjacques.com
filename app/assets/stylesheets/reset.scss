@@ -1,5 +1,6 @@
 /* Basic CSS Reset */
-@import 'variables';
+@use "sass:color";
+@use 'variables';
 
 * {
 	margin: 0;
@@ -9,12 +10,12 @@
 }
 
 a:link, a:visited {
-	color: $blue-accent;
+	color: variables.$blue-accent;
 	text-decoration: none;
 	transition-duration: 0.1s;
 	transition-property: color;
 }
 
 a:hover {
-	color: darken(desaturate($blue-accent, 70), 40);
+	color: color.adjust(color.adjust(variables.$blue-accent, $saturation: -70), $lightness: -40);
 }

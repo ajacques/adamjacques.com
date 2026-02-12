@@ -1,4 +1,4 @@
-@import 'variables';
+@use 'variables';
 
 #main-video {
   height: 100vh;
@@ -6,5 +6,5 @@
   object-position: 42% 50%;
   position: fixed;
   width: 100%;
-  z-index: $z-index-background;
+  z-index: variables.$z-index-background;
 }
