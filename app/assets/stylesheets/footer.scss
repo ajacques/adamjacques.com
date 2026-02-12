@@ -13,7 +13,7 @@ footer {
 // Dark mode styles
 @media (prefers-color-scheme: dark) {
   footer {
-    background-color: variables.$dark-section-color;
+    background-color: variables.$dark-lighter-bg;
     color: variables.$dark-text-secondary;
   }
 }

@@ -5,11 +5,11 @@ section {
   padding: 2em .5em 2em .5em;
 
   &:nth-child(odd) {
-    background-color: variables.$base-section-color;
+    background-color: variables.$light-section-color;
   }
 
   &:nth-child(even) {
-    background-color: color.adjust(variables.$base-section-color, $lightness: -3%);
+    background-color: color.adjust(variables.$light-section-color, $lightness: -3%);
   }
 
   > .content {
@@ -35,7 +35,7 @@ section {
       background-color: color.adjust(variables.$dark-section-color, $lightness: -5%);
     }
   }
-  
+
   .section-header {
     color: variables.$dark-text;
   }

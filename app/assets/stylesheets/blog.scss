@@ -1,7 +1,7 @@
 @use "sass:color";
 @use 'variables';
 
-$entry-color: color.adjust(variables.$base-section-color, $lightness: -5%);
+$entry-color: color.adjust(variables.$light-section-color, $lightness: -5%);
 
 .blog-entry {
   background-color: $entry-color;
