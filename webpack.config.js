@@ -7,12 +7,14 @@ const fs = require("fs");
 
 const mode = process.env.RAILS_ENV === 'development' ? 'development' : 'production';
 
-let ref = fs.readFileSync('.git/HEAD').toString().trim();
+const ref = fs.readFileSync('.git/HEAD').toString().trim();
+let commit;
 if (ref.startsWith('ref: '))
 {
-  ref = ref.replace('ref: ', '.git/')
+  commit = fs.readFileSync(ref.replace('ref: ', '.git/')).toString().trim();
+} else {
+  commit = ref;
 }
-const commit = fs.readFileSync(ref).toString().trim();
 
 module.exports = {
   devtool: "source-map",
