@@ -7,8 +7,8 @@ const fs = require("fs");
 
 const mode = process.env.RAILS_ENV === 'development' ? 'development' : 'production';
 
-const execSync = require('child_process').execSync;
-const commit = execSync('git rev-parse HEAD').toString().trim();
+const ref = fs.readFileSync('.git/HEAD').toString().trim().replace('ref: ', '.git/');
+const commit = fs.readFileSync(ref).toString().trim();
 
 module.exports = {
   devtool: "source-map",
