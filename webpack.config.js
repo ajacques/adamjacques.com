@@ -7,7 +7,11 @@ const fs = require("fs");
 
 const mode = process.env.RAILS_ENV === 'development' ? 'development' : 'production';
 
-const ref = fs.readFileSync('.git/HEAD').toString().trim().replace('ref: ', '.git/');
+let ref = fs.readFileSync('.git/HEAD').toString().trim();
+if (ref.startsWith('ref: '))
+{
+  ref = ref.replace('ref: ', '.git/')
+}
 const commit = fs.readFileSync(ref).toString().trim();
 
 module.exports = {
