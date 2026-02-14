@@ -33,8 +33,16 @@ RUN bundle config set without 'test development' \
 
 ADD . /rails-app
 
+FROM prep AS test
+
+ENV RAILS_ENV=test
+RUN bundle config set without 'assets' \
+  && bundle install
+
+RUN bundle exec rails db:create db:migrate
+
 # This stage is responsible for slimming down the container and setting permissions
-FROM prep as finalprep
+FROM prep AS finalprep
 
 COPY --from=npm /rails-app/public/assets /rails-app/public/assets
 

@@ -13,4 +13,5 @@ node_modules/
 
 Dockerfile
 
-!.git/refs/heads/master
+!.git/HEAD
+!.git/refs/heads/

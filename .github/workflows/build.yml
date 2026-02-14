@@ -31,6 +31,16 @@ jobs:
           platforms: linux/amd64
           push: true
           tags: ajacques/resume_website:${{ env.COMMIT_SHA }}
+      - name: Build test image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: ./Dockerfile
+          target: test
+          load: true
+          tags: resume_website:test
+      - name: Run tests
+        run: docker run --rm resume_website:test
       - uses: azure/setup-kubectl@v4
       - uses: azure/k8s-set-context@v4
         with:
