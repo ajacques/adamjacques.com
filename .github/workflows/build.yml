@@ -34,6 +34,7 @@ jobs:
       - name: Install cosign
         uses: sigstore/cosign-installer@v3
       - name: Sign image with cosign
+        if: github.event_name != 'pull_request'
         run: cosign sign --yes ajacques/resume_website:${{ env.COMMIT_SHA }}
         env:
           COSIGN_EXPERIMENTAL: "true"
