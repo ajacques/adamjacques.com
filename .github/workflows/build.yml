@@ -31,6 +31,12 @@ jobs:
           platforms: linux/amd64
           push: true
           tags: ajacques/resume_website:${{ env.COMMIT_SHA }}
+      - name: Install cosign
+        uses: sigstore/cosign-installer@v3
+      - name: Sign image with cosign
+        run: cosign sign --yes ajacques/resume_website:${{ env.COMMIT_SHA }}
+        env:
+          COSIGN_EXPERIMENTAL: "true"
       - name: Build test image
         uses: docker/build-push-action@v6
         with:
