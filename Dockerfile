@@ -1,4 +1,4 @@
-FROM ruby:4.0-bookworm AS base
+FROM ruby:3.4-bookworm AS base
 
 FROM base AS prereq
 
@@ -70,7 +70,7 @@ RUN mkdir -p app/assets/config && touch app/assets/config/manifest.js
 
 RUN --mount=type=cache,id=dev-gem-cache,target=/usr/local/bundle rm -rf /bundle2/bundle/cache
 
-FROM ruby:4.0-slim-bookworm
+FROM ruby:3.4-slim-bookworm
 
 RUN --mount=type=cache,id=dev-apt-cache,sharing=locked,target=/var/cache/apt \
     --mount=type=cache,id=dev-apt-lib,sharing=locked,target=/var/lib/apt \

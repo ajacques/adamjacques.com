@@ -49,7 +49,6 @@ jobs:
         uses: anchore/sbom-action@v0
         with:
           image: ajacques/resume_website:${{ env.COMMIT_SHA }}
-          output-format: spdx-json
           attachment-name: sbom.spdx.json
         env:
           ANCHORE_CRANE_ENABLED: 1
