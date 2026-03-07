@@ -19,12 +19,11 @@ spec:
         - args:
             - /rails-app/bin/bundle
             - exec
-            - unicorn
-            - '-o'
+            - puma
+            - '-b'
             - 0.0.0.0
             - '-p'
             - '8080'
-            - '--no-default-middleware'
           command:
             - /usr/local/bin/ruby
           image: ajacques/resume_website

@@ -7,7 +7,7 @@ gem 'activerecord'
 gem 'activesupport'
 gem 'railties'
 gem 'sprockets-rails'
-gem 'unicorn'
+gem 'puma'
 
 gem 'haml'
 gem 'haml-rails'
