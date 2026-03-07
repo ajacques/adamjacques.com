@@ -27,12 +27,33 @@ jobs:
         id: docker_build
         uses: docker/build-push-action@v6
         with:
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
           context: .
           file: ./Dockerfile
           builder: ${{ steps.buildx.outputs.name }}
           platforms: linux/amd64
-          push: ${{ github.event_name == 'push' }}
+          outputs: type=image,compression=zstd,push=${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
           tags: ajacques/resume_website:${{ env.COMMIT_SHA }}
+
+      - name: Install cosign
+        if: github.event_name == 'push'
+        uses: sigstore/cosign-installer@v3
+
+      - name: Generate and attach SBOM
+        if: github.event_name == 'push'
+        uses: anchore/sbom-action@v0
+        with:
+          image: ajacques/resume_website:${{ env.COMMIT_SHA }}
+          output-format: spdx-json
+          attachment-name: sbom.spdx.json
+        env:
+          ANCHORE_CRANE_ENABLED: 1
+
+      - name: Sign image with cosign
+        if: github.event_name == 'push'
+        run: cosign sign --yes ajacques/resume_website:${{ env.COMMIT_SHA }}
+
       - name: Build test image
         uses: docker/build-push-action@v6
         with:
@@ -43,6 +64,8 @@ jobs:
           tags: resume_website:test
       - name: Run tests
         run: docker run --rm resume_website:test
+
+      # Deploy
       - uses: azure/setup-kubectl@v4
         if: github.event_name == 'push'
       - uses: azure/k8s-set-context@v4

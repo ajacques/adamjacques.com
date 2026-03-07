@@ -1,17 +1,19 @@
-FROM ruby:3.3-bookworm AS base
+FROM ruby:4.0-bookworm AS base
 
 FROM base AS prereq
 
 RUN echo 'gem: --no-document' > /etc/gemrc
 
-RUN apt-get update
-RUN apt-get install -qy libmariadb3 ruby-dev build-essential \
-    libmariadb-dev libsqlite3-dev libffi-dev
-RUN gem install bundler
+RUN --mount=type=cache,id=dev-apt-cache,sharing=locked,target=/var/cache/apt \
+    --mount=type=cache,id=dev-apt-lib,sharing=locked,target=/var/lib/apt \
+    apt-get update && \
+    apt-get install -qy libmariadb3 ruby-dev build-essential \
+      libmariadb-dev libsqlite3-dev libffi-dev
+RUN --mount=type=cache,id=dev-gem-cache,target=/usr/local/bundle gem install bundler
 
 WORKDIR /rails-app
 
-FROM node:22-bookworm-slim AS npm
+FROM node:25-bookworm-slim AS npm
 
 WORKDIR /rails-app
 ADD package.json /rails-app
@@ -28,8 +30,9 @@ FROM prereq AS prep
 ADD Gemfile /rails-app
 ADD Gemfile.lock /rails-app
 
-RUN bundle config set without 'test development' \
-  && bundle install
+RUN --mount=type=cache,id=dev-gem-cache,target=/usr/local/bundle \
+    bundle config set without 'test development' \
+    && bundle install
 
 ADD . /rails-app
 
@@ -55,22 +58,26 @@ RUN find bin -type f -exec chmod +x {} \;
 RUN find tmp -type d -print -exec chmod 755 {} \;
 
 # Final Phase
-RUN bundle config set without 'test development assets' \
-  && bundle install \
-  && bundle clean --force
+RUN --mount=type=cache,id=dev-gem-cache,target=/usr/local/bundle \
+    bundle config set without 'test development assets' \
+    && bundle install \
+    && bundle clean --force \
+    && mkdir -p /bundle2 && cp -r /usr/local/bundle/ /bundle2
 
 RUN ["/bin/bash", "-c", "rm -rf test tmp/* log/* node_modules app/assets app/javascript *.js yarn* *.json"]
 
 RUN mkdir -p app/assets/config && touch app/assets/config/manifest.js
 
-RUN rm -rf /usr/local/bundle/cache
+RUN --mount=type=cache,id=dev-gem-cache,target=/usr/local/bundle rm -rf /bundle2/bundle/cache
 
-FROM ruby:3.3-slim-bookworm
+FROM ruby:4.0-slim-bookworm
 
-RUN apt-get update \
+RUN --mount=type=cache,id=dev-apt-cache,sharing=locked,target=/var/cache/apt \
+    --mount=type=cache,id=dev-apt-lib,sharing=locked,target=/var/lib/apt \
+    apt-get update \
   && apt-get install -qy --no-install-recommends nginx libxml2 libmariadb3 ca-certificates \
-  && rm -rf /var/lib/{apt,dpkg,cache,log}/ \
-  && rm -rf /var/cache/* /root \
+  && rm -rf /var/lib/{apt,dpkg,cache,log} \
+  && rm -rf /var/log/{dpkg.log,apt,alternatives.log} \
   && adduser -u 9999 -H -h /rails-app -S www-data \
   && mkdir /var/lib/nginx/body \
   && chown www-data:www-data /var/lib/nginx /usr/share/nginx/ \
@@ -78,7 +85,7 @@ RUN apt-get update \
   && ln -s /dev/stdout /var/log/nginx/access.log \
   && ln -s /dev/stderr /var/log/nginx/error.log
 
-COPY --from=finalprep /usr/local/bundle /usr/local/bundle
+COPY --from=finalprep /bundle2/bundle /usr/local/bundle
 COPY --from=finalprep /rails-app /rails-app
 WORKDIR /rails-app
 

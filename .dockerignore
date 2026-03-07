@@ -6,6 +6,10 @@ db/*.sqlite3
 .*
 *.yml
 *.iml
+*.md
+*.nix
+
+k8s/
 
 public/assets
 

@@ -45,3 +45,5 @@ gem 'opentelemetry-exporter-otlp'
 gem 'opentelemetry-instrumentation-faraday'
 gem 'opentelemetry-instrumentation-mysql2'
 gem 'opentelemetry-instrumentation-rails'
+
+gem "ostruct", "~> 0.6.3"
