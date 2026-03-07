@@ -7,6 +7,10 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+      packages: write
     steps:
       - name: Checkout
         uses: actions/checkout@v6
@@ -57,9 +61,13 @@ jobs:
       - name: Build test image
         uses: docker/build-push-action@v6
         with:
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
           context: .
           file: ./Dockerfile
           target: test
+          builder: ${{ steps.buildx.outputs.name }}
+          platforms: linux/amd64
           load: true
           tags: resume_website:test
       - name: Run tests
