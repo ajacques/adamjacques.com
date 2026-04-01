@@ -29,7 +29,7 @@ jobs:
           password: ${{ secrets.DOCKER_HUB_ACCESS }}
       - name: Build and Push docker image
         id: docker_build
-        uses: docker/build-push-action@v6
+        uses: docker/build-push-action@v7
         with:
           cache-from: type=gha
           cache-to: type=gha,mode=max
@@ -58,7 +58,7 @@ jobs:
         run: cosign sign --yes ajacques/resume_website:${{ env.COMMIT_SHA }}
 
       - name: Build test image
-        uses: docker/build-push-action@v6
+        uses: docker/build-push-action@v7
         with:
           cache-from: type=gha
           cache-to: type=gha,mode=max
