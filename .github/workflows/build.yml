@@ -73,7 +73,7 @@ jobs:
         run: docker run --rm resume_website:test
 
       # Deploy
-      - uses: azure/setup-kubectl@v4
+      - uses: azure/setup-kubectl@v5
         if: github.event_name == 'push'
       - uses: azure/k8s-set-context@v4
         if: github.event_name == 'push'
