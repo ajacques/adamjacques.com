@@ -13,7 +13,7 @@ RUN --mount=type=cache,id=dev-gem-cache,target=/usr/local/bundle gem install bun
 
 WORKDIR /rails-app
 
-FROM node:25-bookworm-slim AS npm
+FROM node:26-bookworm-slim AS npm
 
 WORKDIR /rails-app
 ADD package.json /rails-app
